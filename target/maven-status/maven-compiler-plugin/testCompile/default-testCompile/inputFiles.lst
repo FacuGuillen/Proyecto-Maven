@@ -1,7 +1,7 @@
-C:\Users\Pc\Documents\Materias\Taller Web I\tallerwebi-base\src\test\java\com\tallerwebi\integracion\config\HibernateTestConfig.java
-C:\Users\Pc\Documents\Materias\Taller Web I\tallerwebi-base\src\test\java\com\tallerwebi\integracion\config\SpringWebTestConfig.java
-C:\Users\Pc\Documents\Materias\Taller Web I\tallerwebi-base\src\test\java\com\tallerwebi\punta_a_punta\VistaLoginE2E.java
-C:\Users\Pc\Documents\Materias\Taller Web I\tallerwebi-base\src\test\java\com\tallerwebi\punta_a_punta\vistas\VistaLogin.java
-C:\Users\Pc\Documents\Materias\Taller Web I\tallerwebi-base\src\test\java\com\tallerwebi\punta_a_punta\vistas\VistaWeb.java
-C:\Users\Pc\Documents\Materias\Taller Web I\tallerwebi-base\src\test\java\com\tallerwebi\presentacion\ControladorLoginTest.java
-C:\Users\Pc\Documents\Materias\Taller Web I\tallerwebi-base\src\test\java\com\tallerwebi\integracion\ControladorLoginTest.java
+I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\integracion\config\HibernateTestConfig.java
+I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\integracion\config\SpringWebTestConfig.java
+I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\integracion\ControladorLoginTest.java
+I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\presentacion\ControladorLoginTest.java
+I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\punta_a_punta\vistas\VistaWeb.java
+I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\punta_a_punta\vistas\VistaLogin.java
+I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\punta_a_punta\VistaLoginE2E.java
