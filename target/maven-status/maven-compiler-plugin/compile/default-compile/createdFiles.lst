@@ -9,6 +9,7 @@ com\tallerwebi\dominio\ServicioPregunta.class
 com\tallerwebi\config\HibernateConfig.class
 com\tallerwebi\dominio\RepositorioUsuario.class
 com\tallerwebi\infraestructura\RepositorioUsuarioImpl.class
+com\tallerwebi\presentacion\ControladorMaterial.class
 com\tallerwebi\presentacion\ControladorProyecto.class
 com\tallerwebi\dominio\Opcion.class
 com\tallerwebi\dominio\Material.class

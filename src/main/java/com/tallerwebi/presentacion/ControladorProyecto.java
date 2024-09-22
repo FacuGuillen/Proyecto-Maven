@@ -26,16 +26,12 @@ public class ControladorProyecto {
 
     @RequestMapping(value = "/nuevo-proyecto", method = RequestMethod.GET)
     public ModelAndView crearProyecto() {
-        ModelMap modelo = new ModelMap();
-        modelo.put("datosLogin", new DatosLogin());
-        return new ModelAndView("nuevo-proyecto", modelo);
+        return new ModelAndView("nuevo-proyecto");
     }
 
     @RequestMapping(value = "/proyectos", method = RequestMethod.GET)
     public ModelAndView mostrarProyectos() {
-        ModelMap modelo = new ModelMap();
-        modelo.put("datosLogin", new DatosLogin());
-        return new ModelAndView("mis-proyectos", modelo);
+        return new ModelAndView("mis-proyectos");
 
     }
 
@@ -54,10 +50,13 @@ public class ControladorProyecto {
 
     @RequestMapping(value = "/materiales", method = RequestMethod.GET)
     public ModelAndView mostrarMateriales() {
-        ModelMap modelo = new ModelMap();
-        modelo.put("datosLogin", new DatosLogin());
-        return new ModelAndView("mis-materiales", modelo);
+        return new ModelAndView("mis-materiales");
 
+    }
+
+    @RequestMapping(value = "/resultado", method = RequestMethod.POST)
+    public ModelAndView mostrarPasos() {;
+        return new ModelAndView("mostrar-pasos");
     }
 
 }

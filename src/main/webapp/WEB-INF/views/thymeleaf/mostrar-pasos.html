@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Taller Web I</title>
+
+  <!-- Boostrap core css -->
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+  <!-- custom style -->
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+  <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+  <!-- Font Awesome CDN -->
+  <script src="https://kit.fontawesome.com/439f8f63ed.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/home.html}" >Maven</a>
+    <div class="ml-auto d-flex align-items-center">
+      <span class="text-white mr-2" th:text="${nombreUsuario}"></span>
+      <i class="fas fa-user-circle icon" style="font-size: 30px; color:#cccccc;"></i>
+    </div>
+  </div>
+</nav>
+
+<div class="d-flex mt-3">
+  <!-- Incluir el fragmento del navbar -->
+  <div th:include="template/navbar.html"></div>
+
+  <!-- Main content -->
+  <main role="main" class="container mt-5">
+    <div class="row w-100">
+      <div class="col-md-4">
+        <h2 class="mt-4">Antes de comenzar</h2>
+        <div class="list-group">
+          <div class="list-group-item step" onclick="toggleStep(this)">
+            Paso 1: Planifica el diseño y toma medidas del espacio.
+          </div>
+          <div class="list-group-item step" onclick="toggleStep(this)">
+            Paso 2: Reúne todos los materiales necesarios.
+          </div>
+          <div class="list-group-item step" onclick="toggleStep(this)">
+            Paso 3: Marca el área donde se construirá la pared.
+          </div>
+        </div>
+        <h3 class="mt-4">Materiales Necesarios</h3>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Material</th>
+            <th>Cantidad</th>
+            <th>¿Tienes?</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Ladrillos o bloques de construcción</td>
+            <td>10 unidades</td>
+            <td><input type="checkbox" class="form-check-input" onclick="updateMaterialStatus(this)"></td>
+          </tr>
+          <tr>
+            <td>Cemento</td>
+            <td>2000 gramos</td>
+            <td><input type="checkbox" class="form-check-input" onclick="updateMaterialStatus(this)"></td>
+          </tr>
+          <tr>
+            <td>Arena</td>
+            <td>5000 gramos</td>
+            <td><input type="checkbox" class="form-check-input" onclick="updateMaterialStatus(this)"></td>
+          </tr>
+          <tr>
+            <td>Agua</td>
+            <td>3000 gramos</td>
+            <td><input type="checkbox" class="form-check-input" onclick="updateMaterialStatus(this)"></td>
+          </tr>
+          <tr>
+            <td>Herramientas de nivelación</td>
+            <td>1 unidad</td>
+            <td><input type="checkbox" class="form-check-input" onclick="updateMaterialStatus(this)"></td>
+          </tr>
+          <tr>
+            <td>Espátula</td>
+            <td>1 unidad</td>
+            <td><input type="checkbox" class="form-check-input" onclick="updateMaterialStatus(this)"></td>
+          </tr>
+          <tr>
+            <td>Pintura o acabado (opcional)</td>
+            <td>1000 gramos</td>
+            <td><input type="checkbox" class="form-check-input" onclick="updateMaterialStatus(this)"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-1"></div>
+
+      <div class="col-md-6">
+        <h3 class="mt-4 mb-3">Paso a paso</h3>
+        <div class="accordion" id="accordionExample">
+          <!-- Paso 4 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                Preparar la Mezcla de Cemento
+              </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Mezcla el cemento, la arena y el agua en un recipiente grande hasta obtener una mezcla homogénea.
+                <ul>
+                  <li><strong>Materiales:</strong> Cemento, Arena, Agua, Recipiente grande (por ejemplo, una cubeta o mezclador).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paso 5 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFive">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                Marcar el Área de Construcción
+              </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Usa una tiza o cinta para marcar la ubicación de la pared en el suelo, asegurándote de que esté recta y alineada.
+                <ul>
+                  <li><strong>Materiales:</strong> Tiza o cinta de marcación, Nivel para asegurarte de que la línea esté recta.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paso 6 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSix">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                Colocar la Primera Fila de Ladrillos
+              </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Aplica una capa de la mezcla de cemento en la base y coloca la primera fila de ladrillos. Usa el nivel para asegurarte de que estén bien alineados.
+                <ul>
+                  <li><strong>Materiales:</strong> Mezcla de cemento, Ladrillos, Nivel, Espátula para aplicar la mezcla.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paso 7 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSeven">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                Continuar con las Filas
+              </button>
+            </h2>
+            <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Continúa colocando las filas de ladrillos, aplicando mezcla de cemento entre cada fila. Asegúrate de alternar los ladrillos para mayor estabilidad.
+                <ul>
+                  <li><strong>Materiales:</strong> Mezcla de cemento, Ladrillos, Espátula.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paso 8 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingEight">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                Dejar Secar
+              </button>
+            </h2>
+            <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Permite que la pared se seque completamente. Esto puede tomar varias horas o incluso días, dependiendo del clima.
+                <ul>
+                  <li><strong>Materiales:</strong> Ninguno específico.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paso 9 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingNine">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                Acabado de la Pared
+              </button>
+            </h2>
+            <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Una vez que la mezcla esté seca, puedes aplicar un acabado opcional, como pintura o un revestimiento.
+                <ul>
+                  <li><strong>Materiales:</strong> Pintura o material de acabado.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paso 10 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTen">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                Inspección Final
+              </button>
+            </h2>
+            <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Revisa la pared para asegurarte de que esté bien construida y que no haya imperfecciones.
+                <ul>
+                  <li><strong>Materiales:</strong> Ninguno específico, pero un nivel puede ayudar.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3>Listo para comenzar</h3>
+            <div class="progress">
+              <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+            </div>
+            <button type="submit" name="crearProyecto" class="btn btn-success btn-block" id="btnComenzar" disabled>Comenzar</button>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4">
+        <div role="group">
+          <button type="submit" class="btn btn-success btn-block"><i class="fas fa-save icon"></i> Guardar Proyecto</button>
+          <button type="submit" name="buscar" class="btn btn-dark"><i class="fas fa-map-marker-alt icon"></i>Buscar Material</button>
+          <button type="button" id="btnCancelar" class="btn btn-secondary btn-block"><i class="fas fa-times icon"></i> Cancelar</button>
+        </div>
+      </div>
+  </div>
+  </main>
+  <!-- /.container -->
+</div>
+
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+<script>
+  let completedSteps = 0;
+
+  function toggleStep(element) {
+    element.classList.toggle('completed');
+
+    if (element.classList.contains('completed')) {
+      completedSteps++;
+    } else {
+      completedSteps--;
+    }
+
+    updateProgressBar();
+  }
+
+  function updateProgressBar() {
+    const totalSteps = document.querySelectorAll('.step').length; // Calcular dinámicamente el total de pasos
+    const totalMaterials = document.querySelectorAll('.table tbody tr').length; // Total de materiales
+    const checkedMaterials = document.querySelectorAll('.table tbody tr input:checked').length; // Materiales seleccionados
+
+    // Calcular el porcentaje basado en pasos y materiales
+    const percentage = Math.min((completedSteps / totalSteps) * 50 + (checkedMaterials / totalMaterials) * 50, 100);
+
+    const progressBar = document.getElementById('progressBar');
+    progressBar.style.width = percentage + '%';
+    progressBar.setAttribute('aria-valuenow', percentage);
+    progressBar.textContent = Math.round(percentage) + '%';
+
+    // Habilitar o deshabilitar el botón según el progreso
+    const btnComenzar = document.getElementById('btnComenzar');
+    if (percentage === 100) {
+      btnComenzar.disabled = false;
+    } else {
+      btnComenzar.disabled = true;
+    }
+  }
+
+  function updateMaterialStatus(checkbox) {
+    if (checkbox.checked) {
+      checkbox.closest('tr').style.backgroundColor = '#d4edda';
+    } else {
+      checkbox.closest('tr').style.backgroundColor = ''; // Reinicia el fondo
+    }
+    updateProgressBar();
+  }
+</script>
+</body>
+</html>

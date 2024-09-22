@@ -36,8 +36,9 @@
   <!-- Main content -->
   <main role="main" class="container mt-5">
     <h3>Mis Materiales</h3>
-    <button id="btnAgregar" class="btn btn-primary">Agregar Materiales</button>
-    <button type="submit" name="vender" class="btn btn-primary">Vender Material</button>
+    <button id="btnAgregar" class="btn btn-primary"><i class="fas fa-plus icon"></i>Agregar Materiales</button>
+    <a th:href="@{/ofertar}" class="btn btn-primary"><i class="fas fa-hand-holding-usd icon"></i> Ofertar Material</a>
+    <button type="submit" name="buscar" class="btn btn-dark"><i class="fas fa-map-marker-alt icon"></i>Buscar Material</button>
 
     <div id="formAgregar" style="display: none; margin-top: 20px;">
       <h4>Agregar Material</h4>

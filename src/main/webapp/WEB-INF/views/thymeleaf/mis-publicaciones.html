@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Taller Web I</title>
+
+  <!-- Boostrap core css -->
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+  <!-- custom style -->
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+  <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+  <!-- Font Awesome CDN -->
+  <script src="https://kit.fontawesome.com/439f8f63ed.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/home.html}" >Maven</a>
+    <div class="ml-auto d-flex align-items-center">
+      <span class="text-white mr-2" th:text="${nombreUsuario}"></span>
+      <i class="fas fa-user-circle icon" style="font-size: 30px; color:#cccccc;"></i>
+    </div>
+  </div>
+</nav>
+
+<div class="d-flex mt-3">
+  <!-- Incluir el fragmento del navbar -->
+  <div th:include="template/navbar.html"></div>
+
+  <!-- Main content -->
+  <main role="main" class="container mt-5">
+    <h2 class="my-4">Mis Publicaciones</h2>
+
+    <div class="row">
+      <!-- Card for each publication -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <img th:src="@{/images/cemento-image.jpeg}" class="card-img-top" alt="Cemento" style="height: 200px; object-fit: cover;">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Cemento</h5>
+            <div>
+              <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</button>
+              <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Precio: $200 por 1kg</p>
+            <p class="card-text">Cantidad disponible: 50kg</p>
+            <div class="d-flex align-items-center">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <p class="mb-0">Ubicación: Buenos Aires, Argentina</p>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+              <button class="btn btn-link" id="commentToggleCemento">
+                <i class="fas fa-comments"></i> <span class="badge bg-secondary">5</span>
+              </button>
+            </div>
+            <!-- Comment Section -->
+            <div class="comments-section" id="commentsCemento" style="display: none; margin-top: 10px;">
+              <textarea class="form-control" rows="2" placeholder="Escribe un comentario..."></textarea>
+              <button class="btn btn-primary btn-sm mt-2">Comentar</button>
+              <div class="mt-2">
+                <h6>Comentarios:</h6>
+                <div class="comment mb-1">
+                  <strong>Usuario1:</strong> ¡Me interesa!
+                </div>
+                <div class="comment mb-1">
+                  <strong>Usuario2:</strong> ¿Es negociable?
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card for each publication -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <img th:src="@{/images/cemento-image.jpeg}" class="card-img-top" alt="Cemento" style="height: 200px; object-fit: cover;">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Cemento</h5>
+            <div>
+              <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</button>
+              <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Precio: $200 por 1kg</p>
+            <p class="card-text">Cantidad disponible: 50kg</p>
+            <div class="d-flex align-items-center">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <p class="mb-0">Ubicación: Buenos Aires, Argentina</p>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+              <button class="btn btn-link" id="commentToggleCemento">
+                <i class="fas fa-comments"></i> <span class="badge bg-secondary">5</span>
+              </button>
+            </div>
+            <!-- Comment Section -->
+            <div class="comments-section" id="commentsCemento" style="display: none; margin-top: 10px;">
+              <textarea class="form-control" rows="2" placeholder="Escribe un comentario..."></textarea>
+              <button class="btn btn-primary btn-sm mt-2">Comentar</button>
+              <div class="mt-2">
+                <h6>Comentarios:</h6>
+                <div class="comment mb-1">
+                  <strong>Usuario1:</strong> ¡Me interesa!
+                </div>
+                <div class="comment mb-1">
+                  <strong>Usuario2:</strong> ¿Es negociable?
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card for each publication -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <img th:src="@{/images/cemento-image.jpeg}" class="card-img-top" alt="Cemento" style="height: 200px; object-fit: cover;">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Cemento</h5>
+            <div>
+              <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</button>
+              <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Precio: $200 por 1kg</p>
+            <p class="card-text">Cantidad disponible: 50kg</p>
+            <div class="d-flex align-items-center">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <p class="mb-0">Ubicación: Buenos Aires, Argentina</p>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+              <button class="btn btn-link" id="commentToggleCemento">
+                <i class="fas fa-comments"></i> <span class="badge bg-secondary">5</span>
+              </button>
+            </div>
+            <!-- Comment Section -->
+            <div class="comments-section" id="commentsCemento" style="display: none; margin-top: 10px;">
+              <textarea class="form-control" rows="2" placeholder="Escribe un comentario..."></textarea>
+              <button class="btn btn-primary btn-sm mt-2">Comentar</button>
+              <div class="mt-2">
+                <h6>Comentarios:</h6>
+                <div class="comment mb-1">
+                  <strong>Usuario1:</strong> ¡Me interesa!
+                </div>
+                <div class="comment mb-1">
+                  <strong>Usuario2:</strong> ¿Es negociable?
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card for each publication -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <img th:src="@{/images/cemento-image.jpeg}" class="card-img-top" alt="Cemento" style="height: 200px; object-fit: cover;">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Cemento</h5>
+            <div>
+              <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</button>
+              <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Precio: $200 por 1kg</p>
+            <p class="card-text">Cantidad disponible: 50kg</p>
+            <div class="d-flex align-items-center">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <p class="mb-0">Ubicación: Buenos Aires, Argentina</p>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+              <button class="btn btn-link" id="commentToggleCemento">
+                <i class="fas fa-comments"></i> <span class="badge bg-secondary">5</span>
+              </button>
+            </div>
+            <!-- Comment Section -->
+            <div class="comments-section" id="commentsCemento" style="display: none; margin-top: 10px;">
+              <textarea class="form-control" rows="2" placeholder="Escribe un comentario..."></textarea>
+              <button class="btn btn-primary btn-sm mt-2">Comentar</button>
+              <div class="mt-2">
+                <h6>Comentarios:</h6>
+                <div class="comment mb-1">
+                  <strong>Usuario1:</strong> ¡Me interesa!
+                </div>
+                <div class="comment mb-1">
+                  <strong>Usuario2:</strong> ¿Es negociable?
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card for each publication -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <img th:src="@{/images/cemento-image.jpeg}" class="card-img-top" alt="Cemento" style="height: 200px; object-fit: cover;">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Cemento</h5>
+            <div>
+              <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</button>
+              <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Precio: $200 por 1kg</p>
+            <p class="card-text">Cantidad disponible: 50kg</p>
+            <div class="d-flex align-items-center">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <p class="mb-0">Ubicación: Buenos Aires, Argentina</p>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+              <button class="btn btn-link" id="commentToggleCemento">
+                <i class="fas fa-comments"></i> <span class="badge bg-secondary">5</span>
+              </button>
+            </div>
+            <!-- Comment Section -->
+            <div class="comments-section" id="commentsCemento" style="display: none; margin-top: 10px;">
+              <textarea class="form-control" rows="2" placeholder="Escribe un comentario..."></textarea>
+              <button class="btn btn-primary btn-sm mt-2">Comentar</button>
+              <div class="mt-2">
+                <h6>Comentarios:</h6>
+                <div class="comment mb-1">
+                  <strong>Usuario1:</strong> ¡Me interesa!
+                </div>
+                <div class="comment mb-1">
+                  <strong>Usuario2:</strong> ¿Es negociable?
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card for each publication -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <img th:src="@{/images/cemento-image.jpeg}" class="card-img-top" alt="Cemento" style="height: 200px; object-fit: cover;">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Cemento</h5>
+            <div>
+              <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</button>
+              <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Precio: $200 por 1kg</p>
+            <p class="card-text">Cantidad disponible: 50kg</p>
+            <div class="d-flex align-items-center">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <p class="mb-0">Ubicación: Buenos Aires, Argentina</p>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+              <button class="btn btn-link" id="commentToggleCemento">
+                <i class="fas fa-comments"></i> <span class="badge bg-secondary">5</span>
+              </button>
+            </div>
+            <!-- Comment Section -->
+            <div class="comments-section" id="commentsCemento" style="display: none; margin-top: 10px;">
+              <textarea class="form-control" rows="2" placeholder="Escribe un comentario..."></textarea>
+              <button class="btn btn-primary btn-sm mt-2">Comentar</button>
+              <div class="mt-2">
+                <h6>Comentarios:</h6>
+                <div class="comment mb-1">
+                  <strong>Usuario1:</strong> ¡Me interesa!
+                </div>
+                <div class="comment mb-1">
+                  <strong>Usuario2:</strong> ¿Es negociable?
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Similar structure for other publications -->
+    </div>
+  </main>
+
+</div>
+
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+  document.getElementById('commentToggleCemento').addEventListener('click', function() {
+    var commentsSection = document.getElementById('commentsCemento');
+    commentsSection.style.display = commentsSection.style.display === 'none' ? 'block' : 'none';
+  });
+</script>
+</body>
+</html>

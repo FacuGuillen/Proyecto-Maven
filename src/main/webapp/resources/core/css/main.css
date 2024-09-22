@@ -9,7 +9,15 @@ h1{
 	color:#0000FF;
 }
 
-
 .navbar-brand{
     margin:0 2rem;
+}
+.step {
+    cursor: pointer;
+    margin: 10px 0;
+    transition: background-color 0.3s;
+}
+.step.completed {
+    background-color: #d4edda;
+    text-decoration: line-through;
 }
