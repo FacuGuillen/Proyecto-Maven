@@ -25,7 +25,10 @@ public class ControladorLogin {
     }
 
     @RequestMapping(value = "/login" )
-    public ModelAndView irALogin() {
+    public ModelAndView irALogin(HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+        session.removeAttribute("name");
 
         ModelMap modelo = new ModelMap();
         modelo.put("datosLogin", new DatosLogin());
@@ -89,7 +92,10 @@ public class ControladorLogin {
         request.getSession().removeAttribute("name");
         System.out.println("Nombre de usuario despues: " + request.getSession().getAttribute("name"));
 
-        return new ModelAndView("redirect:/login");
+
+        ModelMap modelo = new ModelMap();
+        modelo.put("datosLogin", new DatosLogin());
+        return new ModelAndView("login", modelo);
     }
 
 }

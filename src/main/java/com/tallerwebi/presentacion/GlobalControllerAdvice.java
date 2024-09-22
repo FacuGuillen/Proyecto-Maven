@@ -13,15 +13,15 @@ import javax.servlet.http.HttpServletRequest;
         public String agregarNombreUsuario(HttpServletRequest request) {
             // Obtener la URI de la solicitud
             String requestURI = request.getRequestURI();
+            System.out.println("requestURI = " + requestURI);
 
             // Excluir "nombreUsuario" de la ruta /login y /logout
-            if (requestURI.equals("/login") || requestURI.equals("/logout")) {
+            if (requestURI.equals("/spring/login")) {
                 return null;  // No agregar el atributo en estas rutas
             }
 
             // Recuperar el nombre del usuario desde la sesión
-            String nombreUsuario = (String) request.getSession().getAttribute("name");
-            return nombreUsuario != null ? nombreUsuario : ""; // Valor por defecto
+            return (String) request.getSession().getAttribute("name");
         }
     }
 

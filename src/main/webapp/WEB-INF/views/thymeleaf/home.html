@@ -37,7 +37,10 @@
 
 <main role="main" class="container mt-5">
   <div class = "container">
-    <h1>Hola</h1>
+    <h1> Hola
+      <span class="text-dark mr-2" th:if="${nombreUsuario != null && nombreUsuario != 'null'}" th:text="${nombreUsuario}"></span>
+      <span class="text-dark mr-2" th:if="${nombreUsuario == null || nombreUsuario == 'null'}" th:text="'Invitado'"></span>
+    </h1>
   </div>
 </main>
 <!-- /.container -->
