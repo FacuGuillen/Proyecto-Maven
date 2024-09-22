@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
     // Atributos
     @Id

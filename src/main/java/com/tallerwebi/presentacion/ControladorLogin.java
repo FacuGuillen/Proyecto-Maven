@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ControladorLogin {
@@ -23,7 +24,7 @@ public class ControladorLogin {
         this.servicioLogin = servicioLogin;
     }
 
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login" )
     public ModelAndView irALogin() {
 
         ModelMap modelo = new ModelMap();
@@ -38,9 +39,12 @@ public class ControladorLogin {
         Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
         if (usuarioBuscado != null) {
             request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
+            request.getSession().setAttribute("ID", usuarioBuscado.getId());
+            request.getSession().setAttribute("name", usuarioBuscado.getNombre());
             return new ModelAndView("redirect:/home");
         } else {
             model.put("error", "Usuario o clave incorrecta");
+
         }
         return new ModelAndView("login", model);
     }
@@ -67,14 +71,26 @@ public class ControladorLogin {
         return new ModelAndView("nuevo-usuario", model);
     }
 
-    @RequestMapping(path = "/home", method = RequestMethod.GET)
-    public ModelAndView irAHome() {
-        return new ModelAndView("home");
-    }
-
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
         return new ModelAndView("redirect:/login");
     }
+
+    @RequestMapping(path = "/home", method = RequestMethod.GET)
+    public ModelAndView irAHome() {
+        return new ModelAndView("home");
+    }
+    @RequestMapping("/logout")
+    public ModelAndView cerrarSesion(HttpServletRequest request) {
+        System.out.println("Nombre de usuario en sesión: " + request.getSession().getAttribute("name"));
+
+        request.getSession().invalidate();
+
+        request.getSession().removeAttribute("name");
+        System.out.println("Nombre de usuario despues: " + request.getSession().getAttribute("name"));
+
+        return new ModelAndView("redirect:/login");
+    }
+
 }
 

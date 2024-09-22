@@ -34,13 +34,28 @@
   <div th:include="template/navbar.html"></div>
 
   <!-- Main content -->
+  <main role="main" class="container mt-5">
+    <h3>Tipo de Proyecto: <span th:text="${tipoProyecto}"></span></h3>
+    <form th:action="@{/resultado}" method="POST"> <!-- Cambia la acción según sea necesario -->
+      <div th:each="pregunta : ${preguntas}">
+        <div class="mb-3">
+          <label th:for="'pregunta_' + ${pregunta.id}" class="form-label" th:text="${pregunta.texto}"></label>
+          <div th:each="opcion : ${pregunta.opciones}">
+            <div class="form-check">
+              <label>
+                <input type="radio" class="form-check-input" th:id="'opcion_' + ${opcion.id}" th:name="'pregunta_' + ${pregunta.id}" th:value="${opcion.texto}" />
+              </label>
+              <label th:for="'opcion_' + ${opcion.id}" class="form-check-label" th:text="${opcion.texto}"></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Mostrar los pasos</button>
+    </form>
+  </main>
+  <!-- /.container -->
+</div>
 
-<main role="main" class="container mt-5">
-  <div class = "container">
-    <h1>Hola</h1>
-  </div>
-</main>
-<!-- /.container -->
 
 <!-- Boostrap core js -->
 <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>

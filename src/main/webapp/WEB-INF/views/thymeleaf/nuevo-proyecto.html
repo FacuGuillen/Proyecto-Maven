@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Taller Web I</title>
+
+    <!-- Boostrap core css -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+    <!-- Font Awesome CDN -->
+    <script src="https://kit.fontawesome.com/439f8f63ed.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/home.html}" >Maven</a>
+        <div class="ml-auto d-flex align-items-center">
+            <span class="text-white mr-2" th:text="${nombreUsuario}"></span>
+            <i class="fas fa-user-circle icon" style="font-size: 30px; color:#cccccc;"></i>
+        </div>
+    </div>
+</nav>
+
+<div class="d-flex mt-3">
+    <!-- Incluir el fragmento del navbar -->
+    <div th:include="template/navbar.html"></div>
+
+    <!-- Main content -->
+    <main role="main" class="container mt-5">
+        <div class=" mt-3 forum-style">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Elige tu tipo de proyecto</h2>
+                    <p class="lead">Selecciona una opción para comenzar con tu proyecto</p>
+                </div>
+            </div>
+            <form th:action="@{/preguntas}" method="POST">
+                <div class="row mt-4 justify-content-center">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Proyecto de Piso</h5>
+                                <p class="card-text">Comienza un proyecto relacionado con el piso de tu espacio.</p>
+                                <button type="submit" name="tipoProyecto" value="Piso" class="btn btn-primary">Elegir Piso</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Proyecto de Pared</h5>
+                                <p class="card-text">Comienza un proyecto relacionado con las paredes de tu espacio.</p>
+                                <button type="submit" name="tipoProyecto" value="Pared" class="btn btn-primary">Elegir Pared</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Proyecto de Techo</h5>
+                                <p class="card-text">Comienza un proyecto relacionado con el techo de tu espacio.</p>
+                                <button type="submit" name="tipoProyecto" value="Techo" class="btn btn-primary">Elegir Techo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </main>
+    <!-- /.container -->
+</div>
+
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Taller Web I</title>
+
+  <!-- Boostrap core css -->
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+  <!-- custom style -->
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+  <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+  <!-- Font Awesome CDN -->
+  <script src="https://kit.fontawesome.com/439f8f63ed.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/home.html}" >Maven</a>
+    <div class="ml-auto d-flex align-items-center">
+      <span class="text-white mr-2" th:text="${nombreUsuario}"></span>
+      <i class="fas fa-user-circle icon" style="font-size: 30px; color:#cccccc;"></i>
+    </div>
+  </div>
+</nav>
+
+<div class="d-flex mt-3">
+  <!-- Incluir el fragmento del navbar -->
+  <div th:include="template/navbar.html"></div>
+
+  <!-- Main content -->
+  <main role="main" class="container mt-5">
+    <h3>Mis Materiales</h3>
+    <button id="btnAgregar" class="btn btn-primary">Agregar Materiales</button>
+    <button type="submit" name="vender" class="btn btn-primary">Vender Material</button>
+
+    <div id="formAgregar" style="display: none; margin-top: 20px;">
+      <h4>Agregar Material</h4>
+      <form th:action="@{/materiales}" method="POST">
+        <div class="mb-3">
+          <label for="nombreMaterial" class="form-label">Nombre del Material</label>
+          <input type="text" class="form-control" id="nombreMaterial" name="nombreMaterial" required>
+        </div>
+        <div class="mb-3">
+          <label for="cantidad" class="form-label">Cantidad</label>
+          <input type="text" class="form-control" id="cantidad" name="cantidad" required>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar Material</button>
+        <button type="button" id="btnCancelar" class="btn btn-secondary">Cancelar</button>
+      </form>
+    </div>
+  </main>
+  <!-- /.container -->
+
+  <script>
+    document.getElementById('btnAgregar').onclick = function() {
+      document.getElementById('formAgregar').style.display = 'block';
+    };
+
+    document.getElementById('btnCancelar').onclick = function() {
+      document.getElementById('formAgregar').style.display = 'none';
+    };
+  </script>
+
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>
