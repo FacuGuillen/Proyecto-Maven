@@ -1,4 +1,8 @@
+html, body {
+    height: 100%;
+}
 body {
+    margin-top: 3.5rem;
 }
 .starter-template {
   padding: 3rem 1.5rem;
@@ -20,4 +24,52 @@ h1{
 .step.completed {
     background-color: #d4edda;
     text-decoration: line-through;
+}
+.contenedor-principal.d-flex  {
+    height: 100%;
+}
+/**SIDEBAR**/
+
+.forum-style {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+
+}
+.icon{
+    margin: 0 5px;
+}
+.list-group-item.item-sidebar{
+    background-color: #EFE7DA;
+    color:#4B4B4B;
+}
+#sidebar {
+    height: 100%;        /* Altura completa */
+    background-color: #EFE7DA; /* Color de fondo */
+    position: absolute;
+    transition: all 0.3s;
+    width: 250px;
+    left: 0; /* Ocultar sidebar en dispositivos pequeños */
+    z-index: 1;
+}
+/* Botón del menú */
+#menuToggle {
+    position: relative; /* Puede ser absolute si prefieres */
+    z-index: 2; /* Asegurarse de que el botón quede por encima del sidebar */
+    color:white;
+}
+.menu-lateral.border-right{
+    background-color: #EFE7DA ;
+}
+/* Ocultar el sidebar en dispositivos móviles */
+@media (max-width: 768px) {
+    #sidebar {
+        display: none; /* Ocultar el sidebar por defecto en móviles */
+    }
+}
+
+/* Mostrar el sidebar cuando se active */
+#sidebar.active {
+    display: block; /* Mostrar el sidebar cuando está activo */
+    left: 0; /* Mostrar el sidebar cuando está activo */
 }

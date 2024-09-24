@@ -1,41 +1,21 @@
 <!DOCTYPE HTML>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>Taller Web I</title>
-
-  <!-- Boostrap core css -->
-  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
-
-  <!-- custom style -->
-  <link rel="stylesheet" th:href="@{/css/main.css}"/>
-  <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
-  <!-- Font Awesome CDN -->
-  <script src="https://kit.fontawesome.com/439f8f63ed.js" crossorigin="anonymous"></script>
-
-</head>
+<!-- Incluir el fragmento del head -->
+<div th:replace="template/head"></div>
 
 <body>
+<!-- Incluir el fragmento del navbar -->
+<div th:replace="template/navbar"></div>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" th:href="@{/home.html}" >Maven</a>
-    <div class="ml-auto d-flex align-items-center">
-      <span class="text-white mr-2" th:text="${nombreUsuario}"></span>
-      <i class="fas fa-user-circle icon" style="font-size: 30px; color:#cccccc;"></i>
-    </div>
-  </div>
-</nav>
-
-<div class="d-flex mt-3">
-  <!-- Incluir el fragmento del navbar -->
-  <div th:include="template/navbar.html"></div>
-
+<div class="contenedor-principal d-flex">
+  <!-- Incluir el fragmento del sidebar -->
+  <div th:replace="template/sidebar"></div>
   <!-- Main content -->
-  <main role="main" class="container mt-5">
-    <h2 class="my-4">Mis Publicaciones</h2>
+  <main role="main" class="container mt-3">
+    <div class="d-flex justify-content-between align-items-center my-4">
+      <h2>Mis Publicaciones</h2>
+      <a th:href="@{/ofertar}" class="btn btn-primary"><i class="fas fa-hand-holding-usd icon"></i> Ofertar Material</a>
+    </div>
 
     <div class="row">
       <!-- Card for each publication -->

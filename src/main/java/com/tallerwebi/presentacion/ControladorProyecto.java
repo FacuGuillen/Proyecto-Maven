@@ -54,9 +54,9 @@ public class ControladorProyecto {
 
     }
 
-    @RequestMapping(value = "/resultado", method = RequestMethod.POST)
-    public ModelAndView mostrarPasos() {;
-        return new ModelAndView("mostrar-pasos");
+    @RequestMapping(value = "/respuesta", method = RequestMethod.POST)
+    public ModelAndView mostrarRespuesta() {;
+        return new ModelAndView("mostrar-respuesta");
     }
 
 }
