@@ -1,0 +1,4 @@
+# Created at 2024-09-19T18:31:49.410
+Boot Manifest-JAR contains absolute paths in classpath 'D:\Users\Matias\IntelliJ projects\Proyecto-Maven\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+

@@ -1,7 +1,10 @@
-I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\integracion\config\HibernateTestConfig.java
-I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\integracion\config\SpringWebTestConfig.java
-I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\integracion\ControladorLoginTest.java
-I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\presentacion\ControladorLoginTest.java
-I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\punta_a_punta\vistas\VistaWeb.java
-I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\punta_a_punta\vistas\VistaLogin.java
-I:\taro\Taller WEB\Proyecto-Maven\src\test\java\com\tallerwebi\punta_a_punta\VistaLoginE2E.java
+D:\Users\Matias\IntelliJ projects\Proyecto-Maven\src\test\java\com\tallerwebi\punta_a_punta\vistas\VistaLogin.java
+D:\Users\Matias\IntelliJ projects\Proyecto-Maven\src\test\java\com\tallerwebi\integracion\config\HibernateTestConfig.java
+D:\Users\Matias\IntelliJ projects\Proyecto-Maven\src\test\java\com\tallerwebi\integracion\ControladorLoginTest.java
+D:\Users\Matias\IntelliJ projects\Proyecto-Maven\src\test\java\com\tallerwebi\infraestructura\config\HibernateInfraestructuraTestConfig.java
+D:\Users\Matias\IntelliJ projects\Proyecto-Maven\src\test\java\com\tallerwebi\infraestructura\RepositorioClienteImplTest.java
+D:\Users\Matias\IntelliJ projects\Proyecto-Maven\src\test\java\com\tallerwebi\punta_a_punta\vistas\VistaWeb.java
+D:\Users\Matias\IntelliJ projects\Proyecto-Maven\src\test\java\com\tallerwebi\punta_a_punta\VistaLoginE2E.java
+D:\Users\Matias\IntelliJ projects\Proyecto-Maven\src\test\java\com\tallerwebi\infraestructura\RepositorioMaterialImplTest.java
+D:\Users\Matias\IntelliJ projects\Proyecto-Maven\src\test\java\com\tallerwebi\presentacion\ControladorLoginTest.java
+D:\Users\Matias\IntelliJ projects\Proyecto-Maven\src\test\java\com\tallerwebi\integracion\config\SpringWebTestConfig.java

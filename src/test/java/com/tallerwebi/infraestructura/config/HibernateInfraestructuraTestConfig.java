@@ -15,7 +15,7 @@ import java.util.Properties;
 public class HibernateInfraestructuraTestConfig {
 
     @Bean
-    public DataSource dataSource() {
+    public DataSource dataSource()  {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
         dataSource.setUrl("jdbc:hsqldb:mem:db_");
@@ -25,7 +25,7 @@ public class HibernateInfraestructuraTestConfig {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
+    public LocalSessionFactoryBean sessionFactory(DataSource dataSource)    {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setPackagesToScan("com.tallerwebi.dominio");
@@ -34,16 +34,17 @@ public class HibernateInfraestructuraTestConfig {
     }
 
     @Bean
-    public HibernateTransactionManager transactionManager() {
+    public HibernateTransactionManager transactionManager(LocalSessionFactoryBean sessionFactory) {
         return new HibernateTransactionManager(sessionFactory(dataSource()).getObject());
     }
 
-    private Properties hibernateProperties() {
+    private Properties hibernateProperties()    {
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.format_sql", "true");
-        properties.setProperty("hibernate.hbm2ddl.auto", "create");
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
         return properties;
     }
+
 }
