@@ -68,3 +68,5 @@ public class Material {
         return Objects.hash(id, nombre, cantidad, unidad);
     }
 }
+
+// Commit //

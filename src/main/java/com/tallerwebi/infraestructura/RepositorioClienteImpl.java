@@ -30,3 +30,5 @@ public class RepositorioClienteImpl implements RepositorioCliente {
                 .uniqueResult();
     }
 }
+
+// Commit //

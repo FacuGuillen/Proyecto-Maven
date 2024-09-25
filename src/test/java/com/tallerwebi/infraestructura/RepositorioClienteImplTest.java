@@ -151,3 +151,4 @@ public class RepositorioClienteImplTest {
         return (Cliente) query.getSingleResult();
     }
 }
+// Commit //
