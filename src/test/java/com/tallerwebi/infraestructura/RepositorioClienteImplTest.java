@@ -1,6 +1,6 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.Cliente;
+import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.RepositorioCliente;
 import com.tallerwebi.infraestructura.config.HibernateInfraestructuraTestConfig;
 import org.hibernate.SessionFactory;

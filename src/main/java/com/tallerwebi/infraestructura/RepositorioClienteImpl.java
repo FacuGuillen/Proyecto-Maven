@@ -1,6 +1,6 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.Cliente;
+import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.RepositorioCliente;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
