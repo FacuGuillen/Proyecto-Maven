@@ -3,7 +3,6 @@ com\tallerwebi\dominio\repositorio\RepositorioCliente.class
 com\tallerwebi\dominio\repositorio\RepositorioMaterial.class
 com\tallerwebi\dominio\ServicioLogin.class
 com\tallerwebi\MyServletInitializer.class
-com\tallerwebi\dominio\Form_satisfaction.class
 com\tallerwebi\infraestructura\RepositorioMaterialImpl.class
 com\tallerwebi\infraestructura\RepositorioClienteImpl.class
 com\tallerwebi\dominio\repositorio\RepositorioUsuario.class

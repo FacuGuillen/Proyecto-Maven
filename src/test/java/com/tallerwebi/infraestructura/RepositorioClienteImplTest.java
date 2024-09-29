@@ -101,7 +101,7 @@ public class RepositorioClienteImplTest {
 //            this.repositorioCliente.guardar(cliente);
 //        });
 //    }
-
+//
 //    @Test
 //    @Transactional
 //    public void dadoQueIntentoGuardarUnClienteConEmailNuloEntoncesFalla() {

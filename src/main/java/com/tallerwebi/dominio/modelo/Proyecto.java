@@ -68,6 +68,13 @@ public class Proyecto {
         this.cliente = cliente;
     }
 
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 
     // Hash and Equals
     @Override
