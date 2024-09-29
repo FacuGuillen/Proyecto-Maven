@@ -1,4 +1,4 @@
-package com.tallerwebi.dominio;
+package com.tallerwebi.dominio.repositorio;
 
 import com.tallerwebi.dominio.modelo.Cliente;
 

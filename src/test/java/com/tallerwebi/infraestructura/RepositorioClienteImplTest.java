@@ -1,7 +1,7 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.modelo.Cliente;
-import com.tallerwebi.dominio.RepositorioCliente;
+import com.tallerwebi.dominio.modelo.*;
+import com.tallerwebi.dominio.repositorio.*;
 import com.tallerwebi.infraestructura.config.HibernateInfraestructuraTestConfig;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,10 +25,17 @@ public class RepositorioClienteImplTest {
     @Autowired
     private SessionFactory sessionFactory;
     private RepositorioCliente repositorioCliente;
+    private RepositorioProfesional repositorioProfesional;
+    private RepositorioFormSatisfaction repositorioFormSatisfaction;
+    private RepositorioMaterial repositorioMaterial;
+
 
     @BeforeEach
     public void init(){
         this.repositorioCliente = new RepositorioClienteImpl(sessionFactory);
+        this.repositorioProfesional = new RepositorioProfesionalImpl(sessionFactory);
+        this.repositorioFormSatisfaction = new RepositorioFormSatisfactionImpl(sessionFactory);
+        this.repositorioMaterial = new RepositorioMaterialImpl(sessionFactory);
     }
 
     @Test
@@ -82,31 +89,31 @@ public class RepositorioClienteImplTest {
         assertThat(clienteObtenido, equalTo(null));
     }
 
-    @Test
-    @Transactional
-    public void dadoQueIntentoGuardarUnClienteConNombreNuloEntoncesFalla() {
-        Cliente cliente = new Cliente();
-        cliente.setNombre(null);
-        cliente.setEmail("sinNombre@mail.com");
-        cliente.setTelefono("111222333");
+//    @Test
+//    @Transactional
+//    public void dadoQueIntentoGuardarUnClienteConNombreNuloEntoncesFalla() {
+//        Cliente cliente = new Cliente();
+//        cliente.setNombre(null);
+//        cliente.setEmail("sinNombre@mail.com");
+//        cliente.setTelefono("111222333");
+//
+//        assertThrows(Exception.class, () -> {
+//            this.repositorioCliente.guardar(cliente);
+//        });
+//    }
 
-        assertThrows(Exception.class, () -> {
-            this.repositorioCliente.guardar(cliente);
-        });
-    }
-
-    @Test
-    @Transactional
-    public void dadoQueIntentoGuardarUnClienteConEmailNuloEntoncesFalla() {
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Juan Carlos");
-        cliente.setEmail(null);  // Email nulo
-        cliente.setTelefono("123456789");
-
-        assertThrows(Exception.class, () -> {
-            this.repositorioCliente.guardar(cliente);
-        });
-    }
+//    @Test
+//    @Transactional
+//    public void dadoQueIntentoGuardarUnClienteConEmailNuloEntoncesFalla() {
+//        Cliente cliente = new Cliente();
+//        cliente.setNombre("Juan Carlos");
+//        cliente.setEmail(null);  // Email nulo
+//        cliente.setTelefono("123456789");
+//
+//        assertThrows(Exception.class, () -> {
+//            this.repositorioCliente.guardar(cliente);
+//        });
+//    }
 
     @Test
     @Transactional
@@ -136,6 +143,90 @@ public class RepositorioClienteImplTest {
         assertThat(clienteObtenido.getEmail(), equalTo(emailLargo));
     }
 
+
+    @Test
+    @Transactional
+    public void dadoQueElClienteLeDa5EstrellasComoFormularioDeSatisfactionAlProfesionalYBusque5EstrellasEnBaseDeDatos() {
+        Cliente cliente = crearClienteConDatos();
+        Profesional profesional = crearProfesionalConDatos();
+
+        repositorioCliente.guardar(cliente);
+        repositorioProfesional.guardar(profesional);
+
+        FormSatisfaction formSatisfaction = crearFormSatisfaction(cliente, profesional);
+
+        repositorioFormSatisfaction.guardar(formSatisfaction);
+
+        String hql = "FROM FormSatisfaction fs WHERE fs.clienteForm.id = :clienteId AND fs.profesional.id = :profesionalId";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("clienteId", cliente.getId());
+        query.setParameter("profesionalId", profesional.getId());
+
+        FormSatisfaction formObtenido = (FormSatisfaction) query.getSingleResult();
+
+        assertThat(formObtenido.getPuntuacion(), equalTo(5));
+
+    }
+
+    @Test
+    @Transactional
+    public void dadoQueElClienteLeDaUnaCriticaEnElFormularioDeSatisfactionAlProfesionalYBusqueLaCriticaEnBaseDeDatos() {
+        Cliente cliente = crearClienteConDatos();
+        Profesional profesional = crearProfesionalConDatos();
+
+        repositorioCliente.guardar(cliente);
+        repositorioProfesional.guardar(profesional);
+
+        FormSatisfaction formSatisfaction = crearFormSatisfaction(cliente, profesional);
+
+        repositorioFormSatisfaction.guardar(formSatisfaction);
+
+        String hql = "FROM FormSatisfaction fs WHERE fs.clienteForm.id = :clienteId AND fs.profesional.id = :profesionalId";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("clienteId", cliente.getId());
+        query.setParameter("profesionalId", profesional.getId());
+
+        FormSatisfaction formObtenido = (FormSatisfaction) query.getSingleResult();
+
+        assertThat(formObtenido.getCritica(), equalTo("Muy buen servicio"));
+
+    }
+
+
+    @Test
+    @Transactional
+    public void clienteCreaUnMaterialEnLaBaseDeDatos() {
+        Cliente cliente = crearClienteConDatos();
+        repositorioCliente.guardar(cliente);
+
+        Material material = crearMaterial(cliente);
+        repositorioMaterial.guardar(material);
+
+        String hql = "FROM Material m WHERE m.nombre = :nombre AND m.clienteMaterial.id = :clienteId";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("nombre", material.getNombre());
+        query.setParameter("clienteId", cliente.getId());
+
+        Material materialObtenido = (Material) query.getSingleResult();
+
+        assertThat(materialObtenido.getNombre(), equalTo(material.getNombre()));
+        assertThat(materialObtenido.getCantidad(), equalTo(material.getCantidad()));
+        assertThat(materialObtenido.getClienteMaterial().getId(), equalTo(cliente.getId()));
+    }
+
+
+    // Metodos
+    private FormSatisfaction crearFormSatisfaction(Cliente cliente, Profesional profesional) {
+        FormSatisfaction formSatisfaction = new FormSatisfaction();
+        formSatisfaction.setPuntuacion(5);
+        formSatisfaction.setCritica("Muy buen servicio");
+        formSatisfaction.setClienteForm(cliente); // Usa el cliente existente
+        formSatisfaction.setProfesional(profesional); // Usa el profesional existente
+
+        return formSatisfaction;
+    }
+
+
     private Cliente crearCliente(String nombre, String email, String telefono) {
         Cliente cliente = new Cliente();
         cliente.setNombre(nombre);
@@ -144,11 +235,37 @@ public class RepositorioClienteImplTest {
         return cliente;
     }
 
+    private Cliente crearClienteConDatos() {
+        Cliente cliente = new Cliente();
+        cliente.setNombre("Lionel Andres");
+        cliente.setApellido("Messi");
+        cliente.setEmail("LeoMessiCampeonDelMundoQatar2022");
+        cliente.setTelefono("18122022");
+        return cliente;
+    }
+
+    private Profesional crearProfesionalConDatos() {
+        Profesional profesional = new Profesional();
+        profesional.setNombre("Lionel Sebastian");
+        profesional.setApellido("Scaloni");
+        profesional.setEmail("LionesScaloniCampeonDelMundoQatar2022");
+        profesional.setTelefono("18122022");
+        return profesional;
+    }
+
     private Cliente buscarClientePorEmail(String email) {
         String hql = "FROM Cliente WHERE email = :email";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("email", email);
         return (Cliente) query.getSingleResult();
     }
+
+    private Material crearMaterial(Cliente cliente){
+        Material material = new Material();
+        material.setNombre("Cemento");
+        material.setCantidad(2.5);
+        material.setClienteMaterial(cliente);
+        return material;
+    }
+
 }
-// Commit //

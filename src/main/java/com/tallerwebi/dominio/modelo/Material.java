@@ -10,14 +10,18 @@ public class Material {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100, nullable = false)
+    //@Column(length = 100, nullable = false)
     private String nombre;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private Double cantidad;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String unidad;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente clienteMaterial;
 
     // Getters y Setters
     public Long getId() {
@@ -52,19 +56,26 @@ public class Material {
         this.unidad = unidad;
     }
 
+    public Cliente getClienteMaterial() {
+        return clienteMaterial;
+    }
+
+    public void setClienteMaterial(Cliente cliente) {
+        this.clienteMaterial = cliente;
+    }
+
+
+    // Hash and Equals
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Material)) return false;
         Material material = (Material) o;
-        return Objects.equals(id, material.id) &&
-                Objects.equals(nombre, material.nombre) &&
-                Objects.equals(cantidad, material.cantidad) &&
-                Objects.equals(unidad, material.unidad);
+        return Objects.equals(getId(), material.getId()) && Objects.equals(getNombre(), material.getNombre()) && Objects.equals(getCantidad(), material.getCantidad()) && Objects.equals(getUnidad(), material.getUnidad()) && Objects.equals(getClienteMaterial(), material.getClienteMaterial());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, cantidad, unidad);
+        return Objects.hash(getId(), getNombre(), getCantidad(), getUnidad(), getClienteMaterial());
     }
 }

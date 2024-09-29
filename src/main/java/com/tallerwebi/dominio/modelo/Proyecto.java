@@ -1,9 +1,9 @@
-package com.tallerwebi.dominio;
+package com.tallerwebi.dominio.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.tallerwebi.dominio.TipoProyecto;
+
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,12 +12,22 @@ public class Proyecto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nombre;
-    private Long usuarioId;
+
     private TipoProyecto tipoProyecto;
-    private String estado = "En proceso";
+
     private String descripcion;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    @OneToOne
+    private Estado estado;
+
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -30,28 +40,12 @@ public class Proyecto {
         this.nombre = nombre;
     }
 
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
     public TipoProyecto getTipoProyecto() {
         return tipoProyecto;
     }
 
     public void setTipoProyecto(TipoProyecto tipoProyecto) {
         this.tipoProyecto = tipoProyecto;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public String getDescripcion() {
@@ -62,16 +56,31 @@ public class Proyecto {
         this.descripcion = descripcion;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+
+    // Hash and Equals
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Proyecto)) return false;
         Proyecto proyecto = (Proyecto) o;
-        return Objects.equals(getUsuarioId(), proyecto.getUsuarioId()) && getTipoProyecto() == proyecto.getTipoProyecto() && Objects.equals(getEstado(), proyecto.getEstado());
+        return Objects.equals(getId(), proyecto.getId()) && Objects.equals(getNombre(), proyecto.getNombre()) && getTipoProyecto() == proyecto.getTipoProyecto() && Objects.equals(getDescripcion(), proyecto.getDescripcion()) && Objects.equals(getCliente(), proyecto.getCliente());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUsuarioId(), getTipoProyecto(), getEstado());
+        return Objects.hash(getId(), getNombre(), getTipoProyecto(), getDescripcion(), getCliente());
     }
 }
+

@@ -1,7 +1,7 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.modelo.Cliente;
-import com.tallerwebi.dominio.RepositorioCliente;
+import com.tallerwebi.dominio.repositorio.RepositorioCliente;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

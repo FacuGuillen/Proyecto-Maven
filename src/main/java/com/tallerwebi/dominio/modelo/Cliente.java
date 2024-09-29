@@ -1,71 +1,66 @@
 package com.tallerwebi.dominio.modelo;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Cliente {
+public class Cliente extends Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100, nullable = false)
-    private String nombre;
+    @OneToMany(mappedBy = "cliente")
+    private List<Proyecto> proyectos;
 
-    @Column(length = 100, nullable = false)
-    private String email;
+    @OneToMany(mappedBy = "clienteForm")
+    private List<FormSatisfaction> valoraciones;
 
-    @Column(length = 15, nullable = false)
-    private String telefono;
+    @OneToMany(mappedBy = "clienteMaterial")
+    private List<Material> materiales;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cliente cliente = (Cliente) o;
-        return Objects.equals(id, cliente.id) &&
-                Objects.equals(nombre, cliente.nombre) &&
-                Objects.equals(email, cliente.email) &&
-                Objects.equals(telefono, cliente.telefono);
-    }
-
-    @Override
-    //hascode para comparar y si es lo mismo lo guarda en la ubicaciond en memoria
-    public int hashCode() {
-        return Objects.hash(id, nombre, email, telefono);
-    }
 
     // Getters y Setters
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public List<FormSatisfaction> getValoraciones() {
+        return valoraciones;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setValoraciones(List<FormSatisfaction> valoraciones) {
+        this.valoraciones = valoraciones;
     }
 
-    public String getEmail() {
-        return email;
+    public List<Proyecto> getProyectos() {
+        return proyectos;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setProyectos(List<Proyecto> proyectos) {
+        this.proyectos = proyectos;
     }
 
-    public String getTelefono() {
-        return telefono;
+
+    //Hash and Equals
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cliente)) return false;
+        if (!super.equals(o)) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(getId(), cliente.getId()) && Objects.equals(getProyectos(), cliente.getProyectos()) && Objects.equals(getValoraciones(), cliente.getValoraciones()) && Objects.equals(materiales, cliente.materiales);
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getId(), getProyectos(), getValoraciones(), materiales);
     }
 }

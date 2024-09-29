@@ -1,19 +1,63 @@
 package com.tallerwebi.dominio.modelo;
 
-import com.tallerwebi.dominio.Usuario;
-
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Profesional extends Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     private Integer calificacion;
-    @ManyToOne
-    private Especialidad especialidad;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Profesional_Especialidad",
+            joinColumns = @JoinColumn(name = "profesional_id"),
+            inverseJoinColumns = @JoinColumn(name = "especialidad_id")
+    )
+    private List<Especialidad> especialidades;
+
+    @OneToMany(mappedBy = "profesional")
+    private List<FormSatisfaction> valoraciones;
 
 
+    // Getters and Setters
+    public Integer getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(Integer calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public List<Especialidad> getEspecialidades() {
+        return especialidades;
+    }
+
+    public void setEspecialidades(List<Especialidad> especialidades) {
+        this.especialidades = especialidades;
+    }
+
+    public List<FormSatisfaction> getValoraciones() {
+        return valoraciones;
+    }
+
+    public void setValoraciones(List<FormSatisfaction> valoraciones) {
+        this.valoraciones = valoraciones;
+    }
+
+
+    //Hash and Equals
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Profesional)) return false;
+        if (!super.equals(o)) return false;
+        Profesional that = (Profesional) o;
+        return Objects.equals(getCalificacion(), that.getCalificacion()) && Objects.equals(getEspecialidades(), that.getEspecialidades()) && Objects.equals(valoraciones, that.valoraciones);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getCalificacion(), getEspecialidades(), valoraciones);
+    }
 }
