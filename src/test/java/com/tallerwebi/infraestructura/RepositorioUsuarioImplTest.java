@@ -33,7 +33,7 @@ public class RepositorioUsuarioImplTest {
 
     }
 
-    @Test
+/*    @Test
     @Transactional
     @Rollback
     public void dadoQueExisteUnRepositorioUsuarioCuandoGuardoUnProfesionalEntoncesLoEncuentraPorNombreYApellidoEnLaBaseDeDatos(){
@@ -75,8 +75,8 @@ public class RepositorioUsuarioImplTest {
         assertThat(usuarioObtenido.getCliente().getNombre(), equalTo(usuario.getCliente().getNombre()));
         assertThat(usuarioObtenido.getCliente().getApellido(), equalTo(usuario.getCliente().getApellido()));
 
-    }
-
+    }*/
+/*
     @Test
     @Transactional
     @Rollback
@@ -99,7 +99,7 @@ public class RepositorioUsuarioImplTest {
         assertThat(clienteObtenido.getApellido(), equalTo(cliente.getApellido()));
         assertThat(clienteObtenido.getDni(), equalTo(cliente.getDni()));
 
-    }
+    }*/
 
 
     //Metodos

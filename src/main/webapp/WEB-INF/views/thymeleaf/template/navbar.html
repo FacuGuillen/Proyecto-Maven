@@ -1,0 +1,13 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <!-- Botón de menú (visible solo en móviles) -->
+        <span class=" p-2 d-md-none" id="menuToggle" type="button">
+        <i class="fas fa-bars"></i>
+        </span>
+        <a class="navbar-brand" th:href="@{/home}" >Maven</a>
+        <div class="ml-auto d-flex align-items-center">
+            <span class="text-white mr-2" th:text="${nombreUsuario}"></span>
+            <i class="fas fa-user-circle icon" style="font-size: 30px; color:#cccccc;"></i>
+        </div>
+    </div>
+</nav>

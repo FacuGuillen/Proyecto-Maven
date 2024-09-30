@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!-- Incluir el fragmento del head -->
+<div th:replace="template/head"></div>
+
+<body>
+<!-- Incluir el fragmento del navbar -->
+<div th:replace="template/navbar"></div>
+
+<div class="contenedor-principal d-flex">
+  <!-- Incluir el fragmento del sidebar -->
+  <div th:replace="template/sidebar"></div>
+  <!-- Main content -->
+  <main role="main" class="container mt-3">
+    <h3>Mis Materiales</h3>
+    <button id="btnAgregar" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarMaterial">
+      <i class="fas fa-plus icon"></i> Agregar Material
+    </button>
+    <a th:href="@{/ofertar}" class="btn btn-primary"><i class="fas fa-hand-holding-usd icon"></i> Ofertar Material</a>
+    <button type="submit" name="buscar" class="btn btn-dark"><i class="fas fa-map-marker-alt icon"></i>Buscar Material</button>
+  </main>
+  <!-- /main -->
+  <!-- Modal para agregar material -->
+  <div class="modal fade" id="modalAgregarMaterial" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog mt-lg-5">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Agregar Material</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form th:action="@{/materiales}" method="POST">
+            <div class="mb-3">
+              <label for="nombreMaterial" class="form-label">Nombre del Material</label>
+              <input type="text" class="form-control" id="nombreMaterial" name="nombreMaterial" required>
+            </div>
+            <div class="mb-3">
+              <label for="cantidad" class="form-label">Cantidad</label>
+              <input type="text" class="form-control" id="cantidad" name="cantidad" required>
+            </div>
+            <button type="submit" class="btn btn-success">Guardar Material</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>

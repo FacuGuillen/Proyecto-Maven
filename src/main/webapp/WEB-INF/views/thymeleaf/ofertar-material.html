@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!-- Incluir el fragmento del head -->
+<div th:replace="template/head"></div>
+
+<body>
+<!-- Incluir el fragmento del navbar -->
+<div th:replace="template/navbar"></div>
+
+<div class="contenedor-principal d-flex">
+  <!-- Incluir el fragmento del sidebar -->
+  <div th:replace="template/sidebar"></div>
+  <!-- Main content -->
+  <main role="main" class="container mt-3">
+    <h2 class="my-4">Publica tu Material</h2>
+
+    <div class="row">
+      <!-- Formulario de publicación -->
+      <div class="col-md-6">
+        <div class="card p-3 shadow-sm">
+          <h4 class="mb-3">Publicar un material</h4>
+          <form th:action="@{/misPublicaciones}" method="POST">
+            <!-- Selección de material -->
+            <div class="form-group">
+              <label for="materialSelect">Seleccionar Material</label>
+              <select class="form-control" id="materialSelect">
+                <option>Ladrillos</option>
+                <option>Cemento</option>
+                <option>Arena</option>
+                <!-- Lista dinámica de materiales del usuario -->
+              </select>
+            </div>
+
+            <!-- Cargar imagen -->
+            <div class="form-group mt-3">
+              <label for="materialImage">Adjuntar Imagen</label>
+              <input type="file" class="form-control" id="materialImage" accept="image/*">
+            </div>
+
+            <!-- Precio y cantidad -->
+            <div class="form-group mt-3">
+              <label for="priceInput">Precio por unidad</label>
+              <input type="number" class="form-control" id="priceInput" placeholder="Ingresa el precio en $">
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="quantityInput">Cantidad disponible</label>
+              <input type="number" class="form-control" id="quantityInput" placeholder="Cantidad disponible">
+            </div>
+
+            <!-- Botón de publicación -->
+            <button type="submit"  class="btn btn-primary mt-3 w-100">
+              <i class="fas fa-upload"></i> Publicar
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Sección de ofertas de otros usuarios -->
+      <div class="col-md-6">
+        <div class="d-flex justify-content-between align-items-center">
+          <h4>Ofertas de otros usuarios</h4>
+          <!-- Icono de Filtrar -->
+          <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#filterOptions" aria-expanded="false" aria-controls="filterOptions">
+            <i class="fas fa-filter"></i> Filtrar
+          </button>
+        </div>
+
+        <!-- Opciones de Filtrar (colapsable) -->
+        <div class="collapse mt-3" id="filterOptions">
+          <div class="card card-body">
+            <!-- Filtro por Zona -->
+            <div class="form-group">
+              <label for="filterZone">Filtrar por Zona</label>
+              <select class="form-control" id="filterZone">
+                <option value="all">Todas las zonas</option>
+                <option value="buenosaires">Buenos Aires</option>
+                <option value="cordoba">Córdoba</option>
+                <option value="mendoza">Mendoza</option>
+                <!-- Más opciones -->
+              </select>
+            </div>
+
+            <!-- Filtro por Precio -->
+            <div class="form-group mt-3">
+              <label for="filterPrice">Filtrar por Precio</label>
+              <select class="form-control" id="filterPrice">
+                <option value="default">Seleccionar</option>
+                <option value="asc">Menor a Mayor</option>
+                <option value="desc">Mayor a Menor</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Listado de ofertas -->
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <!-- Listar dinámicamente las ofertas -->
+            <div class="card mb-3 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Cemento</h5>
+                <p class="card-text">Precio: $200 por 1kg</p>
+                <p class="card-text">Disponible: 50kg</p>
+                <!-- Información del vendedor -->
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-user mr-2 icon"></i>
+                  <p class="mb-0">Vendedor: Juan Pérez</p>
+                </div>
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-map-marker-alt mr-2 icon"></i>
+                  <p class="mb-0">Ubicación: Buenos Aires, Argentina</p>
+                </div>
+                <button class="btn btn-primary mt-3">
+                  <i class="fas fa-comment-alt"></i> Contactar Vendedor
+                </button>
+              </div>
+            </div>
+
+            <div class="card mb-3 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Ladrillos</h5>
+                <p class="card-text">Precio: $15 por unidad</p>
+                <p class="card-text">Disponible: 100 unidades</p>
+                <!-- Información del vendedor -->
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-user mr-2 icon"></i>
+                  <p class="mb-0">Vendedor: María Gómez</p>
+                </div>
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-map-marker-alt mr-2 icon"></i>
+                  <p class="mb-0">Ubicación: Córdoba, Argentina</p>
+                </div>
+                <button class="btn btn-primary mt-3">
+                  <i class="fas fa-comment-alt"></i> Contactar Vendedor
+                </button>
+              </div>
+            </div>
+            <div class="card mb-3 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Ladrillos</h5>
+                <p class="card-text">Precio: $15 por unidad</p>
+                <p class="card-text">Disponible: 100 unidades</p>
+                <!-- Información del vendedor -->
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-user mr-2 icon"></i>
+                  <p class="mb-0">Vendedor: María Gómez</p>
+                </div>
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-map-marker-alt mr-2 icon"></i>
+                  <p class="mb-0">Ubicación: Córdoba, Argentina</p>
+                </div>
+                <button class="btn btn-primary mt-3">
+                  <i class="fas fa-comment-alt"></i> Contactar Vendedor
+                </button>
+              </div>
+            </div>
+            <div class="card mb-3 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Ladrillos</h5>
+                <p class="card-text">Precio: $15 por unidad</p>
+                <p class="card-text">Disponible: 100 unidades</p>
+                <!-- Información del vendedor -->
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-user mr-2 icon"></i>
+                  <p class="mb-0">Vendedor: María Gómez</p>
+                </div>
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-map-marker-alt mr-2 icon"></i>
+                  <p class="mb-0">Ubicación: Córdoba, Argentina</p>
+                </div>
+                <button class="btn btn-primary mt-3">
+                  <i class="fas fa-comment-alt"></i> Contactar Vendedor
+                </button>
+              </div>
+            </div>
+            <!-- Repetir estructura para otras ofertas -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <!-- /.container -->
+</div>
+
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>

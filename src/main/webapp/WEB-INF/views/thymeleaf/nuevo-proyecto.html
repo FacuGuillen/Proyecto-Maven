@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!-- Incluir el fragmento del head -->
+<div th:replace="template/head"></div>
+
+<body>
+<!-- Incluir el fragmento del navbar -->
+<div th:replace="template/navbar"></div>
+
+<div class="contenedor-principal d-flex">
+    <!-- Incluir el fragmento del sidebar -->
+    <div th:replace="template/sidebar"></div>
+    <!-- Main content -->
+    <main role="main" class="container mt-3">
+        <div class="forum-style mt-5">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Elige tu tipo de proyecto</h2>
+                    <p class="lead">Selecciona una opción para comenzar con tu proyecto</p>
+                </div>
+            </div>
+            <form th:action="@{/preguntas}" method="POST">
+                <div class="row mt-4 justify-content-center">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Proyecto de Piso</h5>
+                                <p class="card-text">Comienza un proyecto relacionado con el piso de tu espacio.</p>
+                                <button type="submit" name="tipoProyecto" value="Piso" class="btn btn-primary">Elegir Piso</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Proyecto de Pared</h5>
+                                <p class="card-text">Comienza un proyecto relacionado con las paredes de tu espacio.</p>
+                                <button type="submit" name="tipoProyecto" value="Pared" class="btn btn-primary">Elegir Pared</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Proyecto de Techo</h5>
+                                <p class="card-text">Comienza un proyecto relacionado con el techo de tu espacio.</p>
+                                <button type="submit" name="tipoProyecto" value="Techo" class="btn btn-primary">Elegir Techo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </main>
+    <!-- /.container -->
+</div>
+
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>
