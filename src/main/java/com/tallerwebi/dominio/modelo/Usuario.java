@@ -1,7 +1,4 @@
-package com.tallerwebi.dominio;
-
-import com.tallerwebi.dominio.modelo.Cliente;
-import com.tallerwebi.dominio.modelo.Profesional;
+package com.tallerwebi.dominio.modelo;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -16,9 +13,13 @@ public class Usuario {
 
     private String nombre;
 
+    private String apellido;
+
     private String email;
 
     private String password;
+
+    private Integer dni;
 
     private String rol;
 
@@ -32,33 +33,43 @@ public class Usuario {
     @OneToOne
     private Cliente cliente;
 
+
+    //Getters and Setters
     public Long getId() {
         return id;
     }
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
     public String getRol() {
         return rol;
     }
+
     public void setRol(String rol) {
         this.rol = rol;
     }
+
     public Boolean getActivo() {
         return activo;
     }
+
     public void setActivo(Boolean activo) {
         this.activo = activo;
     }
@@ -79,6 +90,22 @@ public class Usuario {
         this.nombre = nombre;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public String getTelefono() {
         return telefono;
     }
@@ -95,16 +122,25 @@ public class Usuario {
         this.profesional = profesional;
     }
 
+    public Integer getDni() {
+        return dni;
+    }
+
+    public void setDni(Integer dni) {
+        this.dni = dni;
+    }
+
+    // Hash and Equals
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Usuario)) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(id, usuario.id) && Objects.equals(nombre, usuario.nombre) && Objects.equals(email, usuario.email) && Objects.equals(password, usuario.password) && Objects.equals(rol, usuario.rol) && Objects.equals(activo, usuario.activo) && Objects.equals(telefono, usuario.telefono) && Objects.equals(profesional, usuario.profesional);
+        return Objects.equals(getId(), usuario.getId()) && Objects.equals(getNombre(), usuario.getNombre()) && Objects.equals(getApellido(), usuario.getApellido()) && Objects.equals(getEmail(), usuario.getEmail()) && Objects.equals(getPassword(), usuario.getPassword()) && Objects.equals(getDni(), usuario.getDni()) && Objects.equals(getRol(), usuario.getRol()) && Objects.equals(getActivo(), usuario.getActivo()) && Objects.equals(getTelefono(), usuario.getTelefono()) && Objects.equals(getProfesional(), usuario.getProfesional()) && Objects.equals(getCliente(), usuario.getCliente());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, email, password, rol, activo, telefono, profesional);
+        return Objects.hash(getId(), getNombre(), getApellido(), getEmail(), getPassword(), getDni(), getRol(), getActivo(), getTelefono(), getProfesional(), getCliente());
     }
 }

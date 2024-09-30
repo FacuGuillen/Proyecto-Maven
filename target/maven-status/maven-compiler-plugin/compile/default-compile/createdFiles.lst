@@ -1,8 +1,14 @@
 com\tallerwebi\config\DatabaseInitializationConfig.class
+<<<<<<< HEAD
 com\tallerwebi\dominio\ServicioPreguntaImpl.class
+=======
+com\tallerwebi\dominio\repositorio\RepositorioCliente.class
+com\tallerwebi\dominio\repositorio\RepositorioMaterial.class
+>>>>>>> main
 com\tallerwebi\dominio\ServicioLogin.class
 com\tallerwebi\dominio\Resultado.class
 com\tallerwebi\MyServletInitializer.class
+<<<<<<< HEAD
 com\tallerwebi\presentacion\GlobalControllerAdvice.class
 com\tallerwebi\dominio\ServicioProyecto.class
 com\tallerwebi\dominio\ServicioPregunta.class
@@ -22,3 +28,18 @@ com\tallerwebi\config\SpringWebConfig.class
 com\tallerwebi\presentacion\ControladorLogin.class
 com\tallerwebi\dominio\RepositorioPregunta.class
 com\tallerwebi\dominio\Usuario.class
+=======
+com\tallerwebi\infraestructura\RepositorioMaterialImpl.class
+com\tallerwebi\infraestructura\RepositorioClienteImpl.class
+com\tallerwebi\dominio\repositorio\RepositorioUsuario.class
+com\tallerwebi\config\HibernateConfig.class
+com\tallerwebi\dominio\modelo\Proyecto.class
+com\tallerwebi\infraestructura\RepositorioUsuarioImpl.class
+com\tallerwebi\dominio\repositorio\RepositorioProyecto.class
+com\tallerwebi\dominio\ServicioLoginImpl.class
+com\tallerwebi\presentacion\DatosLogin.class
+com\tallerwebi\dominio\excepcion\UsuarioExistente.class
+com\tallerwebi\dominio\modelo\Usuario.class
+com\tallerwebi\config\SpringWebConfig.class
+com\tallerwebi\presentacion\ControladorLogin.class
+>>>>>>> main
