@@ -20,11 +20,7 @@
         <hibernate.version>5.4.24.Final</hibernate.version>
         <playwright.version>1.36.0</playwright.version>
         <hsqldb.version>2.3.2</hsqldb.version>
-<<<<<<< HEAD
-        <mysql.version>8.0.33</mysql.version>
-=======
         <mysql.version>8.0.30</mysql.version>
->>>>>>> main
     </properties>
 
     <dependencies>
@@ -113,10 +109,6 @@
             <scope>test</scope>
         </dependency>
 
-<<<<<<< HEAD
-        <!-- Conector para MySql -->
-=======
->>>>>>> main
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -124,15 +116,12 @@
             <scope>runtime</scope>
         </dependency>
 
-<<<<<<< HEAD
-=======
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
         </dependency>
 
->>>>>>> main
         <!-- compile only, deployed container will provide this -->
         <!--
         <dependency>
