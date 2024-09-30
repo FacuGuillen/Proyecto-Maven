@@ -27,12 +27,6 @@ public class Usuario {
 
     private String telefono;
 
-    @OneToOne
-    private Profesional profesional;
-
-    @OneToOne
-    private Cliente cliente;
-
 
     //Getters and Setters
     public Long getId() {
@@ -98,13 +92,6 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
 
     public String getTelefono() {
         return telefono;
@@ -112,14 +99,6 @@ public class Usuario {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public Profesional getProfesional() {
-        return profesional;
-    }
-
-    public void setProfesional(Profesional profesional) {
-        this.profesional = profesional;
     }
 
     public Integer getDni() {
@@ -136,11 +115,11 @@ public class Usuario {
         if (this == o) return true;
         if (!(o instanceof Usuario)) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(getId(), usuario.getId()) && Objects.equals(getNombre(), usuario.getNombre()) && Objects.equals(getApellido(), usuario.getApellido()) && Objects.equals(getEmail(), usuario.getEmail()) && Objects.equals(getPassword(), usuario.getPassword()) && Objects.equals(getDni(), usuario.getDni()) && Objects.equals(getRol(), usuario.getRol()) && Objects.equals(getActivo(), usuario.getActivo()) && Objects.equals(getTelefono(), usuario.getTelefono()) && Objects.equals(getProfesional(), usuario.getProfesional()) && Objects.equals(getCliente(), usuario.getCliente());
+        return Objects.equals(getId(), usuario.getId()) && Objects.equals(getNombre(), usuario.getNombre()) && Objects.equals(getApellido(), usuario.getApellido()) && Objects.equals(getEmail(), usuario.getEmail()) && Objects.equals(getPassword(), usuario.getPassword()) && Objects.equals(getDni(), usuario.getDni()) && Objects.equals(getRol(), usuario.getRol()) && Objects.equals(getActivo(), usuario.getActivo()) && Objects.equals(getTelefono(), usuario.getTelefono());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNombre(), getApellido(), getEmail(), getPassword(), getDni(), getRol(), getActivo(), getTelefono(), getProfesional(), getCliente());
+        return Objects.hash(getId(), getNombre(), getApellido(), getEmail(), getPassword(), getDni(), getRol(), getActivo(), getTelefono());
     }
 }

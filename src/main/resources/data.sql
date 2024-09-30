@@ -1,5 +1,5 @@
-
-/*INSERT INTO Usuario(email, password, rol, activo) VALUES('test@unlam.edu.ar', 'test', 'ADMIN', true);*/
+/*
+INSERT INTO Usuario(email, password, rol, activo) VALUES('test@unlam.edu.ar', 'test', 'ADMIN', true);*/
 
 /*-- Insertar preguntas para el tipo de proyecto "Piso"
 INSERT INTO Pregunta (texto, tipoProyecto) VALUES
@@ -73,6 +73,4 @@ INSERT INTO Opcion (texto, pregunta_id) VALUES
                                             ('50-100 m2', 15),
                                             ('Más de 100 m2', 15);*/
 
-INSERT INTO Usuario (id, email, password, rol, activo, DTYPE)
-VALUES (null, 'test@unlam.edu.ar', 'test', 'ADMIN', true, 'Profesional');
 

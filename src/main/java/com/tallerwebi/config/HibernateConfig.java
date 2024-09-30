@@ -22,11 +22,7 @@ public class HibernateConfig {
 //        dataSource.setUrl("jdbc:hsqldb:mem:db_");
         dataSource.setUrl("jdbc:mysql://localhost:3306/tw1");
         dataSource.setUsername("root");
-<<<<<<< HEAD
         dataSource.setPassword("root");
-=======
-        dataSource.setPassword("1234");
->>>>>>> main
         return dataSource;
     }
 

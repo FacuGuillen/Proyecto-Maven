@@ -7,10 +7,6 @@ import java.util.Objects;
 @Entity
 public class Cliente extends Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @OneToMany(mappedBy = "cliente")
     private List<Proyecto> proyectos;
 
@@ -22,15 +18,6 @@ public class Cliente extends Usuario {
 
 
     // Getters y Setters
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public List<FormSatisfaction> getValoraciones() {
         return valoraciones;
