@@ -68,4 +68,27 @@ public class ControladorCliente {
         servicioCliente.eliminarCliente(id);
         return new ModelAndView("redirect:/clientes");
     }
+
+    @RequestMapping(value = "/agregar-cliente", method = RequestMethod.GET)
+    public ModelAndView agregarCliente() {
+        return new ModelAndView("agregar-cliente");
+    }
+
+    @RequestMapping(value = "/guardar-cliente", method = RequestMethod.POST)
+    public void guardarCliente(Cliente cliente) {
+        servicioCliente.guardarCliente(cliente);
+    }
+
+    @RequestMapping(value = "/editar-cliente", method = RequestMethod.GET)
+    public ModelAndView editarCliente(@RequestParam("id") Long clienteId) {
+        Cliente cliente = servicioCliente.buscarClientePorId(clienteId);
+        ModelAndView modelAndView = new ModelAndView("editar-cliente");
+        modelAndView.addObject("cliente", cliente);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/actualizar-cliente", method = RequestMethod.POST)
+    public void actualizarCliente(Cliente cliente) {
+        servicioCliente.actualizarCliente(cliente);
+    }
 }
