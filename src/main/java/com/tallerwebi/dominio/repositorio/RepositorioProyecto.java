@@ -9,5 +9,9 @@ public interface RepositorioProyecto {
 
     List<Proyecto> obtener();
 
+    Proyecto obtenerById(Long idProyecto);
+
     void actualizar(Proyecto proyecto);
+    List<Proyecto> obtenerProyectosPorEstado(String nombreEstado);
+
 }
