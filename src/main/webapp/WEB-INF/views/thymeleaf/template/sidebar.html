@@ -6,15 +6,8 @@
             <a th:href="@{/proyectos}" class="list-group-item item-sidebar list-group-item-action"><i class="fas fa-th-list icon"></i> Mis proyectos</a>
             <a th:href="@{/materiales}" class="list-group-item item-sidebar list-group-item-action"><i class="fas fa-boxes icon"></i> Materiales</a>
             <a th:href="@{/misPublicaciones}" class="list-group-item item-sidebar list-group-item-action"><i class="fas fa-newspaper icon"></i> Mis publicaciones</a>
-            <a href="#" class="list-group-item item-sidebar list-group-item-action"><i class="fas fa-comment-alt icon"></i> Mensajes</a>
+            <a href="#" class="list-group-item item-sidebar list-group-item-action"><i class="fas fa-comment-alt icon"></i> Chat</a>
             <a th:href="@{/logout}" class="list-group-item item-sidebar list-group-item-action"><i class="fas fa-sign-out-alt icon"></i> LogOut</a>
         </div>
     </div>
 </div>
-
-<script>
-    document.getElementById('menuToggle').onclick = function() {
-        var sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('active'); // Alternar la clase active
-    };
-</script>

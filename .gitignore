@@ -1,4 +1,4 @@
-*.class
+.gitignore *.class
 *.DS_Store
 
 /target

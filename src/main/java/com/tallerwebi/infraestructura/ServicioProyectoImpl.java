@@ -1,0 +1,40 @@
+package com.tallerwebi.infraestructura;
+
+import com.tallerwebi.dominio.ServicioProyecto;
+import com.tallerwebi.dominio.modelo.Proyecto;
+import com.tallerwebi.dominio.repositorio.RepositorioProyecto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service("servicioProyecto")
+@Transactional
+public class ServicioProyectoImpl implements ServicioProyecto {
+
+    private RepositorioProyecto repositorioProyecto;
+
+    @Autowired
+    public ServicioProyectoImpl(RepositorioProyecto repositorioProyecto){
+        this.repositorioProyecto = repositorioProyecto;
+    }
+
+
+    @Override
+    public void guardarProyecto(Proyecto proyecto) {
+        repositorioProyecto.guardar(proyecto);
+    }
+
+    @Override
+    public Proyecto obtenerProyectoPorId(Long idProyecto) {
+        return repositorioProyecto.obtenerById(idProyecto);
+    }
+
+    @Override
+    public List<Proyecto> obtenerProyectosPorEstado(String nuevo) {
+        return repositorioProyecto.obtenerProyectosPorEstado(nuevo);
+    }
+
+
+}
