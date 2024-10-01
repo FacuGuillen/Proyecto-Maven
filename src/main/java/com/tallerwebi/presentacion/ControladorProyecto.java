@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,35 +43,31 @@ public class ControladorProyecto {
         return modelAndView;
     }
     @RequestMapping(value = "/nuevo-proyecto", method = RequestMethod.POST)
-    public ModelAndView crearNuevoProyecto(@RequestParam("tipoProyecto") String tipoProyectoStr,
+    public String crearNuevoProyecto(@RequestParam("tipoProyecto") String tipoProyectoStr,
                                      @RequestParam("tipoTrabajo") String tipoTrabajo,
                                      @RequestParam("realizadoPor") String realizadoPor,
                                      @RequestParam("descripcionProyecto") String descripcion) {
 
-        // Convertir a enum
+        // Convertir a enum y crear un nuevo proyecto
         TipoProyecto tipoProyecto = TipoProyecto.valueOf(tipoProyectoStr.toUpperCase());
         Proyecto proyecto = new Proyecto();
-        // Crear y asignar un nuevo estado "nuevo" al proyecto
+
+        // Obtener y asignar estado "nuevo"
         Estado estadoNuevo = servicioEstado.obtenerEstadoPorNombre("nuevo");
         if (estadoNuevo == null) {
             estadoNuevo = new Estado("nuevo");
             servicioEstado.save(estadoNuevo);
-        };
+        }
 
         proyecto.setTipoProyecto(tipoProyecto);
         proyecto.setTipoDeTrabajo(tipoTrabajo);
         proyecto.setRealizadoPor(realizadoPor);
         proyecto.setDescripcion(descripcion);
         proyecto.setEstado(estadoNuevo);
-
+        // Guardar el proyecto
         servicioProyecto.guardarProyecto(proyecto);
-        // Obtener la lista de proyectos con estado "nuevo"
-        List<Proyecto> proyectosNuevos = servicioProyecto.obtenerProyectosPorEstado(estadoNuevo.getNombre());
-
-        // Retornar la vista con la lista de proyectos
-        ModelAndView modelAndView = new ModelAndView("nuevo-proyecto");
-        modelAndView.addObject("proyectos", proyectosNuevos);
-        return modelAndView;
+        // Redirigir a la vista de nuevo proyecto (evita el reenvío de formularios en F5)
+        return "redirect:/nuevo-proyecto";
     }
 
     // Agregar un comentario a un proyecto existente

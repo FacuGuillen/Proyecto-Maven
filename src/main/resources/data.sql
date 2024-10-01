@@ -73,9 +73,9 @@ INSERT INTO Opcion (texto, pregunta_id) VALUES
                                             ('50-100 m2', 15),
                                             ('Más de 100 m2', 15);*/
 
-/*INSERT INTO Estado (nombre) VALUES
+INSERT INTO Estado (nombre) VALUES
                                 ('nuevo'),
                                 ('en progreso'),
-                                ('finalizado');*/
+                                ('finalizado');
 
 
