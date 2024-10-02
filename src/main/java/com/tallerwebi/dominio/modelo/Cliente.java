@@ -18,7 +18,6 @@ public class Cliente extends Usuario {
 
 
     // Getters y Setters
-
     public List<FormSatisfaction> getValoraciones() {
         return valoraciones;
     }
@@ -34,8 +33,6 @@ public class Cliente extends Usuario {
     public void setProyectos(List<Proyecto> proyectos) {
         this.proyectos = proyectos;
     }
-
-
 
 
     //Hash and Equals

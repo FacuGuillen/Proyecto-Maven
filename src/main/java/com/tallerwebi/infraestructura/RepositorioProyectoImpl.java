@@ -34,14 +34,14 @@ public class RepositorioProyectoImpl implements RepositorioProyecto {
         return this.sessionFactory.getCurrentSession().get(Proyecto.class, idProyecto);
     }
 
-    @Override
-    public void actualizar(Proyecto proyecto) {
-        String hql = "UPDATE Proyecto SET descripcion = :descripcion WHERE id = :id";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("descripcion", proyecto.getDescripcion());
-        query.setParameter("id", proyecto.getId());
-        query.executeUpdate();
-    }
+//    @Override
+//    public void actualizar(Proyecto proyecto) {
+//        String hql = "UPDATE Proyecto SET descripcion = :descripcion WHERE id = :id";
+//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+//        query.setParameter("descripcion", proyecto.getDescripcion());
+//        query.setParameter("id", proyecto.getId());
+//        query.executeUpdate();
+//    }
 
     @Override
     public List<Proyecto> obtenerProyectosPorEstado(String nombreEstado) {
@@ -49,6 +49,11 @@ public class RepositorioProyectoImpl implements RepositorioProyecto {
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("estadoNombre", nombreEstado);
         return query.getResultList();
+    }
+
+    @Override
+    public void actualizar(Proyecto proyecto) {
+        this.sessionFactory.getCurrentSession().merge(proyecto);
     }
 
 }

@@ -5,12 +5,14 @@ import com.tallerwebi.dominio.modelo.enums.EstadoProyecto;
 import com.tallerwebi.dominio.modelo.Proyecto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class ControladorProyecto {
@@ -25,13 +27,14 @@ public class ControladorProyecto {
 
     }
 
-//    @RequestMapping(value = "/nuevo-proyecto", method = RequestMethod.GET)
-//    public ModelAndView mostrarFormularioNuevoProyecto() {
-//        List<Proyecto> proyectosNuevos = servicioProyecto.obtenerProyectosPorEstado(estadoNuevo.getNombre());
-//        ModelAndView modelAndView = new ModelAndView("nuevo-proyecto");
-//        modelAndView.addObject("proyectos", proyectosNuevos);
-//        return modelAndView;
-//    }
+    // Nuevo metodo que busca un proyecto por su ID
+    @RequestMapping(value = "/proyecto/{id}", method = RequestMethod.GET)
+    public ModelAndView obtenerProyectoPorId(@PathVariable("id") Long id) {
+        Proyecto proyecto = servicioProyecto.obtenerProyectoPorId(id); // Llama al servicio para obtener el proyecto
+        ModelAndView modelAndView = new ModelAndView("detalle-proyecto");
+        modelAndView.addObject("proyecto", proyecto); // Pasa el proyecto a la vista
+        return modelAndView;
+    }
 
 
     @RequestMapping(value = "/nuevo-proyecto", method = RequestMethod.POST)
@@ -54,48 +57,5 @@ public class ControladorProyecto {
         // Redirigir a la vista de nuevo proyecto (evita el reenvío de formularios en F5)
         return "redirect:/nuevo-proyecto";
     }
-
-    // Agregar un comentario a un proyecto existente
-//    @RequestMapping(value = "/nuevo-comentario", method = RequestMethod.POST)
-//    @ResponseBody
-//    public ResponseEntity<List<String>> agregarComentario(@RequestParam("idProyecto") Long idProyecto,
-//                                                          @RequestParam("comentario") String comentario) {
-//        Proyecto proyecto = servicioProyecto.obtenerProyectoPorId(idProyecto);
-//        if (proyecto == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Responder con 404 si no se encuentra el proyecto
-//        }
-//        proyecto.getComentarios().add(comentario);
-//        servicioProyecto.guardarProyecto(proyecto);  // Guardar el proyecto actualizado
-//        return new ResponseEntity<>(proyecto.getComentarios(), HttpStatus.OK);  // Responder con los comentarios actualizados y 200 OK
-//    }
-//    @RequestMapping(value = "/proyectos", method = RequestMethod.GET)
-//    public ModelAndView mostrarProyectos() {
-//        return new ModelAndView("mis-proyectos");
-//
-//    }
-
-//    @RequestMapping(value = "/preguntas", method = RequestMethod.POST)
-//    public ModelAndView mostrarPreguntasSegunTipoProyecto(@RequestParam("tipoProyecto") String tipoProyectoStr) {
-//        // Convertir a enum
-//        TipoProyecto tipoProyecto = TipoProyecto.valueOf(tipoProyectoStr.toUpperCase());
-//        List<Pregunta> preguntas = servicioPregunta.obtenerPreguntasPorTipoProyecto(tipoProyecto);
-//
-//        ModelMap modelo = new ModelMap();
-//        modelo.put("tipoProyecto", tipoProyectoStr);
-//        modelo.put("preguntas", preguntas);
-//
-//        return new ModelAndView("mostrar-preguntas", modelo);
-//    }
-
-//    @RequestMapping(value = "/materiales", method = RequestMethod.GET)
-//    public ModelAndView mostrarMateriales() {
-//        return new ModelAndView("mis-materiales");
-//
-//    }
-
-//    @RequestMapping(value = "/respuesta", method = RequestMethod.POST)
-//    public ModelAndView mostrarRespuesta() {;
-//        return new ModelAndView("mostrar-respuesta");
-//    }
 
 }

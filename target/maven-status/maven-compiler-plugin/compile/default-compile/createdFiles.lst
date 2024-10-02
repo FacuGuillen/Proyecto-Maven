@@ -26,6 +26,7 @@ com\tallerwebi\dominio\repositorio\RepositorioProyecto.class
 com\tallerwebi\presentacion\ControladorProyecto.class
 com\tallerwebi\dominio\Opcion.class
 com\tallerwebi\infraestructura\RepositorioProyectoImpl.class
+com\tallerwebi\dominio\modelo\enums\EstadoProyecto.class
 com\tallerwebi\dominio\ServicioEstado.class
 com\tallerwebi\infraestructura\RepositorioPreguntaImpl.class
 com\tallerwebi\dominio\modelo\FormSatisfaction.class
@@ -40,7 +41,6 @@ com\tallerwebi\dominio\modelo\Material.class
 com\tallerwebi\dominio\modelo\Profesional.class
 com\tallerwebi\config\SpringWebConfig.class
 com\tallerwebi\dominio\modelo\Estado.class
-com\tallerwebi\dominio\modelo\EstadoProyecto.class
 com\tallerwebi\infraestructura\ServicioProyectoImpl.class
 com\tallerwebi\presentacion\ControladorLogin.class
 com\tallerwebi\dominio\RepositorioPregunta.class
