@@ -16,14 +16,6 @@ public class Cliente extends Usuario {
     @OneToMany(mappedBy = "clienteMaterial")
     private List<Material> materiales;
 
-    public Cliente(long l, String juanPerez, String mail, String number) {
-        super();
-    }
-
-    public Cliente() {
-
-    }
-
 
     // Getters y Setters
 

@@ -87,8 +87,9 @@ public class ControladorCliente {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/actualizar-cliente", method = RequestMethod.POST)
+    @RequestMapping(value = "/actualizar-cliente-objeto", method = RequestMethod.POST)
     public void actualizarCliente(Cliente cliente) {
         servicioCliente.actualizarCliente(cliente);
     }
 }
+
