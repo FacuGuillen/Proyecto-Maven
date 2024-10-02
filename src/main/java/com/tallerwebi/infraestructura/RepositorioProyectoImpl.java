@@ -30,7 +30,7 @@ public class RepositorioProyectoImpl implements RepositorioProyecto {
     }
 
     @Override
-    public Proyecto obtenerById(Long idProyecto) {
+    public Proyecto obtenerPorId(Long idProyecto) {
         return this.sessionFactory.getCurrentSession().get(Proyecto.class, idProyecto);
     }
 

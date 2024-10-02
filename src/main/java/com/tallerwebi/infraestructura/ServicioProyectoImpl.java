@@ -28,7 +28,7 @@ public class ServicioProyectoImpl implements ServicioProyecto {
 
     @Override
     public Proyecto obtenerProyectoPorId(Long idProyecto) {
-        return repositorioProyecto.obtenerById(idProyecto);
+        return repositorioProyecto.obtenerPorId(idProyecto);
     }
 
     @Override

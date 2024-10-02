@@ -36,6 +36,8 @@ public class Cliente extends Usuario {
     }
 
 
+
+
     //Hash and Equals
     @Override
     public boolean equals(Object o) {
