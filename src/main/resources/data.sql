@@ -48,7 +48,7 @@ INSERT INTO Opcion (texto, pregunta_id) VALUES
                                             ('Una', 10),
                                             ('Dos', 10);
 
--- Insertar preguntas para el tipo de proyecto "Techo"
+/*-- Insertar preguntas para el tipo de proyecto "Techo"
 INSERT INTO Pregunta (texto, tipoProyecto) VALUES
                                                ('¿Qué tipo de material deseas para el techo?', 'TECHO'),
                                                ('¿Cuál es la inclinación del techo que prefieres?', 'TECHO'),
@@ -72,5 +72,10 @@ INSERT INTO Opcion (texto, pregunta_id) VALUES
                                             ('Menos de 50 m2', 15),
                                             ('50-100 m2', 15),
                                             ('Más de 100 m2', 15);*/
+
+/*INSERT INTO Estado (nombre) VALUES
+                                ('nuevo'),
+                                ('en progreso'),
+                                ('finalizado');*/
 
 

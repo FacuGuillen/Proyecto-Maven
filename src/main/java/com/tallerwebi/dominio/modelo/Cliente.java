@@ -18,7 +18,6 @@ public class Cliente extends Usuario {
 
 
     // Getters y Setters
-
     public List<FormSatisfaction> getValoraciones() {
         return valoraciones;
     }

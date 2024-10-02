@@ -1,6 +1,7 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.modelo.*;
+import com.tallerwebi.dominio.modelo.enums.EstadoProyecto;
 import com.tallerwebi.dominio.repositorio.*;
 import com.tallerwebi.infraestructura.config.HibernateInfraestructuraTestConfig;
 import org.hibernate.SessionFactory;
@@ -8,10 +9,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,6 +31,7 @@ public class RepositorioClienteImplTest {
     private RepositorioProfesional repositorioProfesional;
     private RepositorioFormSatisfaction repositorioFormSatisfaction;
     private RepositorioMaterial repositorioMaterial;
+    private RepositorioProyecto repositorioProyecto;
 
 
     @BeforeEach
@@ -36,10 +40,12 @@ public class RepositorioClienteImplTest {
         this.repositorioProfesional = new RepositorioProfesionalImpl(sessionFactory);
         this.repositorioFormSatisfaction = new RepositorioFormSatisfactionImpl(sessionFactory);
         this.repositorioMaterial = new RepositorioMaterialImpl(sessionFactory);
+        this.repositorioProyecto = new RepositorioProyectoImpl(sessionFactory);
     }
 
     @Test
     @Transactional
+    @Rollback
     public void dadoQueExisteUnRepositorioClienteCuandoGuardoUnClienteEntoncesLoEncuentroEnLaBaseDeDatos(){
         Cliente cliente = new Cliente();
         cliente.setNombre("Juan Perez");
@@ -58,6 +64,7 @@ public class RepositorioClienteImplTest {
 
     @Test
     @Transactional
+    @Rollback
     public void dadoQueGuardoUnClienteConTelefonoVacioEntoncesSeGuardaCorrectamente() {
         Cliente cliente = new Cliente();
         cliente.setNombre("Ana Gomez");
@@ -72,6 +79,7 @@ public class RepositorioClienteImplTest {
 
     @Test
     @Transactional
+    @Rollback
     public void dadoQueActualizoUnClienteEntoncesLosDatosSeActualizanEnLaBase() {
         Cliente cliente = crearCliente("Carlos Ruiz", "carlos@mail.com", "987654321");
         cliente.setNombre("Carlos Ruiz Actualizado");
@@ -84,6 +92,7 @@ public class RepositorioClienteImplTest {
 
     @Test
     @Transactional
+    @Rollback
     public void dadoQueBuscoUnClienteInexistenteEntoncesNoLoEncuentro() {
         Cliente clienteObtenido = this.repositorioCliente.buscarPorEmail("noexiste@mail.com");
         assertThat(clienteObtenido, equalTo(null));
@@ -117,6 +126,7 @@ public class RepositorioClienteImplTest {
 
     @Test
     @Transactional
+    @Rollback
     public void dadoQueBuscoClientesConUnNombreEspecificoEntoncesObtengoResultados() {
         Cliente cliente1 = crearCliente("Miguel Ángel", "miguel1@mail.com", "111111111");
         Cliente cliente2 = crearCliente("Miguel Antonio", "miguel2@mail.com", "222222222");
@@ -133,6 +143,7 @@ public class RepositorioClienteImplTest {
 
     @Test
     @Transactional
+    @Rollback
     public void dadoQueGuardoUnClienteConEmailLargoEntoncesSeGuardaCorrectamente() {
         String emailLargo = "emailmuylargo".repeat(7) + "@mail.com";  // 100 caracteres
         Cliente cliente = crearCliente("Cliente Largo", emailLargo, "555555555");
@@ -146,6 +157,7 @@ public class RepositorioClienteImplTest {
 
     @Test
     @Transactional
+    @Rollback
     public void dadoQueElClienteLeDa5EstrellasComoFormularioDeSatisfactionAlProfesionalYBusque5EstrellasEnBaseDeDatos() {
         Cliente cliente = crearClienteConDatos();
         Profesional profesional = crearProfesionalConDatos();
@@ -170,6 +182,7 @@ public class RepositorioClienteImplTest {
 
     @Test
     @Transactional
+    @Rollback
     public void dadoQueElClienteLeDaUnaCriticaEnElFormularioDeSatisfactionAlProfesionalYBusqueLaCriticaEnBaseDeDatos() {
         Cliente cliente = crearClienteConDatos();
         Profesional profesional = crearProfesionalConDatos();
@@ -195,6 +208,7 @@ public class RepositorioClienteImplTest {
 
     @Test
     @Transactional
+    @Rollback
     public void clienteCreaUnMaterialEnLaBaseDeDatos() {
         Cliente cliente = crearClienteConDatos();
         repositorioCliente.guardar(cliente);
@@ -266,6 +280,14 @@ public class RepositorioClienteImplTest {
         material.setCantidad(2.5);
         material.setClienteMaterial(cliente);
         return material;
+    }
+
+    private Proyecto crearProyecto(){
+        Proyecto proyecto = new Proyecto();
+        proyecto.setNombreProyecto("Romper la casa entera");
+        proyecto.setEstadoProyecto(EstadoProyecto.POR_INICIAR);
+        proyecto.setFechaInicioProyecto(LocalDate.of(2024, 10, 15));
+        return proyecto;
     }
 
 }

@@ -12,55 +12,135 @@
     <div th:replace="template/sidebar"></div>
     <!-- Main content -->
     <main role="main" class="container mt-3">
+        <!-- Project Creation Section -->
         <div class="forum-style mt-5">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h2>Elige tu tipo de proyecto</h2>
-                    <p class="lead">Selecciona una opción para comenzar con tu proyecto</p>
+                    <h2>Crea un nuevo proyecto</h2>
+                    <p class="lead">¡Cree un proyecto y los profesionales le ayudarán a completarlo!</p>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createProjectModal">
+                        Crear Proyecto
+                    </button>
                 </div>
             </div>
-            <form th:action="@{/preguntas}" method="POST">
-                <div class="row mt-4 justify-content-center">
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h5 class="card-title">Proyecto de Piso</h5>
-                                <p class="card-text">Comienza un proyecto relacionado con el piso de tu espacio.</p>
-                                <button type="submit" name="tipoProyecto" value="Piso" class="btn btn-primary">Elegir Piso</button>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+        <!-- Sección de Proyectos -->
+        <div class="project-list mt-5">
+            <!-- Mostrando los proyectos creados -->
+            <div th:each="proyecto : ${proyectos}">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${proyecto.tipoProyecto} + ' - ' + ${proyecto.tipoDeTrabajo}"></h5>
+                        <p class="card-text">Descripción: <span th:text="${proyecto.descripcion}"></span></p>
+                        <p class="card-text">Realizado por: <span th:text="${proyecto.realizadoPor}"></span></p>
+                        <p class="card-text">Estado: <span th:text="${proyecto.estado.getNombre()}" class="badge bg-warning">Nuevo</span></p>
 
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h5 class="card-title">Proyecto de Pared</h5>
-                                <p class="card-text">Comienza un proyecto relacionado con las paredes de tu espacio.</p>
-                                <button type="submit" name="tipoProyecto" value="Pared" class="btn btn-primary">Elegir Pared</button>
+                        <!-- Sección para agregar un nuevo comentario -->
+                        <form id="comentarioForm" th:action="@{/nuevo-comentario}" method="POST" class="mt-4">
+                            <div class="mb-3">
+                                <label for="comentario" class="form-label">Agregar Comentario:</label>
+                                <textarea class="form-control" id="comentario" name="comentario" rows="3" placeholder="Escribe un comentario..." required></textarea>
                             </div>
-                        </div>
-                    </div>
+                            <input type="hidden" name="idProyecto" th:value="${proyecto.id}" />
+                            <button type="submit" class="btn btn-secondary">Comentar</button>
+                        </form>
 
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h5 class="card-title">Proyecto de Techo</h5>
-                                <p class="card-text">Comienza un proyecto relacionado con el techo de tu espacio.</p>
-                                <button type="submit" name="tipoProyecto" value="Techo" class="btn btn-primary">Elegir Techo</button>
+                        <!-- Comentarios de Profesionales -->
+                        <div class="comments mt-4">
+                            <h6>Comentarios</h6>
+                            <div id="comentariosList" th:each="comentario : ${proyecto.comentarios}">
+                                <div class="card mt-2">
+                                    <div class="card-body">
+                                        <p class="card-text" th:text="${comentario}"></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
-
+            </div>
         </div>
-
     </main>
-    <!-- /.container -->
+</div>
+
+<!-- Modal para Crear un Proyecto -->
+<div class="modal fade" id="createProjectModal" tabindex="-1" aria-labelledby="createProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/nuevo-proyecto}" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createProjectModalLabel">Crear un nuevo proyecto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Campos de entrada del proyecto -->
+                    <div class="mb-3">
+                        <label for="tipoProyecto" class="form-label">Tipo de Proyecto</label>
+                        <select class="form-select" id="tipoProyecto" name="tipoProyecto" required>
+                            <option value="Piso">Piso</option>
+                            <option value="Pared">Pared</option>
+                            <option value="Techo">Techo</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipoTrabajo" class="form-label">Tipo de Trabajo</label>
+                        <select class="form-select" id="tipoTrabajo" name="tipoTrabajo" required>
+                            <option value="Construccion">Construcción</option>
+                            <option value="Mantenimiento">Mantenimiento</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="realizadoPor" class="form-label">Realizado Por</label>
+                        <select class="form-select" id="realizadoPor" name="realizadoPor" required>
+                            <option value="Yo mismo">Yo mismo</option>
+                            <option value="Un profesional">Un profesional</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcionProyecto" class="form-label">Descripción del Proyecto</label>
+                        <textarea class="form-control" id="descripcionProyecto" name="descripcionProyecto" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Grabar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 
 <!-- Boostrap core js -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script>
+    $(document).ready(function() {
+        $('#comentarioForm').on('submit', function(event) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(), // Serializar los datos del formulario
+                success: function(comentarios) {
+                    $('#comentario').val(''); // Limpiar el textarea
+
+                    // Actualizar la lista de comentarios
+                    $('#comentariosList').empty(); // Limpiar la lista actual
+                    comentarios.forEach(function(comentario) {
+                        $('#comentariosList').append(
+                            `<div class="card mt-2"><div class="card-body"><p class="card-text">${comentario}</p></div></div>`
+                        );
+                    });
+                },
+                error: function() {
+                    alert('Error al agregar el comentario. Por favor, inténtalo de nuevo.');
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
