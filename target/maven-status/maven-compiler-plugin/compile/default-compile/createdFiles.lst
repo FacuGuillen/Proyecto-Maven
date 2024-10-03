@@ -17,6 +17,11 @@ com\tallerwebi\dominio\repositorio\RepositorioFormSatisfaction.class
 com\tallerwebi\dominio\TipoConsulta.class
 com\tallerwebi\presentacion\ControladorProyecto.class
 com\tallerwebi\dominio\Opcion.class
+<<<<<<< HEAD
+=======
+com\tallerwebi\infraestructura\RepositorioProyectoImpl.class
+com\tallerwebi\dominio\modelo\enums\EstadoProyecto.class
+>>>>>>> 39b6fdc7d4cfa8e990225b39072d201a9bcd8737
 com\tallerwebi\dominio\ServicioEstado.class
 com\tallerwebi\infraestructura\RepositorioProfesionalImpl.class
 com\tallerwebi\presentacion\DatosLogin.class

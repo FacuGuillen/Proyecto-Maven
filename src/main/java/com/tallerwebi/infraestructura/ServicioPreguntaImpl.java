@@ -1,6 +1,6 @@
 package com.tallerwebi.infraestructura;
 import com.tallerwebi.dominio.Pregunta;
-import com.tallerwebi.dominio.RepositorioPregunta;
+import com.tallerwebi.dominio.repositorio.RepositorioPregunta;
 import com.tallerwebi.dominio.ServicioPregunta;
 import com.tallerwebi.dominio.TipoProyecto;
 import org.springframework.beans.factory.annotation.Autowired;

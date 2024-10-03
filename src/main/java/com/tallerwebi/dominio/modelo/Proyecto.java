@@ -1,10 +1,9 @@
 package com.tallerwebi.dominio.modelo;
 
-import com.tallerwebi.dominio.TipoProyecto;
+import com.tallerwebi.dominio.modelo.enums.EstadoProyecto;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -14,15 +13,13 @@ public class Proyecto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
-
-    private TipoProyecto tipoProyecto;
+    private String nombreProyecto;
 
     private String descripcion;
 
-    private String tipoDeTrabajo;
+    private LocalDate fechaInicioProyecto;
 
-    private String realizadoPor;
+    private Boolean trabajoPresencial = false;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -32,11 +29,8 @@ public class Proyecto {
     @JoinColumn(name = "profesional_id")
     private Profesional profesional;
 
-    @ManyToOne
-    private Estado estado;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> comentarios = new ArrayList<>();
+    @Enumerated(EnumType.STRING) // Opcional: para almacenar el nombre del enum como string en la base de datos
+    private EstadoProyecto estadoProyecto;
 
 
     // Getters and Setters
@@ -44,20 +38,12 @@ public class Proyecto {
         return id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreProyecto() {
+        return nombreProyecto;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public TipoProyecto getTipoProyecto() {
-        return tipoProyecto;
-    }
-
-    public void setTipoProyecto(TipoProyecto tipoProyecto) {
-        this.tipoProyecto = tipoProyecto;
+    public void setNombreProyecto(String nombre) {
+        this.nombreProyecto = nombre;
     }
 
     public String getDescripcion() {
@@ -80,14 +66,6 @@ public class Proyecto {
         this.cliente = cliente;
     }
 
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
-
     public Profesional getProfesional() {
         return profesional;
     }
@@ -96,29 +74,30 @@ public class Proyecto {
         this.profesional = profesional;
     }
 
-    public List<String> getComentarios() {
-        return comentarios;
+    public Boolean getTrabajoPresencial() {
+        return trabajoPresencial;
     }
 
-    public void setComentarios(List<String> comentarios) {
-        this.comentarios = comentarios;
+    public void setTrabajoPresencial(Boolean trabajoPresencial) {
+        this.trabajoPresencial = trabajoPresencial;
     }
 
-    public String getTipoDeTrabajo() {
-        return tipoDeTrabajo;
+    public LocalDate getFechaInicioProyecto() {
+        return fechaInicioProyecto;
     }
 
-    public void setTipoDeTrabajo(String tipoDeTrabajo) {
-        this.tipoDeTrabajo = tipoDeTrabajo;
+    public void setFechaInicioProyecto(LocalDate fechaInicioProyecto) {
+        this.fechaInicioProyecto = fechaInicioProyecto;
     }
 
-    public String getRealizadoPor() {
-        return realizadoPor;
+    public EstadoProyecto getEstadoProyecto() {
+        return estadoProyecto;
     }
 
-    public void setRealizadoPor(String realizadoPor) {
-        this.realizadoPor = realizadoPor;
+    public void setEstadoProyecto(EstadoProyecto estadoProyecto) {
+        this.estadoProyecto = estadoProyecto;
     }
+
 
     // Hash and Equals
     @Override
@@ -126,12 +105,12 @@ public class Proyecto {
         if (this == o) return true;
         if (!(o instanceof Proyecto)) return false;
         Proyecto proyecto = (Proyecto) o;
-        return Objects.equals(getId(), proyecto.getId()) && Objects.equals(getNombre(), proyecto.getNombre()) && getTipoProyecto() == proyecto.getTipoProyecto() && Objects.equals(getDescripcion(), proyecto.getDescripcion()) && Objects.equals(getCliente(), proyecto.getCliente());
+        return Objects.equals(getId(), proyecto.getId()) && Objects.equals(getNombreProyecto(), proyecto.getNombreProyecto()) && Objects.equals(getDescripcion(), proyecto.getDescripcion()) && Objects.equals(getFechaInicioProyecto(), proyecto.getFechaInicioProyecto()) && Objects.equals(getTrabajoPresencial(), proyecto.getTrabajoPresencial()) && Objects.equals(getCliente(), proyecto.getCliente()) && Objects.equals(getProfesional(), proyecto.getProfesional()) && getEstadoProyecto() == proyecto.getEstadoProyecto();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNombre(), getTipoProyecto(), getDescripcion(), getCliente());
+        return Objects.hash(getId(), getNombreProyecto(), getDescripcion(), getFechaInicioProyecto(), getTrabajoPresencial(), getCliente(), getProfesional(), getEstadoProyecto());
     }
 }
 
