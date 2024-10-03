@@ -91,7 +91,7 @@ public class ControladorMaterialTest {
 
         ModelAndView modelAndView = controladorMaterial.mostrarMisPublicaciones();
 
-        assertThat(modelAndView.getViewName(), equalTo("mis-publicaciones"));
+        assertThat(modelAndView.getViewName(), equalTo("mis-materiales"));
         assertThat(modelAndView.getModel().get("materiales"), equalTo(listaMaterialesMock));
         verify(servicioMaterial, times(1)).listarMateriales();
     }

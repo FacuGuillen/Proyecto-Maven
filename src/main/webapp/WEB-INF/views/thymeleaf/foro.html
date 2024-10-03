@@ -35,7 +35,7 @@
                         <p class="card-text">Realizado por: <span th:text="${consulta.realizadoPor}"></span></p>
 
                         <!-- Sección para agregar un nuevo comentario -->
-                        <form id="comentarioForm" th:action="@{/nuevo-comentario}" method="POST" class="mt-4">
+                        <form id="comentarioForm" action="#" method="POST" class="mt-4">
                             <div class="mb-3">
                                 <label for="comentario" class="form-label">Agregar Comentario:</label>
                                 <textarea class="form-control" id="comentario" name="comentario" rows="3" placeholder="Escribe un comentario..." required></textarea>
@@ -47,10 +47,10 @@
                         <!-- Comentarios de Profesionales -->
                         <div class="comments mt-4">
                             <h6>Comentarios</h6>
-                            <div id="comentariosList" th:each="comentario : ${consulta.comentarios}">
+                            <div id="comentariosList" >
                                 <div class="card mt-2">
                                     <div class="card-body">
-                                        <p class="card-text" th:text="${comentario}"></p>
+                                        <p class="card-text" ></p>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
-<script>
+<!--<script>
     $(document).ready(function() {
         $('#comentarioForm').on('submit', function(event) {
             event.preventDefault(); // Evitar el envío del formulario por defecto
@@ -146,6 +146,6 @@
             });
         });
     });
-</script>
+</script>-->
 </body>
 </html>

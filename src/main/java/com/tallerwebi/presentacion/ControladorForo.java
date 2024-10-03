@@ -1,8 +1,8 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioConsulta;
-import com.tallerwebi.dominio.TipoConsulta;
-import com.tallerwebi.dominio.TipoTrabajo;
+import com.tallerwebi.dominio.modelo.enums.TipoConsulta;
+import com.tallerwebi.dominio.modelo.enums.TipoTrabajo;
 import com.tallerwebi.dominio.excepcion.UsuarioNoEncontrado;
 import com.tallerwebi.dominio.modelo.Consulta;
 import org.springframework.beans.factory.annotation.Autowired;

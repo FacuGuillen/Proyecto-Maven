@@ -20,6 +20,10 @@ public class RepositorioMaterialImpl implements RepositorioMaterial {
 
     @Override
     public void guardar(Material material) {
+        if(material.getNombre() == null || material.getCantidad() == null || material.getUnidad() == null){
+            // Puedes agregar más validaciones si es necesario
+            return;  // Esto luego puede reemplazarse con una excepción personalizada, ej: AtributoNullException
+        }
         this.sessionFactory.getCurrentSession().save(material);
     }
 

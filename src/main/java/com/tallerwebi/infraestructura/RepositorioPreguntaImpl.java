@@ -2,7 +2,7 @@ package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.Pregunta;
 import com.tallerwebi.dominio.repositorio.RepositorioPregunta;
-import com.tallerwebi.dominio.TipoProyecto;
+import com.tallerwebi.dominio.modelo.enums.TipoProyecto;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 

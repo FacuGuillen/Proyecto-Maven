@@ -2,7 +2,7 @@ package com.tallerwebi.infraestructura;
 import com.tallerwebi.dominio.Pregunta;
 import com.tallerwebi.dominio.repositorio.RepositorioPregunta;
 import com.tallerwebi.dominio.ServicioPregunta;
-import com.tallerwebi.dominio.TipoProyecto;
+import com.tallerwebi.dominio.modelo.enums.TipoProyecto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

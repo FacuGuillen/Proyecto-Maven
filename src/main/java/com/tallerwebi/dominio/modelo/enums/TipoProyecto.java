@@ -1,4 +1,4 @@
-package com.tallerwebi.dominio;
+package com.tallerwebi.dominio.modelo.enums;
 
 public enum TipoProyecto {
     TECHO, PARED, PISO

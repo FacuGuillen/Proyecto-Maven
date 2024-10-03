@@ -46,18 +46,41 @@ public class RepositorioMaterialImplTest {
         assertThat(materialObtenido, equalTo(material));
     }
 
-//    @Test
-//    @Transactional
-//    public void dadoQueIntentoGuardarMaterialConNombreNuloEntoncesFalla() {
-//        Material material = new Material();
-//        material.setNombre(null); // Nombre nulo
-//        material.setCantidad(100.0);
-//        material.setUnidad("kg");
-//
-//        assertThrows(Exception.class, () -> {
-//            this.repositorioMaterial.guardar(material);
-//        });
-//    }
+    @Test
+    @Transactional
+    public void dadoQueIntentoGuardarMaterialConNombreNuloEntoncesNoSeGuarda() {
+        Material material = new Material();
+        material.setNombre(null);  // Nombre nulo
+        material.setCantidad(100.0);
+        material.setUnidad("kg");
+
+        this.repositorioMaterial.guardar(material);
+
+        String hql = "FROM Material WHERE cantidad = :cantidad";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("cantidad", 100.0);
+        List<Material> resultados = query.getResultList();
+
+        assertThat(resultados.isEmpty(), equalTo(true));
+    }
+
+    @Test
+    @Transactional
+    public void dadoQueIntentoGuardarMaterialConUnidadNulaEntoncesNoSeGuarda() {
+        Material material = new Material();
+        material.setNombre("Cemento");
+        material.setCantidad(500.0);
+        material.setUnidad(null);  // Unidad nula
+
+        this.repositorioMaterial.guardar(material);
+
+        String hql = "FROM Material WHERE nombre = :nombre";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("nombre", "Cemento");
+        List<Material> resultados = query.getResultList();
+
+        assertThat(resultados.isEmpty(), equalTo(true));
+    }
 
     @Test
     @Transactional
@@ -148,20 +171,5 @@ public class RepositorioMaterialImplTest {
         assertThat(materiales.get(0).getNombre(), equalTo("Azulejo"));
     }
 
-//    @Test
-//    @Transactional
-//    public void dadoQueGuardoUnMaterialConUnidadNulaEntoncesFalla() {
-//        Material material = new Material();
-//        material.setNombre("Hormigón");
-//        material.setCantidad(500.0);
-//        material.setUnidad(null);  // Unidad nula
-//
-//        assertThrows(Exception.class, () -> {
-//            this.repositorioMaterial.guardar(material);
-//        });
-//    }
-
 
 }
-
-// Commit //
