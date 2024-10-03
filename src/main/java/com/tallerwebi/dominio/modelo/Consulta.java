@@ -4,6 +4,7 @@ import com.tallerwebi.dominio.modelo.enums.TipoConsulta;
 import com.tallerwebi.dominio.modelo.enums.TipoTrabajo;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,21 @@ public class Consulta {
     private Long id;
 
     private String descripcion;
+
+    private LocalDate fechaCreacion;
+
+    private TipoConsulta tipoConsulta;
+
+    private TipoTrabajo tipoTrabajo;
+
+    private String realizadoPor;
+
+    @ManyToOne
+    private Usuario usuario;
+
+    @OneToMany(mappedBy = "consulta", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Comentario> comentarios = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -27,19 +43,6 @@ public class Consulta {
         return descripcion;
     }
 
-    private TipoConsulta tipoConsulta;
-
-    private TipoTrabajo tipoTrabajo;
-
-    @ManyToOne
-    private Usuario usuario;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> comentarios = new ArrayList<>();
-
-    private String realizadoPor;
-
-
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
@@ -52,12 +55,12 @@ public class Consulta {
         this.usuario = usuario;
     }
 
-    public List<String> getComentarios() {
-        return comentarios;
+    public LocalDate getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setComentarios(List<String> comentarios) {
-        this.comentarios = comentarios;
+    public void setFechaCreacion(LocalDate fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public TipoConsulta getTipoConsulta() {
