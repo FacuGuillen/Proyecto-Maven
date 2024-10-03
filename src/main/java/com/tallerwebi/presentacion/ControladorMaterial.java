@@ -26,11 +26,16 @@ public class ControladorMaterial {
 
     }
     @RequestMapping( value = "/materiales" , method = RequestMethod.GET)
-    public ModelAndView mostrarMisPublicaciones() {
+    public ModelAndView mostrarMisMateriales() {
         List<Material> materiales = servicioMaterial.listarMateriales();
         return new ModelAndView("mis-materiales").addObject("materiales", materiales);
 
     }
+    @RequestMapping( value = "/misPublicaciones" , method = RequestMethod.GET)
+    public ModelAndView mostrarMisPublicaciones(){
+        return new ModelAndView("mis-publicaciones");
+    }
+
 
     @RequestMapping(value = "/nuevo-material", method = RequestMethod.GET)
     public ModelAndView crearMaterial() {

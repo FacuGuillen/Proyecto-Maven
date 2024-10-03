@@ -3,12 +3,10 @@ package com.tallerwebi.presentacion;
 import com.tallerwebi.dominio.*;
 import com.tallerwebi.dominio.modelo.enums.EstadoProyecto;
 import com.tallerwebi.dominio.modelo.Proyecto;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
@@ -36,27 +34,23 @@ public class ControladorProyecto {
         return modelAndView;
     }
 
+    // Método para mostrar el formulario para crear un nuevo proyecto
+    @RequestMapping(value = "/nuevo-proyecto", method = RequestMethod.GET)
+    public ModelAndView mostrarFormularioNuevoProyecto() {
+        ModelAndView modelAndView = new ModelAndView("nuevo-proyecto");
+        modelAndView.addObject("proyecto", new Proyecto()); // Crea un nuevo objeto Proyecto para el formulario
+        return modelAndView;
+    }
 
+    // Método para procesar la creación de un nuevo proyecto
     @RequestMapping(value = "/nuevo-proyecto", method = RequestMethod.POST)
-    public String crearNuevoProyecto(@RequestParam("nombreProyecto") String nombreProyecto,
-                                     @RequestParam("descripcionProyecto") String descripcion,
-                                     @RequestParam("fechaInicioProyecto") LocalDate fechaInicioProyecto,
-                                     @RequestParam("modoTrabajoProfesional") Boolean trabajoPresencial) {
-
-        //EstadoProyecto estadoProyecto = EstadoProyecto.valueOf(estadoProyectoStr.toUpperCase());
-        Proyecto proyecto = new Proyecto();
-
-        proyecto.setNombreProyecto(nombreProyecto);
-        proyecto.setDescripcion(descripcion);
-        proyecto.setFechaInicioProyecto(fechaInicioProyecto);
-        proyecto.setTrabajoPresencial(trabajoPresencial);
-        proyecto.setEstadoProyecto(EstadoProyecto.POR_INICIAR);
-
-        // Guardar el proyecto
-
-        servicioProyecto.guardarProyecto(proyecto);
-        // Redirigir a la vista de nuevo proyecto (evita el reenvío de formularios en F5)
-        return "redirect:/nuevo-proyecto";
+    public String crearNuevoProyecto(@ModelAttribute Proyecto proyecto) {
+        servicioProyecto.guardarProyecto(proyecto); // Llama al servicio para guardar el proyecto
+        return ("redirect:/proyectos"); // Redirige a la lista de proyectos después de guardar
+}
+    @RequestMapping(value = "/proyectos", method = RequestMethod.GET)
+    public ModelAndView motrarMisPublicaciones(){
+        return new ModelAndView("mis-proyectos");
     }
 
 }
