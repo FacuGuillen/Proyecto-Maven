@@ -34,6 +34,13 @@ public class RepositorioProyectoImpl implements RepositorioProyecto {
         return this.sessionFactory.getCurrentSession().get(Proyecto.class, idProyecto);
     }
 
+    @Override
+    public List<Proyecto> obtenerPorNombre() {
+        String hql = "From Proyecto";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        return query.getResultList();
+    }
+
 //    @Override
 //    public void actualizar(Proyecto proyecto) {
 //        String hql = "UPDATE Proyecto SET descripcion = :descripcion WHERE id = :id";
