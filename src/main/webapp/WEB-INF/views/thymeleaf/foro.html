@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!-- Incluir el fragmento del head -->
+<div th:replace="template/head"></div>
+
+<body>
+<!-- Incluir el fragmento del navbar -->
+<div th:replace="template/navbar"></div>
+
+<div class="contenedor-principal d-flex">
+    <!-- Incluir el fragmento del sidebar -->
+    <div th:replace="template/sidebar"></div>
+    <!-- Main content -->
+    <main role="main" class="container mt-3">
+        <!-- Project Creation Section -->
+        <div class="forum-style mt-5">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Crea una nueva consulta a la comunidad</h2>
+                    <p class="lead">¡Consulte y los profesionales le ayudarán a concretar un nuevo proyecto!</p>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createProjectModal">
+                        Consultar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Sección de Proyectos -->
+        <div class="project-list mt-5">
+            <!-- Mostrando los proyectos creados -->
+            <div th:each="consulta : ${consultas}">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${consulta.tipoConsulta} + ' - ' + ${consulta.tipoTrabajo}"></h5>
+                        <p class="card-text">Descripción: <span th:text="${consulta.descripcion}"></span></p>
+                        <p class="card-text">Realizado por: <span th:text="${consulta.realizadoPor}"></span></p>
+
+                        <!-- Sección para agregar un nuevo comentario -->
+                        <form id="comentarioForm" th:action="@{/nuevo-comentario}" method="POST" class="mt-4">
+                            <div class="mb-3">
+                                <label for="comentario" class="form-label">Agregar Comentario:</label>
+                                <textarea class="form-control" id="comentario" name="comentario" rows="3" placeholder="Escribe un comentario..." required></textarea>
+                            </div>
+                            <input type="hidden" name="idConsulta" th:value="${consulta.id}" />
+                            <button type="submit" class="btn btn-secondary">Comentar</button>
+                        </form>
+
+                        <!-- Comentarios de Profesionales -->
+                        <div class="comments mt-4">
+                            <h6>Comentarios</h6>
+                            <div id="comentariosList" th:each="comentario : ${consulta.comentarios}">
+                                <div class="card mt-2">
+                                    <div class="card-body">
+                                        <p class="card-text" th:text="${comentario}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Modal para Crear un Proyecto -->
+<div class="modal fade" id="createProjectModal" tabindex="-1" aria-labelledby="createProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/crear-consulta}" method="POST" th:object="${consulta}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createProjectModalLabel">Crear un nueva Consulta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Campos de entrada del proyecto -->
+                    <div class="mb-3">
+                        <label for="tipoConsulta" class="form-label">Tema</label>
+                        <select class="form-select" id="tipoConsulta" name="tipoConsulta" required>
+                            <option value="" disabled selected>Seleccione un tema</option>
+                            <option th:each="tipo : ${tipoConsultas}"
+                                    th:value="${tipo.name()}"
+                                    th:text="${tipo.getNombre()}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipoTrabajo" class="form-label">Tipo de Trabajo</label>
+                        <select class="form-select" id="tipoTrabajo" name="tipoTrabajo" required>
+                            <option value="" disabled selected>Seleccione un tipo</option>
+                            <option th:each="tipo : ${tipoTrabajos}"
+                                    th:value="${tipo.name()}"
+                                    th:text="${tipo.getNombre()}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="realizadoPor" class="form-label">Realizado Por</label>
+                        <select class="form-select" id="realizadoPor" th:field="*{realizadoPor}" required>
+                            <option value="" disabled selected>Seleccione quién quieres que resuelva el problema</option>
+                            <option value="Yo mismo">Yo mismo</option>
+                            <option value="Un profesional">Un profesional</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción del Problema o consulta</label>
+                        <textarea class="form-control" id="descripcion"  th:field="*{descripcion}" name="descripcion" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Grabar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Boostrap core js -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script>
+    $(document).ready(function() {
+        $('#comentarioForm').on('submit', function(event) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(), // Serializar los datos del formulario
+                success: function(comentarios) {
+                    $('#comentario').val(''); // Limpiar el textarea
+
+                    // Actualizar la lista de comentarios
+                    $('#comentariosList').empty(); // Limpiar la lista actual
+                    comentarios.forEach(function(comentario) {
+                        $('#comentariosList').append(
+                            `<div class="card mt-2"><div class="card-body"><p class="card-text">${comentario}</p></div></div>`
+                        );
+                    });
+                },
+                error: function() {
+                    alert('Error al agregar el comentario. Por favor, inténtalo de nuevo.');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

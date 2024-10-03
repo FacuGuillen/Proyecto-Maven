@@ -6,8 +6,7 @@
         </span>
         <a class="navbar-brand" th:href="@{/home}" >Maven</a>
         <div class="ml-auto d-flex align-items-center">
-            <span class="text-white mr-2" th:text="${nombreUsuario}"></span>
-            <i class="fas fa-user-circle icon" style="font-size: 30px; color:#cccccc;"></i>
+            <span class="text-white mr-2" th:text="${(nombreUsuario != null  &&  nombreUsuario != '') ? nombreUsuario : 'Iniciar sesión'}"></span>            <i class="fas fa-user-circle icon" style="font-size: 30px; color:#cccccc;"></i>
         </div>
     </div>
 </nav>

@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ControladorProyecto {
@@ -64,13 +61,13 @@ public class ControladorProyecto {
         proyecto.setRealizadoPor(realizadoPor);
         proyecto.setDescripcion(descripcion);
         proyecto.setEstado(estadoNuevo);
-        // Guardar el proyecto
+
         servicioProyecto.guardarProyecto(proyecto);
         // Redirigir a la vista de nuevo proyecto (evita el reenvío de formularios en F5)
         return "redirect:/nuevo-proyecto";
     }
 
-    // Agregar un comentario a un proyecto existente
+
     @RequestMapping(value = "/nuevo-comentario", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<List<String>> agregarComentario(@RequestParam("idProyecto") Long idProyecto,
@@ -80,7 +77,7 @@ public class ControladorProyecto {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Responder con 404 si no se encuentra el proyecto
         }
         proyecto.getComentarios().add(comentario);
-        servicioProyecto.guardarProyecto(proyecto);  // Guardar el proyecto actualizado
+        servicioProyecto.guardarProyecto(proyecto);
         return new ResponseEntity<>(proyecto.getComentarios(), HttpStatus.OK);  // Responder con los comentarios actualizados y 200 OK
     }
     @RequestMapping(value = "/proyectos", method = RequestMethod.GET)

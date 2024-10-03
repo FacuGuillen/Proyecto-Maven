@@ -25,11 +25,7 @@ public class ControladorLogin {
     }
 
     @RequestMapping(value = "/login" )
-    public ModelAndView irALogin(HttpServletRequest request) {
-
-        HttpSession session = request.getSession(false);
-        session.removeAttribute("name");
-
+    public ModelAndView irALogin() {
         ModelMap modelo = new ModelMap();
         modelo.put("datosLogin", new DatosLogin());
         return new ModelAndView("login", modelo);

@@ -55,6 +55,7 @@ public class ControladorLoginTest {
 
 		ModelAndView modelAndView = result.getModelAndView();
         assert modelAndView != null;
+		System.out.println("Contenido del modelo: " + modelAndView.getModel());
 		assertThat("redirect:/login", equalToIgnoringCase(Objects.requireNonNull(modelAndView.getViewName())));
 		/*assertThat(true, is(modelAndView.getModel().isEmpty()));*/
 	}
