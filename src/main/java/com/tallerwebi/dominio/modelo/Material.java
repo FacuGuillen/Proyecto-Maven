@@ -78,4 +78,6 @@ public class Material {
     public int hashCode() {
         return Objects.hash(getId(), getNombre(), getCantidad(), getUnidad(), getClienteMaterial());
     }
+
+
 }

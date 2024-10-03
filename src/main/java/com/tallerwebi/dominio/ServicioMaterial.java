@@ -10,7 +10,4 @@ public interface ServicioMaterial {
     void eliminarMaterial(Long id);
     void actualizarMaterial(Material material);
 
-    Object listarMaterialesSobrantes();
-
-    void agregarMaterialSobrante(Material any);
 }

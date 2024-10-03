@@ -1,31 +1,25 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.ServicioMaterialImpl;
+import com.tallerwebi.dominio.ServicioMaterial;
 import com.tallerwebi.dominio.modelo.Material;
 import com.tallerwebi.dominio.repositorio.RepositorioMaterial;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
+import org.mockito.Mockito;
 import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class ServicioMaterialImplTest {
 
-    @Mock
+    private ServicioMaterial servicioMaterial;
     private RepositorioMaterial repositorioMaterial;
 
-    @InjectMocks
-    private ServicioMaterialImpl servicioMaterial;
-
     @BeforeEach
-    public void init() {
-        MockitoAnnotations.openMocks(this);
+    public void setUp() {
+        repositorioMaterial = Mockito.mock(RepositorioMaterial.class);
+        servicioMaterial = new ServicioMaterialImpl(repositorioMaterial);
     }
 
     @Test

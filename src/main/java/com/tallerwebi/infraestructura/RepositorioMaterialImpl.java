@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class RepositorioMaterialImpl implements RepositorioMaterial {
 
@@ -28,6 +30,30 @@ public class RepositorioMaterialImpl implements RepositorioMaterial {
                 .createQuery(hql)
                 .setParameter("nombre", nombre)
                 .uniqueResult();
+    }
+
+    @Override
+    public Material buscarPorId(Long id) {
+        // Busca un material por su ID usando Hibernate
+        return sessionFactory.getCurrentSession().get(Material.class, id);
+    }
+
+    @Override
+    public List<Material> listar() {
+        // Lista todos los materiales en la base de datos usando HQL
+        return sessionFactory.getCurrentSession().createQuery("FROM Material", Material.class).list();
+    }
+
+    @Override
+    public void eliminar(Material material) {
+        // Elimina un material de la base de datos
+        sessionFactory.getCurrentSession().delete(material);
+    }
+
+    @Override
+    public void actualizar(Material material) {
+        // Actualiza un material en la base de datos
+        sessionFactory.getCurrentSession().update(material);
     }
 }
 

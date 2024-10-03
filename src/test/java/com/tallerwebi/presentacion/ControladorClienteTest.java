@@ -28,7 +28,7 @@ public class ControladorClienteTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-/*
+
     @Test
     public void testMostrarClientes() {
         List<Cliente> clientesMock = List.of(new Cliente(1L, "Juan Perez", "juan@mail.com", "123456789"));
@@ -41,7 +41,7 @@ public class ControladorClienteTest {
         verify(servicioCliente, times(1)).listarClientes();
     }
 
- */
+
 
     @Test
     public void testAgregarCliente() {
@@ -61,7 +61,7 @@ public class ControladorClienteTest {
 
         verify(servicioCliente, times(1)).guardarCliente(cliente);
     }
-/*
+
     @Test
     public void testEditarCliente() {
         Long clienteId = 1L;
@@ -74,7 +74,7 @@ public class ControladorClienteTest {
         assertThat(modelAndView.getModel().get("cliente"), equalTo(clienteMock));
         verify(servicioCliente, times(1)).buscarClientePorId(clienteId);
     }
-*/
+
     @Test
     public void testEliminarCliente() {
         Long clienteId = 1L;
