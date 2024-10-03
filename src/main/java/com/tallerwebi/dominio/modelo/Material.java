@@ -10,13 +10,10 @@ public class Material {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@Column(length = 100, nullable = false)
     private String nombre;
 
-    //@Column(nullable = false)
     private Double cantidad;
 
-    //@Column(nullable = false)
     private String unidad;
 
     @ManyToOne

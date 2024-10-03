@@ -1,7 +1,7 @@
 package com.tallerwebi.dominio.modelo;
 
-import com.tallerwebi.dominio.TipoConsulta;
-import com.tallerwebi.dominio.TipoTrabajo;
+import com.tallerwebi.dominio.modelo.enums.TipoConsulta;
+import com.tallerwebi.dominio.modelo.enums.TipoTrabajo;
 
 import javax.persistence.*;
 import java.util.ArrayList;
