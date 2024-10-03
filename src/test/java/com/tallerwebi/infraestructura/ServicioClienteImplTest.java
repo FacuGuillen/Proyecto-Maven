@@ -1,6 +1,5 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.ServicioClienteImpl;
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.repositorio.RepositorioCliente;
 import com.tallerwebi.dominio.ServicioCliente;

@@ -1,5 +1,6 @@
-package com.tallerwebi.dominio;
+package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.ServicioCliente;
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.repositorio.RepositorioCliente;
 import org.springframework.beans.factory.annotation.Autowired;
