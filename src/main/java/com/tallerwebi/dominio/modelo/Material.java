@@ -79,5 +79,12 @@ public class Material {
         return Objects.hash(getId(), getNombre(), getCantidad(), getUnidad(), getClienteMaterial());
     }
 
-
+    @Override
+    public String toString() {
+        return "Material{" +
+                "nombre='" + nombre + '\'' +
+                ", cantidad=" + cantidad +
+                ", unidad='" + unidad + '\'' +
+                '}';
+    }
 }

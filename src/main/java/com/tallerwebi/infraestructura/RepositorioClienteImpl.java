@@ -20,6 +20,11 @@ public class RepositorioClienteImpl implements RepositorioCliente {
 
     @Override
     public void guardar(Cliente cliente) {
+        if(cliente.getEmail()==null|| cliente.getNombre()==null || cliente.getTelefono()==null ){
+            // agregar mas atributos que no pueden ser null
+            return;
+            // el return hay que reemplazarlo por una expecion ej: atributoNullExceotion
+        }
         this.sessionFactory.getCurrentSession().save(cliente);
     }
 

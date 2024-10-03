@@ -98,31 +98,42 @@ public class RepositorioClienteImplTest {
         assertThat(clienteObtenido, equalTo(null));
     }
 
-//    @Test
-//    @Transactional
-//    public void dadoQueIntentoGuardarUnClienteConNombreNuloEntoncesFalla() {
-//        Cliente cliente = new Cliente();
-//        cliente.setNombre(null);
-//        cliente.setEmail("sinNombre@mail.com");
-//        cliente.setTelefono("111222333");
-//
-//        assertThrows(Exception.class, () -> {
-//            this.repositorioCliente.guardar(cliente);
-//        });
-//    }
-//
-//    @Test
-//    @Transactional
-//    public void dadoQueIntentoGuardarUnClienteConEmailNuloEntoncesFalla() {
-//        Cliente cliente = new Cliente();
-//        cliente.setNombre("Juan Carlos");
-//        cliente.setEmail(null);  // Email nulo
-//        cliente.setTelefono("123456789");
-//
-//        assertThrows(Exception.class, () -> {
-//            this.repositorioCliente.guardar(cliente);
-//        });
-//    }
+    @Test
+    @Transactional
+    public void dadoQueIntentoGuardarUnClienteConNombreNuloEntoncesNoSeGuarda() {
+        Cliente cliente = new Cliente();
+        cliente.setNombre(null);
+        cliente.setEmail("sinNombre@mail.com");
+        cliente.setTelefono("111222333");
+
+        this.repositorioCliente.guardar(cliente);
+
+        String hql = "FROM Cliente WHERE email = :email";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("email", "sinNombre@mail.com");
+        List<Cliente> resultados = query.getResultList();
+
+        assertThat(resultados.isEmpty(), equalTo(true));
+    }
+
+    @Test
+    @Transactional
+    public void dadoQueIntentoGuardarUnClienteConEmailNuloEntoncesNoSeGuarda() {
+        Cliente cliente = new Cliente();
+        cliente.setNombre("Juan Carlos");
+        cliente.setEmail(null);  // Email nulo
+        cliente.setTelefono("123456789");
+
+        this.repositorioCliente.guardar(cliente);
+
+
+        String hql = "FROM Cliente WHERE nombre = :nombre";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("nombre", "Juan Carlos");
+        List<Cliente> resultados = query.getResultList();
+
+        assertThat(resultados.isEmpty(), equalTo(true));
+    }
 
     @Test
     @Transactional
