@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class RepositorioClienteImpl implements RepositorioCliente {
 
@@ -28,6 +30,28 @@ public class RepositorioClienteImpl implements RepositorioCliente {
                 .createQuery(hql)
                 .setParameter("email", email)
                 .uniqueResult();
+    }
+
+    @Override
+    public List<Cliente> listar() {
+        return sessionFactory.getCurrentSession()
+                .createQuery("FROM Cliente", Cliente.class)
+                .getResultList();
+    }
+
+    @Override
+    public Cliente buscarPorId(Long id) {
+        return sessionFactory.getCurrentSession().get(Cliente.class, id);
+    }
+
+    @Override
+    public void eliminar(Cliente cliente) {
+        sessionFactory.getCurrentSession().delete(cliente);
+    }
+
+    @Override
+    public void actualizar(Cliente cliente) {
+        sessionFactory.getCurrentSession().update(cliente);
     }
 }
 
