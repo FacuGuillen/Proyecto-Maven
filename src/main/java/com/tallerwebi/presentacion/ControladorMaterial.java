@@ -44,7 +44,7 @@ public class ControladorMaterial {
     }
 
     @RequestMapping(value = "/actualizar-material", method = RequestMethod.POST)
-    public ModelAndView actualizarMaterial(Long materialId, String nombre, Double cantidad, String unidad) {
+    public ModelAndView actualizarMaterial(Long materialId, String nombre, Double cantidad, String unidad, Double precio) {
 
         Material material = servicioMaterial.buscarMaterialPorId(materialId);
 
@@ -54,6 +54,7 @@ public class ControladorMaterial {
         material.setNombre(nombre);
         material.setCantidad(cantidad);
         material.setUnidad(unidad);
+        material.setPrecio(precio);
 
         servicioMaterial.actualizarMaterial(material);
 

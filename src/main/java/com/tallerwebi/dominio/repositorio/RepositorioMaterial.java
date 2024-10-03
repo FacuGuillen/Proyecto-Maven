@@ -15,4 +15,6 @@ public interface RepositorioMaterial {
     void eliminar(Material material);
 
     void actualizar(Material material);
+
+    List<Material> filtrarMaterialPorNombre(String nombre);
 }
