@@ -2,9 +2,9 @@ name: integracion_continua
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["*"]
   push:
-    branches: ["main"]
+    branches: ["*"]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
