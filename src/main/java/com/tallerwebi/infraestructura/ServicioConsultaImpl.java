@@ -1,7 +1,7 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.ServicioConsulta;
-import com.tallerwebi.dominio.excepcion.UsuarioNoEncontrado;
+import com.tallerwebi.dominio.excepcion.UsuarioNoEncontradoException;
 import com.tallerwebi.dominio.modelo.Consulta;
 import com.tallerwebi.dominio.modelo.Usuario;
 import com.tallerwebi.dominio.repositorio.RepositorioConsulta;
@@ -25,20 +25,20 @@ public class ServicioConsultaImpl implements ServicioConsulta {
     }
 
     @Override
-    public void agregarConsulta(Long idUsuario, Consulta consulta) throws UsuarioNoEncontrado {
+    public void agregarConsulta(Long idUsuario, Consulta consulta) throws UsuarioNoEncontradoException {
         Usuario usuario = repositorioUsuario.findById(idUsuario);
         if(usuario == null){
-            throw new UsuarioNoEncontrado();
+            throw new UsuarioNoEncontradoException("El usuario no fue encontrado");
         }
         consulta.setUsuario(usuario);
         this.repositorioConsulta.save(consulta);
     }
 
     @Override
-    public List<Consulta> listarConsultasByIdUsuario(Long idUsuario) throws UsuarioNoEncontrado {
+    public List<Consulta> listarConsultasByIdUsuario(Long idUsuario) throws UsuarioNoEncontradoException {
         Usuario usuario = repositorioUsuario.findById(idUsuario);
         if(usuario == null){
-            throw new UsuarioNoEncontrado();
+            throw new UsuarioNoEncontradoException("El usuario no fue encontrado");
         }
         return repositorioConsulta.obtenerConsultasByUsuario(usuario);
     }
