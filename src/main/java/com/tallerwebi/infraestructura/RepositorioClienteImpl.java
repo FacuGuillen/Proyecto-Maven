@@ -1,5 +1,8 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.excepcion.ClienteConEmailNullException;
+import com.tallerwebi.dominio.excepcion.ClienteConNombreNullException;
+import com.tallerwebi.dominio.excepcion.ClienteConPasswordNullException;
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.repositorio.RepositorioCliente;
 import org.hibernate.SessionFactory;
@@ -20,10 +23,14 @@ public class RepositorioClienteImpl implements RepositorioCliente {
 
     @Override
     public void guardar(Cliente cliente) {
-        if(cliente.getEmail()==null|| cliente.getNombre()==null || cliente.getTelefono()==null ){
-            // agregar mas atributos que no pueden ser null
-            return;
-            // el return hay que reemplazarlo por una expecion ej: atributoNullExceotion
+        if(cliente.getNombre()==null){
+            throw new ClienteConNombreNullException("El nombre del cliente no puede ser nulo");
+        }
+        if (cliente.getEmail()==null){
+            throw new ClienteConEmailNullException("El email del cliente no puede ser nulo");
+        }
+        if (cliente.getPassword()==null){
+            throw new ClienteConPasswordNullException("El password del cliente no puede ser nulo");
         }
         this.sessionFactory.getCurrentSession().save(cliente);
     }

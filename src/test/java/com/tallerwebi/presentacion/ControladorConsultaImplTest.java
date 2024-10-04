@@ -1,7 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioConsulta;
-import com.tallerwebi.dominio.excepcion.UsuarioNoEncontrado;
+import com.tallerwebi.dominio.excepcion.UsuarioNoEncontradoException;
 import com.tallerwebi.dominio.modelo.Consulta;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ public class ControladorConsultaImplTest {
     }
 
     @Test
-    public void mostrarForoDeberiaListarConsultasCuandoUsuarioExiste() throws UsuarioNoEncontrado {
+    public void mostrarForoDeberiaListarConsultasCuandoUsuarioExiste() throws UsuarioNoEncontradoException {
         Long idUsuario = 1L;
         List<Consulta> consultas = new ArrayList<>();
         consultas.add(new Consulta());
@@ -70,7 +70,7 @@ public class ControladorConsultaImplTest {
     }
 
     @Test
-    public void crearConsultaDeberiaRedirigirACreacionCuandoConsultaEsExitosa() throws UsuarioNoEncontrado {
+    public void crearConsultaDeberiaRedirigirACreacionCuandoConsultaEsExitosa() throws UsuarioNoEncontradoException {
         Long idUsuario = 1L;
         Consulta consulta = new Consulta();
 
@@ -85,12 +85,12 @@ public class ControladorConsultaImplTest {
     }
 
     @Test
-    public void mostrarForoDeberiaRedirigirALoginCuandoUsuarioNoEsEncontrado() throws UsuarioNoEncontrado {
+    public void mostrarForoDeberiaRedirigirALoginCuandoUsuarioNoEsEncontrado() throws UsuarioNoEncontradoException {
         Long idUsuario = 1L;
 
         when(session.getAttribute("ID")).thenReturn(idUsuario);
 
-        when(servicioConsulta.listarConsultasByIdUsuario(idUsuario)).thenThrow(new UsuarioNoEncontrado());
+        when(servicioConsulta.listarConsultasByIdUsuario(idUsuario)).thenThrow(new UsuarioNoEncontradoException("El usuario no fue encontrado"));
 
         ModelAndView modelAndView = controladorForo.mostrarForo(request);
 
