@@ -52,15 +52,19 @@ public class ControladorLogin {
     }
 
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
-    public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario, @RequestParam("rol") String rol) {
+    public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario) {
         ModelMap model = new ModelMap();
         try{
+            String rol = usuario.getRol();
             Usuario nuevoUsuario;
             if ("cliente".equalsIgnoreCase(rol)) {
                 nuevoUsuario = new Cliente();
             } else if ("profesional".equalsIgnoreCase(rol)) {
                 nuevoUsuario = new Profesional();
-            } else {
+            } else if ("admin".equalsIgnoreCase(rol)) {  // Para roles como admin, permitir el registro sin crear entidad.
+                nuevoUsuario = usuario;
+            }
+            else {
                 model.put("error", "Tipo de usuario no válido.");
                 return new ModelAndView("nuevo-usuario", model);
             }

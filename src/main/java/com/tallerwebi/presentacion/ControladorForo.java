@@ -22,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,14 +39,15 @@ public class ControladorForo {
     @RequestMapping(value = "/consultas", method = RequestMethod.GET)
     public ModelAndView mostrarForo(
             HttpServletRequest request){
-        if (request == null || request.getSession() == null) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("ID") == null) {
             return new ModelAndView("redirect:/login");
         }
         ModelMap model = new ModelMap();
         Long idUsuario = (Long) request.getSession().getAttribute("ID");
-        List<Consulta> consultas = null;
+        List<Consulta> consultas = new ArrayList<>();
         try {
-            consultas = servicioConsulta.listarConsultasByIdUsuario(idUsuario);
+            consultas = servicioConsulta.getListado();
             System.out.println("Consultas: " + consultas);
             for (Consulta consulta : consultas) {
                 List<Comentario> comentarios = servicioComentario.listarComentariosByConsulta(consulta);
@@ -67,7 +70,8 @@ public class ControladorForo {
             @ModelAttribute("consulta") Consulta consulta,
             HttpServletRequest request
             ){
-        if (request == null || request.getSession() == null) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("ID") == null) {
 
             return ("redirect:/login");
         }
@@ -86,7 +90,8 @@ public class ControladorForo {
             HttpServletRequest request,
             RedirectAttributes redirectAttributes){
 
-        if (request == null || request.getSession() == null) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("ID") == null) {
             return new ModelAndView("redirect:/login");
         }
         Long idUsuario = (Long) request.getSession().getAttribute("ID");

@@ -45,6 +45,18 @@ public class Profesional extends Usuario {
         this.valoraciones = valoraciones;
     }
 
+    public String getEstrellas() {
+        StringBuilder estrellas = new StringBuilder();
+        for (int i = 1; i <= 5; i++) {
+            if (i <= calificacion) {
+                estrellas.append("<i class='fas fa-star star'></i> "); // Estrella llena
+            } else {
+                estrellas.append("<i class='far fa-star star'></i> "); // Estrella vacía
+            }
+        }
+        return estrellas.toString();
+    }
+
 
     //Hash and Equals
     @Override

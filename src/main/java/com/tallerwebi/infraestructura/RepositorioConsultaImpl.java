@@ -47,4 +47,18 @@ public class RepositorioConsultaImpl implements RepositorioConsulta {
         query.setParameter("id", consultaId);
         return (Consulta)query.getSingleResult();
     }
+
+    @Override
+    public List<Consulta> listarTodas() {
+        String hql = "FROM Consulta ORDER BY fechaCreacion DESC";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        List<Consulta> consultas = query.getResultList();
+
+        for (Consulta consulta : consultas) {
+            // Esto provocará que se carguen los comentarios de forma lazy
+            Hibernate.initialize(consulta.getComentarios());
+        }
+        return consultas;
+    }
+
 }

@@ -68,7 +68,7 @@ public class ControladorLoginTest {
 
 	@Test
 	public void registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin() throws UsuarioExistenteException {
-
+		when(usuarioMock.getRol()).thenReturn("admin");
 		// ejecucion
 		ModelAndView modelAndView = controladorLogin.registrarme(usuarioMock);
 
@@ -80,6 +80,7 @@ public class ControladorLoginTest {
 	@Test
 	public void registrarmeSiUsuarioExisteDeberiaVolverAFormularioYMostrarError() throws UsuarioExistenteException {
 		// preparacion
+		when(usuarioMock.getRol()).thenReturn("admin");
 		doThrow(UsuarioExistenteException.class).when(servicioLoginMock).registrar(usuarioMock);
 
 		// ejecucion
@@ -93,6 +94,7 @@ public class ControladorLoginTest {
 	@Test
 	public void errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError() throws UsuarioExistenteException {
 		// preparacion
+		when(usuarioMock.getRol()).thenReturn("admin");
 		doThrow(RuntimeException.class).when(servicioLoginMock).registrar(usuarioMock);
 
 		// ejecucion

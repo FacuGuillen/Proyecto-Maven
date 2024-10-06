@@ -25,7 +25,9 @@ public class RepositorioComentarioImpl implements RepositorioComentario {
 
     @Override
     public List<Comentario> getByConsulta(Consulta consulta) {
-        String hql = "FROM Comentario WHERE consulta=:consulta";
+        String hql = "SELECT c FROM Comentario c JOIN c.usuario u JOIN Profesional p ON u.id = p.id " +
+                "WHERE c.consulta = :consulta " +
+                "ORDER BY p.calificacion DESC, c.fechaCreacion DESC";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("consulta", consulta);
         return query.getResultList();

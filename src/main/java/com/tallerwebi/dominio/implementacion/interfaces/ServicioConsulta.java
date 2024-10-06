@@ -9,4 +9,6 @@ public interface ServicioConsulta {
     void agregarConsulta(Long idUsuario, Consulta consulta) throws UsuarioNoEncontradoException;
 
     List<Consulta> listarConsultasByIdUsuario(Long idUsuario) throws UsuarioNoEncontradoException;
+
+    List<Consulta> getListado();
 }

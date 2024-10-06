@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service("servicioComentario")
@@ -44,9 +45,10 @@ public class ServicioComentarioImpl  implements ServicioComentario {
         if(usuario instanceof Profesional){
             comentario.setConsulta(consulta);
             comentario.setUsuario(usuario);
+            comentario.setFechaCreacion(LocalDateTime.now());
             this.repositorioComentario.save(comentario);
         } else {
-            throw new UsuarioSinPermisosException("El suuario no tiene permiso para realizar un comentario");
+            throw new UsuarioSinPermisosException("El usuario no tiene permiso para realizar un comentario");
         }
 
     }

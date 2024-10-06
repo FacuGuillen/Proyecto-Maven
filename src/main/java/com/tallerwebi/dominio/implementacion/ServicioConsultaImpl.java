@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service("servicioConsulta")
@@ -31,6 +32,7 @@ public class ServicioConsultaImpl implements ServicioConsulta {
             throw new UsuarioNoEncontradoException("El usuario no fue encontrado");
         }
         consulta.setUsuario(usuario);
+        consulta.setFechaCreacion(LocalDateTime.now());
         this.repositorioConsulta.save(consulta);
     }
 
@@ -41,5 +43,10 @@ public class ServicioConsultaImpl implements ServicioConsulta {
             throw new UsuarioNoEncontradoException("El usuario no fue encontrado");
         }
         return repositorioConsulta.obtenerConsultasByUsuario(usuario);
+    }
+
+    @Override
+    public List<Consulta> getListado() {
+    return this.repositorioConsulta.listarTodas();
     }
 }

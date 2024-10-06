@@ -11,4 +11,6 @@ public interface RepositorioConsulta {
     List<Consulta> obtenerConsultasByUsuario(Usuario usuario);
 
     Consulta findById(Long consultaId);
+
+    List<Consulta> listarTodas();
 }

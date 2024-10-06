@@ -45,26 +45,27 @@ public class ControladorConsultaImplTest {
     }
 
     @Test
-    public void mostrarForoDeberiaListarConsultasCuandoUsuarioExiste() throws UsuarioNoEncontradoException {
+    public void mostrarForoDeberiaListarConsultasCuandoUsuarioEsteLogueado() throws UsuarioNoEncontradoException {
         Long idUsuario = 1L;
         List<Consulta> consultas = new ArrayList<>();
         consultas.add(new Consulta());
 
         // Simula que el usuario está en la sesión
         when(session.getAttribute("ID")).thenReturn(idUsuario);
+        when(request.getSession(false)).thenReturn(session);
 
         // Simula el comportamiento de servicioConsulta
-        when(servicioConsulta.listarConsultasByIdUsuario(idUsuario)).thenReturn(consultas);
+        when(servicioConsulta.getListado()).thenReturn(consultas);
 
         ModelAndView modelAndView = controladorForo.mostrarForo(request);
 
         assertThat(modelAndView.getViewName(), equalTo("foro"));
         assertThat(modelAndView.getModel().get("consultas"), is(consultas));
-        verify(servicioConsulta).listarConsultasByIdUsuario(idUsuario);
+        verify(servicioConsulta).getListado();
     }
 
     @Test
-    public void crearConsultaDeberiaRedirigirALogoutCuandoSessionEsNull() {
+    public void crearConsultaDeberiaRedirigirALoginCuandoSessionEsNull() {
         when(request.getSession()).thenReturn(null);
 
         String result = controladorForo.crearConsulta(new Consulta(), request);
@@ -78,6 +79,7 @@ public class ControladorConsultaImplTest {
         Consulta consulta = new Consulta();
 
         when(session.getAttribute("ID")).thenReturn(idUsuario);
+        when(request.getSession(false)).thenReturn(session);
 
         doNothing().when(servicioConsulta).agregarConsulta(idUsuario, consulta);
 
@@ -93,7 +95,7 @@ public class ControladorConsultaImplTest {
 
         when(session.getAttribute("ID")).thenReturn(idUsuario);
 
-        when(servicioConsulta.listarConsultasByIdUsuario(idUsuario)).thenThrow(new UsuarioNoEncontradoException("El usuario no fue encontrado"));
+        when(servicioConsulta.getListado()).thenThrow(new UsuarioNoEncontradoException("El usuario no fue encontrado"));
 
         ModelAndView modelAndView = controladorForo.mostrarForo(request);
 

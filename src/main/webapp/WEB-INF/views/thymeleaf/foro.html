@@ -13,7 +13,7 @@
     <!-- Main content -->
     <main role="main" class="container mt-3">
         <!-- Mensajes de éxito o error -->
-        <div class="container mt-3">
+        <div class="mt-3">
             <div th:if="${mensaje != null}" class="alert"
                  th:classappend="${tipoMensaje == 'success'} ? 'alert-success' : 'alert-danger'"
                  role="alert" id="alertMessage">
@@ -24,19 +24,19 @@
             </div>
         </div>
         <!-- Project Creation Section -->
-        <div class="forum-style mt-5">
+        <div class="forum-style">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h2>Crea una nueva consulta a la comunidad</h2>
                     <p class="lead">¡Consulte y los profesionales le ayudarán a concretar un nuevo proyecto!</p>
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createProjectModal">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createConsultaModal">
                         Consultar
                     </button>
                 </div>
             </div>
         </div>
         <!-- Sección de Proyectos -->
-        <div class="project-list mt-5">
+        <div class="project-list">
             <!-- Mostrando los proyectos creados -->
             <div th:each="consulta : ${consultas}">
                 <div class="card mt-4">
@@ -44,6 +44,7 @@
                         <h5 class="card-title" th:text="${consulta.tipoConsulta} + ' - ' + ${consulta.tipoTrabajo}"></h5>
                         <p class="card-text">Descripción: <span th:text="${consulta.descripcion}"></span></p>
                         <p class="card-text">Realizado por: <span th:text="${consulta.realizadoPor}"></span></p>
+                        <p class="card-text">Fecha: <span th:text="${consulta.getFechaCreacionFormateada()}"></span></p>
 
                         <!-- Sección para agregar un nuevo comentario -->
                         <form id="comentarioForm"  th:action="@{/agregarComentario}" method="POST" th:object="${comentario}" class="mt-4">
@@ -66,7 +67,10 @@
                                         <p class="card-text">
                                             <strong th:text="${comentario.usuario.getNombre()} + ':'"></strong>
                                             <span th:text="${comentario.descripcion}"></span>
+                                            Fecha: <span th:text="${comentario.getFechaCreacionFormateada()}"></span>
                                         </p>
+                                        <div th:utext="${comentario.usuario.getEstrellas()}"></div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -80,13 +84,13 @@
     </main>
 </div>
 
-<!-- Modal para Crear un Proyecto -->
-<div class="modal fade" id="createProjectModal" tabindex="-1" aria-labelledby="createProjectModalLabel" aria-hidden="true">
+<!-- Modal para Crear una Consulta -->
+<div class="modal fade" id="createConsultaModal" tabindex="-1" aria-labelledby="createConsultaModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form th:action="@{/crear-consulta}" method="POST" th:object="${consulta}">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createProjectModalLabel">Crear un nueva Consulta</h5>
+                    <h5 class="modal-title" id="createConsultaModalLabel">Crear un nueva Consulta</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -139,32 +143,5 @@
 <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
 <script type="text/javascript" th:src="@{/js/foro.js}"></script>
-<!--<script>
-    $(document).ready(function() {
-        $('#comentarioForm').on('submit', function(event) {
-            event.preventDefault(); // Evitar el envío del formulario por defecto
-
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: $(this).serialize(), // Serializar los datos del formulario
-                success: function(comentarios) {
-                    $('#comentario').val(''); // Limpiar el textarea
-
-                    // Actualizar la lista de comentarios
-                    $('#comentariosList').empty(); // Limpiar la lista actual
-                    comentarios.forEach(function(comentario) {
-                        $('#comentariosList').append(
-                            `<div class="card mt-2"><div class="card-body"><p class="card-text">${comentario}</p></div></div>`
-                        );
-                    });
-                },
-                error: function() {
-                    alert('Error al agregar el comentario. Por favor, inténtalo de nuevo.');
-                }
-            });
-        });
-    });
-</script>-->
 </body>
 </html>

@@ -4,6 +4,7 @@ package com.tallerwebi.dominio.modelo;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Comentario {
@@ -59,5 +60,12 @@ public class Comentario {
 
     public void setConsulta(Consulta consulta) {
         this.consulta = consulta;
+    }
+    public String getFechaCreacionFormateada() {
+        if (fechaCreacion != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            return fechaCreacion.format(formatter);
+        }
+        return null;
     }
 }
