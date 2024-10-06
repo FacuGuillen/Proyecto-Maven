@@ -34,10 +34,10 @@ public class ServicioProyectoImpl implements ServicioProyecto {
         return repositorioProyecto.obtenerPorId(idProyecto);
     }
 
-    @Override
-    public List<Proyecto> obtenerProyectosPorEstado(String nuevo) {
-        return repositorioProyecto.obtenerProyectosPorEstado(nuevo);
-    }
+//    @Override
+//    public List<Proyecto> obtenerProyectosPorEstado(String nuevo) {
+//        return repositorioProyecto.obtenerProyectosPorEstado(nuevo);
+//    }
 
 //    //Metodo del Scheduler
 //    @Scheduled(fixedRate = 86400000) // Cada 24 horas

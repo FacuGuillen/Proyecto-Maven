@@ -73,3 +73,39 @@ h1{
     display: block; /* Mostrar el sidebar cuando está activo */
     left: 0; /* Mostrar el sidebar cuando está activo */
 }
+
+
+/* Carrito compras */
+.carrito{
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.contenedor-carrito{
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.modal-carrito{
+    width: 300px;
+    height: 600px;
+    background-color: #ececec;
+    position: absolute;
+    z-index: 1;
+    border-radius: 15px;
+    left: 75%;
+    top: 62px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.titulo-popup-carrito{
+    text-align: center;
+}
+
+.display-none{
+    display: none;
+}
+

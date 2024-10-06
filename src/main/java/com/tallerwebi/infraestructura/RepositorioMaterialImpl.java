@@ -1,5 +1,6 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.modelo.FormSatisfaction;
 import com.tallerwebi.dominio.repositorio.RepositorioMaterial;
 import com.tallerwebi.dominio.modelo.Material;
 import org.hibernate.SessionFactory;
