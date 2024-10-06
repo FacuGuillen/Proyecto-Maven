@@ -1,6 +1,8 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioLogin;
+import com.tallerwebi.dominio.modelo.Cliente;
+import com.tallerwebi.dominio.modelo.Profesional;
 import com.tallerwebi.dominio.modelo.Usuario;
 import com.tallerwebi.dominio.excepcion.UsuarioExistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,19 +42,37 @@ public class ControladorLogin {
             request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
             request.getSession().setAttribute("ID", usuarioBuscado.getId());
             request.getSession().setAttribute("name", usuarioBuscado.getNombre());
+
             return new ModelAndView("redirect:/home");
+
         } else {
             model.put("error", "Usuario o clave incorrecta");
-
         }
         return new ModelAndView("login", model);
     }
 
     @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
-    public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario) {
+    public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario, @RequestParam("rol") String rol) {
         ModelMap model = new ModelMap();
         try{
-            servicioLogin.registrar(usuario);
+            Usuario nuevoUsuario;
+            if ("cliente".equalsIgnoreCase(rol)) {
+                nuevoUsuario = new Cliente();
+            } else if ("profesional".equalsIgnoreCase(rol)) {
+                nuevoUsuario = new Profesional();
+            } else {
+                model.put("error", "Tipo de usuario no válido.");
+                return new ModelAndView("nuevo-usuario", model);
+            }
+
+            nuevoUsuario.setNombre(usuario.getNombre());
+            nuevoUsuario.setApellido(usuario.getApellido());
+            nuevoUsuario.setEmail(usuario.getEmail());
+            nuevoUsuario.setPassword(usuario.getPassword());
+            nuevoUsuario.setRol(rol);
+
+            servicioLogin.registrar(nuevoUsuario);
+
         } catch (UsuarioExistenteException e){
             model.put("error", "El usuario ya existe");
             return new ModelAndView("nuevo-usuario", model);

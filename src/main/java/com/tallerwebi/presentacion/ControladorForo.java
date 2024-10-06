@@ -1,6 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.excepcion.ConsultaNoEncontradaException;
+import com.tallerwebi.dominio.excepcion.UsuarioSinPermisosException;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioComentario;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioConsulta;
 import com.tallerwebi.dominio.modelo.Comentario;
@@ -94,7 +95,7 @@ public class ControladorForo {
             servicioComentario.agregarComentario(consultaId, idUsuario, comentario);
             redirectAttributes.addFlashAttribute("mensaje", "Comentario agregado exitosamente.");
             redirectAttributes.addFlashAttribute("tipoMensaje", "success");
-        } catch (ConsultaNoEncontradaException | UsuarioNoEncontradoException e) {
+        } catch (ConsultaNoEncontradaException | UsuarioNoEncontradoException | UsuarioSinPermisosException e) {
             redirectAttributes.addFlashAttribute("mensaje",  e.getMessage());
             redirectAttributes.addFlashAttribute("tipoMensaje", "danger");
         }
