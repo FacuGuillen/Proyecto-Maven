@@ -3,10 +3,10 @@ package com.tallerwebi.infraestructura;
 import com.tallerwebi.dominio.modelo.Consulta;
 import com.tallerwebi.dominio.modelo.Usuario;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioConsulta;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.Query;
 import java.util.List;
 
@@ -30,6 +30,21 @@ public class RepositorioConsultaImpl implements RepositorioConsulta {
         String hql ="FROM Consulta WHERE usuario=: usuario ";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("usuario", usuario);
-        return query.getResultList();
+        List<Consulta> consultas = query.getResultList();
+
+        for (Consulta consulta : consultas) {
+            // Esto provocará que se carguen los comentarios de forma lazy
+            Hibernate.initialize(consulta.getComentarios());
+        }
+
+        return consultas;
+    }
+
+    @Override
+    public Consulta findById(Long consultaId) {
+        String hql= "FROM Consulta WHERE id=: id";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("id", consultaId);
+        return (Consulta)query.getSingleResult();
     }
 }

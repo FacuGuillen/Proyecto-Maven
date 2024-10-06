@@ -9,4 +9,6 @@ public interface RepositorioConsulta {
     void save(Consulta consulta);
 
     List<Consulta> obtenerConsultasByUsuario(Usuario usuario);
+
+    Consulta findById(Long consultaId);
 }

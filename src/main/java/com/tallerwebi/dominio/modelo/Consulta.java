@@ -86,4 +86,26 @@ public class Consulta {
     public void setRealizadoPor(String realizadoPor) {
         this.realizadoPor = realizadoPor;
     }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    @Override
+    public String toString() {
+        return "Consulta{" +
+                "id=" + id +
+                ", descripcion='" + descripcion + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", tipoConsulta=" + tipoConsulta +
+                ", tipoTrabajo=" + tipoTrabajo +
+                ", realizadoPor='" + realizadoPor + '\'' +
+                ", usuario=" + (usuario != null ? usuario.getNombre() : "null") +
+                ", comentarios=" + comentarios.size() +
+                '}';
+    }
 }

@@ -1,5 +1,6 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioComentario;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioConsulta;
 import com.tallerwebi.dominio.excepcion.UsuarioNoEncontradoException;
 import com.tallerwebi.dominio.modelo.Consulta;
@@ -21,13 +22,15 @@ import static org.mockito.Mockito.*;
 public class ControladorConsultaImplTest {
     private ControladorForo controladorForo;
     private ServicioConsulta servicioConsulta;
+    private ServicioComentario servicioComentario;
     private HttpServletRequest request;
     private HttpSession session;
 
     @BeforeEach
     public void init(){
         this.servicioConsulta = mock(ServicioConsulta.class);
-        this.controladorForo = new ControladorForo(this.servicioConsulta);
+        this.servicioComentario = mock(ServicioComentario.class);
+        this.controladorForo = new ControladorForo(this.servicioConsulta, this.servicioComentario);
         this.request = mock(HttpServletRequest.class);
         this.session = mock(HttpSession.class);
         when(request.getSession()).thenReturn(session);
@@ -66,7 +69,7 @@ public class ControladorConsultaImplTest {
 
         String result = controladorForo.crearConsulta(new Consulta(), request);
 
-        assertThat(result, equalTo("redirect:/logout"));
+        assertThat(result, equalTo("redirect:/login"));
     }
 
     @Test

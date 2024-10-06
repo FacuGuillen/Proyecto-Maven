@@ -12,6 +12,17 @@
     <div th:replace="template/sidebar"></div>
     <!-- Main content -->
     <main role="main" class="container mt-3">
+        <!-- Mensajes de éxito o error -->
+        <div class="container mt-3">
+            <div th:if="${mensaje != null}" class="alert"
+                 th:classappend="${tipoMensaje == 'success'} ? 'alert-success' : 'alert-danger'"
+                 role="alert" id="alertMessage">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span th:text="${mensaje}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
         <!-- Project Creation Section -->
         <div class="forum-style mt-5">
             <div class="row">
@@ -35,10 +46,11 @@
                         <p class="card-text">Realizado por: <span th:text="${consulta.realizadoPor}"></span></p>
 
                         <!-- Sección para agregar un nuevo comentario -->
-                        <form id="comentarioForm" action="#" method="POST" class="mt-4">
+                        <form id="comentarioForm"  th:action="@{/agregarComentario}" method="POST" th:object="${comentario}" class="mt-4">
+                            <input type="hidden" name="consultaId" th:value="${consulta.id}" />
                             <div class="mb-3">
                                 <label for="comentario" class="form-label">Agregar Comentario:</label>
-                                <textarea class="form-control" id="comentario" name="comentario" rows="3" placeholder="Escribe un comentario..." required></textarea>
+                                <textarea class="form-control" th:field="*{descripcion}" id="comentario" name="comentario" rows="3" placeholder="Escribe un comentario..." required></textarea>
                             </div>
                             <input type="hidden" name="idConsulta" th:value="${consulta.id}" />
                             <button type="submit" class="btn btn-secondary">Comentar</button>
@@ -47,13 +59,19 @@
                         <!-- Comentarios de Profesionales -->
                         <div class="comments mt-4">
                             <h6>Comentarios</h6>
-                            <div id="comentariosList" >
+                            <!-- Mostrando los comentarios asociados a esta consulta -->
+                            <div id="comentariosList" th:each="comentario : ${consulta.comentarios}">
                                 <div class="card mt-2">
                                     <div class="card-body">
-                                        <p class="card-text" ></p>
+                                        <p class="card-text">
+                                            <strong th:text="${comentario.usuario.getNombre()} + ':'"></strong>
+                                            <span th:text="${comentario.descripcion}"></span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Si no hay comentarios, mostrar mensaje -->
+                            <p th:if="${#lists.isEmpty(consulta.comentarios)}">No hay comentarios aún.</p>
                         </div>
                     </div>
                 </div>
@@ -120,6 +138,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/foro.js}"></script>
 <!--<script>
     $(document).ready(function() {
         $('#comentarioForm').on('submit', function(event) {
