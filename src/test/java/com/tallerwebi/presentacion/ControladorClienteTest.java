@@ -1,7 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.modelo.Cliente;
-import com.tallerwebi.dominio.ServicioCliente;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioCliente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

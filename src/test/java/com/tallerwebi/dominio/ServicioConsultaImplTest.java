@@ -1,11 +1,12 @@
 package com.tallerwebi.dominio;
 
 import com.tallerwebi.dominio.excepcion.UsuarioNoEncontradoException;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioConsulta;
 import com.tallerwebi.dominio.modelo.Consulta;
 import com.tallerwebi.dominio.modelo.Usuario;
-import com.tallerwebi.dominio.repositorio.RepositorioConsulta;
-import com.tallerwebi.dominio.repositorio.RepositorioUsuario;
-import com.tallerwebi.infraestructura.ServicioConsultaImpl;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioConsulta;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioUsuario;
+import com.tallerwebi.dominio.implementacion.ServicioConsultaImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

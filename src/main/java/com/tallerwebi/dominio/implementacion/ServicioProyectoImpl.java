@@ -1,15 +1,12 @@
-package com.tallerwebi.infraestructura;
+package com.tallerwebi.dominio.implementacion;
 
-import com.tallerwebi.dominio.ServicioProyecto;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioProyecto;
 import com.tallerwebi.dominio.modelo.Proyecto;
-import com.tallerwebi.dominio.modelo.enums.EstadoProyecto;
-import com.tallerwebi.dominio.repositorio.RepositorioProyecto;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioProyecto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service("servicioProyecto")

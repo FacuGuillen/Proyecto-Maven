@@ -1,4 +1,4 @@
-package com.tallerwebi.dominio.repositorio;
+package com.tallerwebi.dominio.implementacion.interfaces;
 
 import com.tallerwebi.dominio.modelo.Profesional;
 

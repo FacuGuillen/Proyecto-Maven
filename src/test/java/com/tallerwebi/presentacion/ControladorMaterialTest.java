@@ -3,7 +3,7 @@ package com.tallerwebi.presentacion;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
-import com.tallerwebi.dominio.ServicioMaterial;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioMaterial;
 import com.tallerwebi.dominio.modelo.Material;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

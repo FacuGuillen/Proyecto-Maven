@@ -1,8 +1,8 @@
-package com.tallerwebi.infraestructura;
+package com.tallerwebi.dominio.implementacion;
 
-import com.tallerwebi.dominio.ServicioEstado;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioEstado;
 import com.tallerwebi.dominio.modelo.Estado;
-import com.tallerwebi.dominio.repositorio.RepositorioEstado;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioEstado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package com.tallerwebi.dominio;
+package com.tallerwebi.dominio.implementacion.interfaces;
 
 import com.tallerwebi.dominio.modelo.Cliente;
 import java.util.List;
