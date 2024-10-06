@@ -18,6 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 
+import static com.tallerwebi.infraestructura.RepositorioClienteImplTest.crearClienteConDatos;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -82,14 +83,5 @@ public class RepositorioProyectoImplTest {
         profesional.setEmail("LionesScaloniCampeonDelMundoQatar2022");
         profesional.setTelefono("18122022");
         return profesional;
-    }
-
-    private Cliente crearClienteConDatos() {
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Lionel Andres");
-        cliente.setApellido("Messi");
-        cliente.setEmail("LeoMessiCampeonDelMundoQatar2022");
-        cliente.setTelefono("18122022");
-        return cliente;
     }
 }

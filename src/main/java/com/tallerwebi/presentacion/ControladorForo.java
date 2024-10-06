@@ -3,7 +3,7 @@ package com.tallerwebi.presentacion;
 import com.tallerwebi.dominio.ServicioConsulta;
 import com.tallerwebi.dominio.TipoConsulta;
 import com.tallerwebi.dominio.TipoTrabajo;
-import com.tallerwebi.dominio.excepcion.UsuarioNoEncontrado;
+import com.tallerwebi.dominio.excepcion.UsuarioNoEncontradoException;
 import com.tallerwebi.dominio.modelo.Consulta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +35,7 @@ public class ControladorForo {
         List<Consulta> consultas = null;
         try {
             consultas = servicioConsulta.listarConsultasByIdUsuario(idUsuario);
-        } catch (UsuarioNoEncontrado e) {
+        } catch (UsuarioNoEncontradoException e) {
             return new ModelAndView("redirect:/login");
         }
         model.put("consulta", new Consulta());
@@ -57,7 +57,7 @@ public class ControladorForo {
         Long idUsuario = (Long) request.getSession().getAttribute("ID");
         try {
             servicioConsulta.agregarConsulta(idUsuario, consulta);
-        } catch (UsuarioNoEncontrado e) {
+        } catch (UsuarioNoEncontradoException e) {
             return ("redirect:/logout");
         }
         return ("redirect:/consultas");

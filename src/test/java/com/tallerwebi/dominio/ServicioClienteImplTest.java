@@ -1,8 +1,8 @@
-package com.tallerwebi.infraestructura;
+package com.tallerwebi.dominio;
 
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.repositorio.RepositorioCliente;
-import com.tallerwebi.dominio.ServicioCliente;
+import com.tallerwebi.infraestructura.ServicioClienteImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
