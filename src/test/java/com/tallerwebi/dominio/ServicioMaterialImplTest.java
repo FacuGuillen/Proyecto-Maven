@@ -1,8 +1,9 @@
 package com.tallerwebi.dominio;
 
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioMaterial;
 import com.tallerwebi.dominio.modelo.Material;
-import com.tallerwebi.dominio.repositorio.RepositorioMaterial;
-import com.tallerwebi.infraestructura.ServicioMaterialImpl;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioMaterial;
+import com.tallerwebi.dominio.implementacion.ServicioMaterialImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

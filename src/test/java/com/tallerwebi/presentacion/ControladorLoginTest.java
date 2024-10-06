@@ -1,6 +1,6 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.ServicioLogin;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioLogin;
 import com.tallerwebi.dominio.modelo.Usuario;
 import com.tallerwebi.dominio.excepcion.UsuarioExistenteException;
 import org.junit.jupiter.api.BeforeEach;

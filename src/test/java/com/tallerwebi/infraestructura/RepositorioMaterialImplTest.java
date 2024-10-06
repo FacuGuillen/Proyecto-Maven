@@ -3,7 +3,7 @@ package com.tallerwebi.infraestructura;
 import com.tallerwebi.dominio.excepcion.MaterialConCantidadNullException;
 import com.tallerwebi.dominio.excepcion.MaterialConNombreNullException;
 import com.tallerwebi.dominio.excepcion.MaterialConUnidadNullException;
-import com.tallerwebi.dominio.repositorio.RepositorioMaterial;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioMaterial;
 import com.tallerwebi.dominio.modelo.Material;
 import com.tallerwebi.infraestructura.config.HibernateInfraestructuraTestConfig;
 import org.hibernate.SessionFactory;

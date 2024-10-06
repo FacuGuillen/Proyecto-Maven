@@ -4,7 +4,7 @@ import com.tallerwebi.dominio.excepcion.ClienteConEmailNullException;
 import com.tallerwebi.dominio.excepcion.ClienteConNombreNullException;
 import com.tallerwebi.dominio.excepcion.ClienteConPasswordNullException;
 import com.tallerwebi.dominio.modelo.Cliente;
-import com.tallerwebi.dominio.repositorio.RepositorioCliente;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioCliente;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

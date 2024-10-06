@@ -1,8 +1,8 @@
-package com.tallerwebi.infraestructura;
+package com.tallerwebi.dominio.implementacion;
 
-import com.tallerwebi.dominio.ServicioCliente;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioCliente;
 import com.tallerwebi.dominio.modelo.Cliente;
-import com.tallerwebi.dominio.repositorio.RepositorioCliente;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

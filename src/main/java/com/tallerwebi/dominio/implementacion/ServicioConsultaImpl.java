@@ -1,11 +1,11 @@
-package com.tallerwebi.infraestructura;
+package com.tallerwebi.dominio.implementacion;
 
-import com.tallerwebi.dominio.ServicioConsulta;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioConsulta;
 import com.tallerwebi.dominio.excepcion.UsuarioNoEncontradoException;
 import com.tallerwebi.dominio.modelo.Consulta;
 import com.tallerwebi.dominio.modelo.Usuario;
-import com.tallerwebi.dominio.repositorio.RepositorioConsulta;
-import com.tallerwebi.dominio.repositorio.RepositorioUsuario;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioConsulta;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,7 +1,7 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.modelo.Profesional;
-import com.tallerwebi.dominio.repositorio.RepositorioProfesional;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioProfesional;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;

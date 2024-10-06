@@ -1,7 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.modelo.Cliente;
-import com.tallerwebi.dominio.ServicioCliente;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

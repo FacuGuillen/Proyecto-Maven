@@ -1,6 +1,6 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.ServicioMaterial;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioMaterial;
 import com.tallerwebi.dominio.modelo.Material;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

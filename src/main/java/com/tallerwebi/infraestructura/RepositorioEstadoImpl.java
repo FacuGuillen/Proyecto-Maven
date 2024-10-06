@@ -1,7 +1,7 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.modelo.Estado;
-import com.tallerwebi.dominio.repositorio.RepositorioEstado;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioEstado;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
