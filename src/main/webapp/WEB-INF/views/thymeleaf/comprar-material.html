@@ -12,12 +12,23 @@
   <div th:replace="template/sidebar"></div>
   <!-- Main content -->
   <main role="main" class="container mt-3">
-    <h3>Mis Materiales</h3>
-    <button id="btnAgregar" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarMaterial">
-      <i class="fas fa-plus icon"></i> Agregar Material
-    </button>
-    <a th:href="@{/ofertar}" class="btn btn-primary"><i class="fas fa-hand-holding-usd icon"></i> Ofertar Material</a>
-    <button type="submit" name="buscar" class="btn btn-dark"><i class="fas fa-map-marker-alt icon"></i>Buscar Material</button>
+    <div class="buscador-productos">
+      <input class="input-buscador" type="text" placeholder="Buscar productos...">
+      <img class="img-buscador" th:src="@{/images/png/lupa.png}">
+    </div>
+    <div class="label-ordenar">
+      <label for="opcion">Ordenar por:</label>
+      <select id="opcion" name="opcion">
+        <option value="si">Mayor Precio</option>
+        <option value="no">Menor Precio</option>
+      </select>
+    </div>
+<!--    <h3>Mis Materiales</h3>-->
+<!--    <button id="btnAgregar" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarMaterial">-->
+<!--      <i class="fas fa-plus icon"></i> Agregar Material-->
+<!--    </button>-->
+<!--    <a th:href="@{/ofertar}" class="btn btn-primary"><i class="fas fa-hand-holding-usd icon"></i> Ofertar Material</a>-->
+<!--    <button type="submit" name="buscar" class="btn btn-dark"><i class="fas fa-map-marker-alt icon"></i>Buscar Material</button>-->
   </main>
   <!-- /main -->
   <!-- Modal para agregar material -->

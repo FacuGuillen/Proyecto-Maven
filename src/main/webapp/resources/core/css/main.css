@@ -80,7 +80,22 @@ h1{
     cursor: pointer;
     height: 30px;
     width: 30px;
-    cursor: pointer;
+    position: relative;
+}
+
+.count-products{
+    position: absolute;
+    top: 28px;
+    right: 149px;
+    background-color: #cccccc;
+    color: black;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 12px;
 }
 
 .contenedor-carrito{
@@ -105,7 +120,136 @@ h1{
     text-align: center;
 }
 
+.titulo-popup-carrito{
+    font-family: Arial;
+}
+
+/* Buscador compras */
+.buscador-productos {
+    position: relative;
+    margin: 0 auto;
+    display: flex; /* Usar flexbox para alinear elementos */
+    justify-content: center;
+    width: 600px;
+}
+
+.input-buscador {
+    padding: 10px;
+    padding-right: 35px; /* Espacio para la imagen de la lupa */
+    border-radius: 5px;
+    border: 0;
+    outline: none;
+    font-size: 1rem;
+    background-color: #cccccc;
+    width: 600px;
+}
+
+.img-buscador {
+    cursor: pointer;
+    width: 21px;
+    height: 21px;
+    margin-left: -30px; /* Mueve la imagen hacia la izquierda para que se superponga ligeramente */
+    align-self: center; /* Alinea la imagen verticalmente al centro */
+}
+
+.label-ordenar{
+    display: flex;
+    margin-right: 150px;
+    position: relative;
+    left: 90%;
+}
+
+.label-ordenar select{
+    border-radius: 5px;
+    margin-left: 10px;
+
+}
+
+
+
+
+
+
+
+.div-pausar-publicacion{
+    display: flex;
+    margin-right: 10px;
+}
+
+.btn-comentario{
+    position: absolute;
+    bottom: 0px;
+}
+
+.toggle-container {
+    width: 100px;
+    height: 40px;
+    background-color: #e0e0e0;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.toggle-button {
+    width: 50px;
+    height: 30px;
+    background-color: #4CAF50;
+    border-radius: 50px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+
+.toggle-container.active .toggle-button {
+    left: 45px; /* Cambia la posición del botón cuando está activo */
+    background-color: #f44336; /* Cambia el color del botón en estado activo */
+}
+
+.toggle-container.active #toggleText {
+    content: "No";
+}
+
+.div-btn-pausar{
+    position: absolute;
+    right: 15px;
+}
+
+/*.pp{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+
+
+
+
+
+
+
+
+
+/*.button-buscador{*/
+/*    background-color: #cccccc;*/
+/*    padding: 10px;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    border: 0;*/
+/*    bottom: 0;*/
+/*    right: 0;*/
+/*    margin: 0;*/
+/*    border-radius: 0 5px 5px 0;*/
+/*    color: white;*/
+/*    cursor: pointer;*/
+/*}*/
 .display-none{
     display: none;
 }
-
