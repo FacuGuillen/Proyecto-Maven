@@ -19,16 +19,11 @@
       <div class="col-md-6">
         <div class="card p-3 shadow-sm">
           <h4 class="mb-3">Publicar un material</h4>
-          <form th:action="@{/misPublicaciones}" method="POST">
+          <form th:action="@{/guardarPublicacion}" method="POST">
             <!-- Selección de material -->
             <div class="form-group">
-              <label for="materialSelect">Seleccionar Material</label>
-              <select class="form-control" id="materialSelect">
-                <option>Ladrillos</option>
-                <option>Cemento</option>
-                <option>Arena</option>
-                <!-- Lista dinámica de materiales del usuario -->
-              </select>
+              <label for="nombre">Escribe producto</label>
+              <input type="text" name="nombre" id="nombre" class="form-control" required>
             </div>
 
             <!-- Cargar imagen -->
@@ -40,12 +35,12 @@
             <!-- Precio y cantidad -->
             <div class="form-group mt-3">
               <label for="priceInput">Precio por unidad</label>
-              <input type="number" class="form-control" id="priceInput" placeholder="Ingresa el precio en $">
+              <input type="number" class="form-control" id="priceInput" placeholder="Ingresa el precio en $" step="0.01" min="0" name="precio">
             </div>
 
             <div class="form-group mt-3">
               <label for="quantityInput">Cantidad disponible</label>
-              <input type="number" class="form-control" id="quantityInput" placeholder="Cantidad disponible">
+              <input type="number" class="form-control" id="quantityInput" placeholder="Cantidad disponible" name="stock">
             </div>
 
             <!-- Botón de publicación -->

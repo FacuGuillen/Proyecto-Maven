@@ -19,9 +19,10 @@ public class ServicioPublicacionImpl implements ServicioPublicacion {
     @Autowired
     public ServicioPublicacionImpl(RepositorioPublicacion repositorioPublicacion) {this.repositorioPublicacion = repositorioPublicacion;}
 
+
     @Override
     public void guardarPublicacion(Publicacion publicacion) {
-        repositorioPublicacion.guardar(publicacion);
+        this.repositorioPublicacion.guardar(publicacion);
     }
 
 
