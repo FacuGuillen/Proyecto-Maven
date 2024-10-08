@@ -65,10 +65,10 @@ public class ControladorForo {
             @ModelAttribute("consulta") Consulta consulta,
             HttpServletRequest request
             ){
-        Long idUsuario = (Long) request.getSession().getAttribute("ID");
         if(!validarSesion(request)){
             return ("redirect:/login");
         }
+        Long idUsuario = (Long) request.getSession().getAttribute("ID");
 
         try {
             servicioConsulta.agregarConsulta(idUsuario, consulta);
@@ -83,11 +83,10 @@ public class ControladorForo {
             @RequestParam("consultaId") Long consultaId,
             HttpServletRequest request,
             RedirectAttributes redirectAttributes){
-
-        Long idUsuario = (Long) request.getSession().getAttribute("ID");
         if(!validarSesion(request)){
             return new ModelAndView("redirect:/login");
         }
+        Long idUsuario = (Long) request.getSession().getAttribute("ID");
         try {
             servicioComentario.agregarComentario(consultaId, idUsuario, comentario);
             redirectAttributes.addFlashAttribute("mensaje", "Comentario agregado exitosamente.");

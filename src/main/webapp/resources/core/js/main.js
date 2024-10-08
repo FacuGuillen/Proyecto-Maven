@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.useful-btn').forEach(button => {
         button.addEventListener('click', function() {
             let comentarioId = this.getAttribute('data-id');
+
+            //fecth permite realizar solicitudes HTTP de manera asíncrona
             fetch(`/spring/agregarUtil?comentarioId=${comentarioId}`, {
                 method: 'POST'
             })
@@ -37,8 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function destacarComentarioMasUtil() {
     // Obtener todos los comentarios
     const comentarios = document.querySelectorAll('#comentariosList .card');
-    let maxUtiles = -1; // Inicializar con un valor bajo
-    let comentarioMasUtil = null; // Inicializar el comentario más útil
+    let maxUtiles = -1;
+    let comentarioMasUtil = null;
 
     // Recorrer los comentarios para encontrar el que tiene más útiles
     comentarios.forEach(comentario => {
