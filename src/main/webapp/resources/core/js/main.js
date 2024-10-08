@@ -1,53 +1,57 @@
-let completedSteps = 0;
+const btn_carrito = document.getElementById("carrito");
+const modal_carrito = document.getElementById("modal-carrito");
+const contador_productos = document.querySelector(".contador-productos");
+let cantidadEnCarrito = 0;
 
-function toggleStep(element) {
-    element.classList.toggle('completed');
+// Función para agregar producto al carrito
+function agregarAlCarrito(productName, quantity) {
+    cantidadEnCarrito += parseInt(quantity); // Incrementar la cantidad en el carrito
+    contador_productos.textContent = cantidadEnCarrito; // Actualizar contador
+    mostrarModal(productName); // Mostrar modal con el nombre del producto
+}
 
-    if (element.classList.contains('completed')) {
-        completedSteps++;
+// Función para mostrar el modal
+function mostrarModal(productName) {
+    if (modal_carrito.classList.contains("display-none")) {
+        modal_carrito.classList.remove("display-none");
+        modal_carrito.classList.add("animate__animated", "animate__fadeIn");
+        modal_carrito.innerHTML = `<p class="titulo-popup-carrito"> Producto agregado: ${productName}</p>`; // Agregar nombre del producto al modal
     } else {
-        completedSteps--;
+        modal_carrito.classList.remove("animate__fadeIn");
+        modal_carrito.classList.add("animate__fadeOut");
+
+        modal_carrito.addEventListener('animationend', function() {
+            modal_carrito.classList.add("display-none");
+            modal_carrito.classList.remove("animate__animated", "animate__fadeOut");
+        }, { once: true });
     }
-
-    updateProgressBar();
 }
-function updateProgressBar() {
-    const totalSteps = document.querySelectorAll('.step').length; // Calcular dinámicamente el total de pasos
-    const totalMaterials = document.querySelectorAll('.table tbody tr').length; // Total de materiales
-    const checkedMaterials = document.querySelectorAll('.table tbody tr input:checked').length; // Materiales seleccionados
 
-    // Calcular el porcentaje basado en pasos y materiales
-    const percentage = Math.min((completedSteps / totalSteps) * 50 + (checkedMaterials / totalMaterials) * 50, 100);
-
-    const progressBar = document.getElementById('progressBar');
-    progressBar.style.width = percentage + '%';
-    progressBar.setAttribute('aria-valuenow', percentage);
-    progressBar.textContent = Math.round(percentage) + '%';
-
-    // Habilitar o deshabilitar el botón según el progreso
-    const btnComenzar = document.getElementById('btnComenzar');
-    btnComenzar.disabled = percentage !== 100;
-}
-function updateMaterialStatus(checkbox) {
-    if (checkbox.checked) {
-        checkbox.closest('tr').style.backgroundColor = '#d4edda';
-    } else {
-        checkbox.closest('tr').style.backgroundColor = ''; // Reinicia el fondo
-    }
-    updateProgressBar();
-}
-document.addEventListener('DOMContentLoaded', function() {
-
-    document.getElementById('menuToggle').onclick = function() {
-        let sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('active');
-    };
-
-    document.getElementById('commentToggleCemento').addEventListener('click', function() {
-        let commentsSection = document.getElementById('commentsCemento');
-        commentsSection.style.display = commentsSection.style.display === 'none' ? 'block' : 'none';
+// Evento para cada botón de agregar al carrito
+document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const productName = this.getAttribute('data-product-name');
+        const quantity = this.closest('.card-body').querySelector('select').value; // Obtener cantidad seleccionada
+        agregarAlCarrito(productName, quantity); // Llamar a la función para agregar al carrito
     });
 });
 
+// Código existente para manejar el modal
+modal_carrito.addEventListener('click', function(e) {
+    e.stopPropagation();
+});
+
+document.addEventListener("click", function(e) {
+    if (!modal_carrito.contains(e.target) && e.target !== btn_carrito && !modal_carrito.classList.contains("display-none")) {
+        modal_carrito.classList.remove("animate__fadeIn");
+        modal_carrito.classList.add("animate__fadeOut");
+
+        modal_carrito.addEventListener('animationend', function() {
+            modal_carrito.classList.add("display-none");
+            modal_carrito.classList.remove("animate__animated", "animate__fadeOut");
+        }, { once: true });
+    }
+});
 
 

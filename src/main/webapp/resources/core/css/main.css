@@ -76,6 +76,10 @@ h1{
 
 
 /* Carrito compras */
+.div-carrito{
+    position: relative;
+}
+
 .carrito{
     cursor: pointer;
     height: 30px;
@@ -85,8 +89,8 @@ h1{
 
 .count-products{
     position: absolute;
-    top: 28px;
-    right: 149px;
+    top: 20px;
+    right: -12px;
     background-color: #cccccc;
     color: black;
     width: 20px;
@@ -182,8 +186,8 @@ h1{
 }
 
 .toggle-container {
-    width: 100px;
-    height: 40px;
+    width: 90px;
+    height: 30px;
     background-color: #e0e0e0;
     border-radius: 20px;
     position: relative;
@@ -195,7 +199,7 @@ h1{
 
 .toggle-button {
     width: 50px;
-    height: 30px;
+    height: 21px;
     background-color: #4CAF50;
     border-radius: 50px;
     position: absolute;
@@ -209,9 +213,13 @@ h1{
     font-weight: bold;
 }
 
+#toggleText{
+    font-size: 12px;
+}
+
 .toggle-container.active .toggle-button {
-    left: 45px; /* Cambia la posición del botón cuando está activo */
-    background-color: #f44336; /* Cambia el color del botón en estado activo */
+    left: 34px;
+    background-color: #f44336;
 }
 
 .toggle-container.active #toggleText {
@@ -219,8 +227,15 @@ h1{
 }
 
 .div-btn-pausar{
-    position: absolute;
-    right: 15px;
+    margin-left: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-btn-pausar p{
+    margin-bottom: 5px;
 }
 
 /*.pp{*/
