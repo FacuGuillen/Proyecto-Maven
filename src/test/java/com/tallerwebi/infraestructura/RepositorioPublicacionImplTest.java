@@ -16,11 +16,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
 import javax.persistence.Query;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {HibernateInfraestructuraTestConfig.class})
@@ -62,6 +63,99 @@ public class RepositorioPublicacionImplTest {
     }
 
 
+    @Test
+    @Transactional
+    @Rollback
+    public void clienteCreaUnaPublicacionEnLaBaseDeDatosYLuegoLaEliminaSiLaPublicacionFueELiminadaDevuelveUnTrue(){
+        Cliente cliente = crearCliente();
+        repositorioCliente.guardar(cliente);
+
+        Publicacion publicacion = crearPublicacion(cliente);
+        repositorioPublicacion.guardar(publicacion);
+        repositorioPublicacion.eliminar(publicacion);
+
+        // Verificar que la publicación ya no existe en la base de datos
+        String hql = "FROM Publicacion p WHERE p.id = :publicacionId";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("publicacionId", publicacion.getId());
+
+        List<Publicacion> publicacionesObtenidas = query.getResultList();
+
+        // Aserción para verificar que la publicación fue eliminada
+        assertThat(publicacionesObtenidas, is(empty()));
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void clienteSubeUnaPublicacionALaBaseDeDatosYLuegoModificaElPrecioYSeGuardaEnLaBaseDeDatosElNuevoPrecio(){
+        Cliente cliente = crearCliente();
+        repositorioCliente.guardar(cliente);
+
+        Publicacion publicacion = crearPublicacion(cliente);
+        repositorioPublicacion.guardar(publicacion);
+
+        Double nuevoPrecio = 10.000;
+        publicacion.setPrecio(nuevoPrecio);
+        repositorioPublicacion.guardar(publicacion);
+
+        String hql = "FROM Publicacion p WHERE p.id = :publicacionId";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("publicacionId", publicacion.getId());
+
+        Publicacion publicacionActualizada = (Publicacion) query.getSingleResult();
+
+        // 5. Verificar que el precio se ha actualizado correctamente
+        assertThat(publicacionActualizada.getPrecio(), equalTo(nuevoPrecio));
+    }
+
+
+    @Test
+    @Transactional
+    @Rollback
+    public void dadoQueUnClienteSubeUnaPublicacionALaBaseDeDatosYLuegoQuierePausarEsaPublicacionDevuelveTrue(){
+        Cliente cliente = crearCliente();
+        repositorioCliente.guardar(cliente);
+
+        Publicacion publicacion = crearPublicacion(cliente);
+        repositorioPublicacion.guardar(publicacion);
+
+        publicacion.setPublicacionPausada(Boolean.TRUE);
+        repositorioPublicacion.guardar(publicacion);
+
+        String hql = "FROM Publicacion p WHERE p.id = :publicacionId";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("publicacionId", publicacion.getId());
+
+        Publicacion publicacionPausada = (Publicacion) query.getSingleResult();
+
+        // 5. Verificar que la publicación está pausada
+        assertThat(publicacionPausada.getPublicacionPausada(), is(true));
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void dadoQueUnClienteCreaVariasPublicacionesEntoncesPuedoListarlasTodas(){
+        Cliente cliente = crearCliente();
+        repositorioCliente.guardar(cliente);
+
+        Publicacion publicacion = crearPublicacion(cliente);
+        repositorioPublicacion.guardar(publicacion);
+
+        Publicacion publicacion2 = crearPublicacionNueva(cliente);
+        repositorioPublicacion.guardar(publicacion2);
+
+        List<Publicacion> publicacionesObtenidaDelCliente = repositorioPublicacion.listarPublicacionPorCliente(cliente);
+
+        assertThat(publicacionesObtenidaDelCliente, hasSize(2)); // Verifica que hay 2 publicaciones
+        assertThat(publicacionesObtenidaDelCliente.stream().map(Publicacion::getNombre).collect(Collectors.toList()),
+                containsInAnyOrder("Cemento", "Ladrillo"));
+    }
+
+
+
 
 
     // Metodos
@@ -71,6 +165,7 @@ public class RepositorioPublicacionImplTest {
         cliente.setApellido("Messi");
         cliente.setEmail("LeoMessiCampeonDelMundoQatar2022");
         cliente.setTelefono("18122022");
+        cliente.setPassword("1234");
         return cliente;
     }
 
@@ -81,6 +176,18 @@ public class RepositorioPublicacionImplTest {
         publicacion.setPrecio(15.000);
         publicacion.setClientePublicacion(cliente);
         publicacion.setFechaInicioPublicacion(LocalDate.now());
+        publicacion.setPublicacionPausada(Boolean.FALSE);
+        return publicacion;
+    }
+
+    private Publicacion crearPublicacionNueva(Cliente cliente){
+        Publicacion publicacion = new Publicacion();
+        publicacion.setNombre("Ladrillo");
+        publicacion.setStock(100);
+        publicacion.setPrecio(8.000);
+        publicacion.setClientePublicacion(cliente);
+        publicacion.setFechaInicioPublicacion(LocalDate.now());
+        publicacion.setPublicacionPausada(Boolean.FALSE);
         return publicacion;
     }
 }

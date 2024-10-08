@@ -8,4 +8,5 @@ public interface RepositorioPublicacion {
     void guardar(Publicacion publicacion);
     List<Publicacion> listarPublicacionPorCliente(Cliente cliente);
 
+    void eliminar(Publicacion publicacion);
 }

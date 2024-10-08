@@ -20,16 +20,15 @@ public class ControladorMaterial {
         this.servicioMaterial = servicioMaterial;
     }
 
-    @RequestMapping(value = "/ofertar", method = RequestMethod.GET)
-    public ModelAndView ofertarMateriales() {
-        return new ModelAndView("ofertar-material");
-
-    }
+//    @RequestMapping(value = "/ofertar", method = RequestMethod.GET)
+//    public ModelAndView ofertarMateriales() {
+//        return new ModelAndView("ofertar-material");
+//
+//    }
     @RequestMapping( value = "/materiales" , method = RequestMethod.GET)
     public ModelAndView mostrarMisMateriales() {
         List<Material> materiales = servicioMaterial.listarMateriales();
         return new ModelAndView("mis-materiales").addObject("materiales", materiales);
-
     }
     @RequestMapping( value = "/misPublicaciones" , method = RequestMethod.GET)
     public ModelAndView mostrarMisPublicaciones(){

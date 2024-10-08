@@ -28,6 +28,13 @@ public class Publicacion {
     private Cliente clientePublicacion;
 
 
+    // Constructor
+    public Publicacion() {
+        this.fechaInicioPublicacion = LocalDate.now();
+        this.publicacionPausada = Boolean.FALSE;
+    }
+
+
     // Getters and Setters
     public Long getId() {
         return id;

@@ -2,8 +2,8 @@ package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioPublicacion;
 import com.tallerwebi.dominio.modelo.Cliente;
-import com.tallerwebi.dominio.modelo.Profesional;
 import com.tallerwebi.dominio.modelo.Publicacion;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,9 +20,9 @@ public class RepositorioPublicacionImpl implements RepositorioPublicacion {
 
     @Override
     public void guardar(Publicacion publicacion) {
-        if (publicacion.getNombre() == null || publicacion.getStock() == null || publicacion.getStock() == 0 || publicacion.getPrecio() == null || publicacion.getPublicacionPausada() == null){
-            this.sessionFactory.getCurrentSession().save(publicacion);
-        }
+//        if (publicacion.getNombre() == null || publicacion.getStock() == null || publicacion.getStock() == 0 || publicacion.getPrecio() == null || publicacion.getPublicacionPausada() == null){
+//            return;
+//        }
         this.sessionFactory.getCurrentSession().save(publicacion);
     }
 
@@ -34,6 +34,8 @@ public class RepositorioPublicacionImpl implements RepositorioPublicacion {
                 .list();
     }
 
-
-
+    @Override
+    public void eliminar(Publicacion publicacion) {
+        this.sessionFactory.getCurrentSession().delete(publicacion);
+    }
 }

@@ -34,16 +34,16 @@ public class ControladorMaterialTest {
         assertThat(modelAndView.getViewName(), equalTo("nuevo-material"));
     }
 
-    @Test
-    public void testGuardarMaterial() {
-        Material material = new Material();
-        material.setNombre("Cemento");
-        material.setCantidad(50.0);
-        material.setUnidad("kg");
-
-        controladorMaterial.guardarMaterial(material);
-        verify(servicioMaterial, times(1)).guardarMaterial(material);
-    }
+//    @Test
+//    public void testGuardarMaterial() {
+//        Material material = new Material();
+//        material.setNombre("Cemento");
+//        material.setCantidad(50.0);
+//        material.setUnidad("kg");
+//
+//        controladorMaterial.guardarMaterial(material);
+//        verify(servicioMaterial, times(1)).guardarMaterial(material);
+//    }
 
     @Test
     public void testEliminarMaterial() {

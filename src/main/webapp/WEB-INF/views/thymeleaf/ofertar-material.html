@@ -19,39 +19,21 @@
       <div class="col-md-6">
         <div class="card p-3 shadow-sm">
           <h4 class="mb-3">Publicar un material</h4>
-          <form th:action="@{/misPublicaciones}" method="POST">
-            <!-- Selección de material -->
+<!--          <form th:action="@{/misPublicaciones}" method="POST">-->
+          <form th:action="@{/guardarPublicacion}" method="POST">
             <div class="form-group">
-              <label for="materialSelect">Seleccionar Material</label>
-              <select class="form-control" id="materialSelect">
-                <option>Ladrillos</option>
-                <option>Cemento</option>
-                <option>Arena</option>
-                <!-- Lista dinámica de materiales del usuario -->
-              </select>
+              <label for="nombreInput">Nombre</label>
+              <input type="text" class="form-control" id="nombreInput" name="nombre" required>
             </div>
-
-            <!-- Cargar imagen -->
-            <div class="form-group mt-3">
-              <label for="materialImage">Adjuntar Imagen</label>
-              <input type="file" class="form-control" id="materialImage" accept="image/*">
+            <div class="form-group">
+              <label for="precioInput">Precio</label>
+              <input type="number" class="form-control" id="precioInput" name="precio" required>
             </div>
-
-            <!-- Precio y cantidad -->
-            <div class="form-group mt-3">
-              <label for="priceInput">Precio por unidad</label>
-              <input type="number" class="form-control" id="priceInput" placeholder="Ingresa el precio en $">
+            <div class="form-group">
+              <label for="stockInput">Stock</label>
+              <input type="number" class="form-control" id="stockInput" name="stock" required>
             </div>
-
-            <div class="form-group mt-3">
-              <label for="quantityInput">Cantidad disponible</label>
-              <input type="number" class="form-control" id="quantityInput" placeholder="Cantidad disponible">
-            </div>
-
-            <!-- Botón de publicación -->
-            <button type="submit"  class="btn btn-primary mt-3 w-100">
-              <i class="fas fa-upload"></i> Publicar
-            </button>
+            <button type="submit" class="btn btn-primary">Publicar</button>
           </form>
         </div>
       </div>
