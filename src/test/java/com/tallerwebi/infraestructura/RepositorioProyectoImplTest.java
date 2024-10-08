@@ -1,10 +1,12 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioCliente;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioProfesional;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioProyecto;
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.modelo.enums.EstadoProyecto;
 import com.tallerwebi.dominio.modelo.Profesional;
 import com.tallerwebi.dominio.modelo.Proyecto;
-import com.tallerwebi.dominio.repositorio.*;
 import com.tallerwebi.infraestructura.config.HibernateInfraestructuraTestConfig;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 
+import static com.tallerwebi.infraestructura.RepositorioClienteImplTest.crearClienteConDatos;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -82,14 +85,5 @@ public class RepositorioProyectoImplTest {
         profesional.setEmail("LionesScaloniCampeonDelMundoQatar2022");
         profesional.setTelefono("18122022");
         return profesional;
-    }
-
-    private Cliente crearClienteConDatos() {
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Lionel Andres");
-        cliente.setApellido("Messi");
-        cliente.setEmail("LeoMessiCampeonDelMundoQatar2022");
-        cliente.setTelefono("18122022");
-        return cliente;
     }
 }

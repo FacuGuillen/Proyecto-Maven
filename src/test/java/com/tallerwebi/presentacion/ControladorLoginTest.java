@@ -1,8 +1,8 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.ServicioLogin;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioLogin;
 import com.tallerwebi.dominio.modelo.Usuario;
-import com.tallerwebi.dominio.excepcion.UsuarioExistente;
+import com.tallerwebi.dominio.excepcion.UsuarioExistenteException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.ModelAndView;
@@ -67,8 +67,8 @@ public class ControladorLoginTest {
 	}
 
 	@Test
-	public void registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin() throws UsuarioExistente {
-
+	public void registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin() throws UsuarioExistenteException {
+		when(usuarioMock.getRol()).thenReturn("admin");
 		// ejecucion
 		ModelAndView modelAndView = controladorLogin.registrarme(usuarioMock);
 
@@ -78,9 +78,10 @@ public class ControladorLoginTest {
 	}
 
 	@Test
-	public void registrarmeSiUsuarioExisteDeberiaVolverAFormularioYMostrarError() throws UsuarioExistente {
+	public void registrarmeSiUsuarioExisteDeberiaVolverAFormularioYMostrarError() throws UsuarioExistenteException {
 		// preparacion
-		doThrow(UsuarioExistente.class).when(servicioLoginMock).registrar(usuarioMock);
+		when(usuarioMock.getRol()).thenReturn("admin");
+		doThrow(UsuarioExistenteException.class).when(servicioLoginMock).registrar(usuarioMock);
 
 		// ejecucion
 		ModelAndView modelAndView = controladorLogin.registrarme(usuarioMock);
@@ -91,8 +92,9 @@ public class ControladorLoginTest {
 	}
 
 	@Test
-	public void errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError() throws UsuarioExistente {
+	public void errorEnRegistrarmeDeberiaVolverAFormularioYMostrarError() throws UsuarioExistenteException {
 		// preparacion
+		when(usuarioMock.getRol()).thenReturn("admin");
 		doThrow(RuntimeException.class).when(servicioLoginMock).registrar(usuarioMock);
 
 		// ejecucion

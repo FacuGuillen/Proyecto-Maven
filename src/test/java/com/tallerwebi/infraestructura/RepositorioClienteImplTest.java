@@ -1,10 +1,14 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.excepcion.ClienteConEmailNullException;
+import com.tallerwebi.dominio.excepcion.ClienteConNombreNullException;
+import com.tallerwebi.dominio.excepcion.ClienteConPasswordNullException;
+import com.tallerwebi.dominio.implementacion.interfaces.*;
 import com.tallerwebi.dominio.modelo.*;
 import com.tallerwebi.dominio.modelo.enums.EstadoProyecto;
-import com.tallerwebi.dominio.repositorio.*;
 import com.tallerwebi.infraestructura.config.HibernateInfraestructuraTestConfig;
 import org.hibernate.SessionFactory;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,16 +51,13 @@ public class RepositorioClienteImplTest {
     @Transactional
     @Rollback
     public void dadoQueExisteUnRepositorioClienteCuandoGuardoUnClienteEntoncesLoEncuentroEnLaBaseDeDatos(){
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Juan Perez");
-        cliente.setEmail("juanperez@mail.com");
-        cliente.setTelefono("123456789");
+        Cliente cliente = crearClienteConDatos();
 
         this.repositorioCliente.guardar(cliente);
 
         String hql = "FROM Cliente WHERE email = :email";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("email", "juanperez@mail.com");
+        query.setParameter("email", "LeoMessiCampeonDelMundoQatar2022");
         Cliente clienteObtenido = (Cliente) query.getSingleResult();
 
         assertThat(clienteObtenido, equalTo(cliente));
@@ -69,6 +70,7 @@ public class RepositorioClienteImplTest {
         Cliente cliente = new Cliente();
         cliente.setNombre("Ana Gomez");
         cliente.setEmail("anagomez@mail.com");
+        cliente.setPassword("pasword123");
         cliente.setTelefono("");  // Teléfono vacío
 
         this.repositorioCliente.guardar(cliente);
@@ -81,7 +83,7 @@ public class RepositorioClienteImplTest {
     @Transactional
     @Rollback
     public void dadoQueActualizoUnClienteEntoncesLosDatosSeActualizanEnLaBase() {
-        Cliente cliente = crearCliente("Carlos Ruiz", "carlos@mail.com", "987654321");
+        Cliente cliente = crearCliente("Carlos Ruiz", "carlos@mail.com", "987654321", "password123");
         cliente.setNombre("Carlos Ruiz Actualizado");
 
         this.repositorioCliente.guardar(cliente);
@@ -100,47 +102,41 @@ public class RepositorioClienteImplTest {
 
     @Test
     @Transactional
-    public void dadoQueIntentoGuardarUnClienteConNombreNuloEntoncesNoSeGuarda() {
-        Cliente cliente = new Cliente();
-        cliente.setNombre(null);
-        cliente.setEmail("sinNombre@mail.com");
-        cliente.setTelefono("111222333");
+    public void dadoQueIntentoGuardarUnClienteConNombreNuloEntoncesArrojaLaExcepcionClienteConNombreNullException() {
+        Cliente cliente = crearClienteConNombreNullParaQueLanceLaClienteConNombreNullException();
 
-        this.repositorioCliente.guardar(cliente);
+        assertThrows(ClienteConNombreNullException.class, () -> {
+            this.repositorioCliente.guardar(cliente);
+        });
 
-        String hql = "FROM Cliente WHERE email = :email";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("email", "sinNombre@mail.com");
-        List<Cliente> resultados = query.getResultList();
-
-        assertThat(resultados.isEmpty(), equalTo(true));
     }
 
     @Test
     @Transactional
-    public void dadoQueIntentoGuardarUnClienteConEmailNuloEntoncesNoSeGuarda() {
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Juan Carlos");
-        cliente.setEmail(null);  // Email nulo
-        cliente.setTelefono("123456789");
+    public void dadoQueIntentoGuardarUnClienteConEmailNuloEntoncesEntoncesArrojaLaExcepcionClienteConEmailNullException() {
+        Cliente cliente = crearUnClienteConEmailNullParaQueLanceLaClienteConEmailNullException();
 
-        this.repositorioCliente.guardar(cliente);
+        assertThrows(ClienteConEmailNullException.class, () -> {
+            this.repositorioCliente.guardar(cliente);
+        });
+    }
 
+    @Test
+    @Transactional
+    public void dadoQueIntentoGuardarUnClienteConPasswordNuloEntoncesArrojaLaExcepcionClienteConPasswordNullException() {
+        Cliente cliente = crearUnClienteConPasswordNullParaQueLanceLaClienteConPasswordNullException();
 
-        String hql = "FROM Cliente WHERE nombre = :nombre";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("nombre", "Juan Carlos");
-        List<Cliente> resultados = query.getResultList();
-
-        assertThat(resultados.isEmpty(), equalTo(true));
+        assertThrows(ClienteConPasswordNullException.class, () -> {
+            this.repositorioCliente.guardar(cliente);
+        });
     }
 
     @Test
     @Transactional
     @Rollback
     public void dadoQueBuscoClientesConUnNombreEspecificoEntoncesObtengoResultados() {
-        Cliente cliente1 = crearCliente("Miguel Ángel", "miguel1@mail.com", "111111111");
-        Cliente cliente2 = crearCliente("Miguel Antonio", "miguel2@mail.com", "222222222");
+        Cliente cliente1 = crearCliente("Miguel Ángel", "miguel1@mail.com", "111111111", "password123");
+        Cliente cliente2 = crearCliente("Miguel Antonio", "miguel2@mail.com", "222222222", "password123");
         this.repositorioCliente.guardar(cliente1);
         this.repositorioCliente.guardar(cliente2);
 
@@ -157,7 +153,7 @@ public class RepositorioClienteImplTest {
     @Rollback
     public void dadoQueGuardoUnClienteConEmailLargoEntoncesSeGuardaCorrectamente() {
         String emailLargo = "emailmuylargo".repeat(7) + "@mail.com";  // 100 caracteres
-        Cliente cliente = crearCliente("Cliente Largo", emailLargo, "555555555");
+        Cliente cliente = crearCliente("Cliente Largo", emailLargo, "555555555", "password123");
 
         this.repositorioCliente.guardar(cliente);
 
@@ -252,20 +248,49 @@ public class RepositorioClienteImplTest {
     }
 
 
-    private Cliente crearCliente(String nombre, String email, String telefono) {
+    private Cliente crearCliente(String nombre, String email, String telefono, String password) {
         Cliente cliente = new Cliente();
         cliente.setNombre(nombre);
         cliente.setEmail(email);
         cliente.setTelefono(telefono);
+        cliente.setPassword(password);
         return cliente;
     }
 
-    private Cliente crearClienteConDatos() {
+    public static @NotNull Cliente crearClienteConDatos() {
         Cliente cliente = new Cliente();
         cliente.setNombre("Lionel Andres");
         cliente.setApellido("Messi");
         cliente.setEmail("LeoMessiCampeonDelMundoQatar2022");
         cliente.setTelefono("18122022");
+        cliente.setPassword("password123");
+        return cliente;
+    }
+
+    private static @NotNull Cliente crearClienteConNombreNullParaQueLanceLaClienteConNombreNullException() {
+        Cliente cliente = new Cliente();
+        cliente.setNombre(null);
+        cliente.setEmail("sinNombre@mail.com");
+        cliente.setTelefono("111222333");
+        cliente.setPassword("password123");
+        return cliente;
+    }
+
+    private static @NotNull Cliente crearUnClienteConEmailNullParaQueLanceLaClienteConEmailNullException() {
+        Cliente cliente = new Cliente();
+        cliente.setNombre("Juan Carlos");
+        cliente.setEmail(null);  // Email nulo
+        cliente.setTelefono("123456789");
+        cliente.setPassword("password123");
+        return cliente;
+    }
+
+    private static @NotNull Cliente crearUnClienteConPasswordNullParaQueLanceLaClienteConPasswordNullException() {
+        Cliente cliente = new Cliente();
+        cliente.setNombre("Juan Carlos");
+        cliente.setEmail("sinNombre@mail.com");  // Email nulo
+        cliente.setTelefono("123456789");
+        cliente.setPassword(null);
         return cliente;
     }
 
@@ -289,6 +314,7 @@ public class RepositorioClienteImplTest {
         Material material = new Material();
         material.setNombre("Cemento");
         material.setCantidad(2.5);
+        material.setUnidad("kg");
         material.setClienteMaterial(cliente);
         return material;
     }

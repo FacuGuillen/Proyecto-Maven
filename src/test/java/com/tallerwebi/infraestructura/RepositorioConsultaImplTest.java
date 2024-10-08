@@ -2,7 +2,7 @@ package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.modelo.Consulta;
 import com.tallerwebi.dominio.modelo.Usuario;
-import com.tallerwebi.dominio.repositorio.RepositorioConsulta;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioConsulta;
 import com.tallerwebi.infraestructura.config.HibernateInfraestructuraTestConfig;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
