@@ -13,8 +13,8 @@ public class Cliente extends Usuario {
     @OneToMany(mappedBy = "clienteForm")
     private List<FormSatisfaction> valoraciones;
 
-    @OneToMany(mappedBy = "clienteMaterial")
-    private List<Material> materiales;
+    @OneToMany(mappedBy = "clientePublicacion")
+    private List<Publicacion> publicaciones;
 
     public Cliente(long l, String juanPerez, String mail, String number) {
         super();
@@ -25,6 +25,14 @@ public class Cliente extends Usuario {
     }
 
     // Getters y Setters
+    public List<Proyecto> getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(List<Proyecto> proyectos) {
+        this.proyectos = proyectos;
+    }
+
     public List<FormSatisfaction> getValoraciones() {
         return valoraciones;
     }
@@ -33,12 +41,12 @@ public class Cliente extends Usuario {
         this.valoraciones = valoraciones;
     }
 
-    public List<Proyecto> getProyectos() {
-        return proyectos;
+    public List<Publicacion> getPublicaciones() {
+        return publicaciones;
     }
 
-    public void setProyectos(List<Proyecto> proyectos) {
-        this.proyectos = proyectos;
+    public void setPublicaciones(List<Publicacion> publicaciones) {
+        this.publicaciones = publicaciones;
     }
 
 
@@ -49,11 +57,11 @@ public class Cliente extends Usuario {
         if (!(o instanceof Cliente)) return false;
         if (!super.equals(o)) return false;
         Cliente cliente = (Cliente) o;
-        return Objects.equals(getId(), cliente.getId()) && Objects.equals(getProyectos(), cliente.getProyectos()) && Objects.equals(getValoraciones(), cliente.getValoraciones()) && Objects.equals(materiales, cliente.materiales);
+        return Objects.equals(getProyectos(), cliente.getProyectos()) && Objects.equals(getValoraciones(), cliente.getValoraciones()) && Objects.equals(getPublicaciones(), cliente.getPublicaciones());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getId(), getProyectos(), getValoraciones(), materiales);
+        return Objects.hash(super.hashCode(), getProyectos(), getValoraciones(), getPublicaciones());
     }
 }
