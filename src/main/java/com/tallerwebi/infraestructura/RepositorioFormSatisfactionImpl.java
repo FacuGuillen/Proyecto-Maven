@@ -1,7 +1,7 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.modelo.FormSatisfaction;
-import com.tallerwebi.dominio.repositorio.RepositorioFormSatisfaction;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioFormSatisfaction;
 import org.hibernate.SessionFactory;
 
 public class RepositorioFormSatisfactionImpl implements RepositorioFormSatisfaction {

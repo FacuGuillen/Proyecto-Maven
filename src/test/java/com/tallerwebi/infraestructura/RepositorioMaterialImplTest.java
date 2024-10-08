@@ -1,9 +1,13 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.repositorio.RepositorioMaterial;
+import com.tallerwebi.dominio.excepcion.MaterialConCantidadNullException;
+import com.tallerwebi.dominio.excepcion.MaterialConNombreNullException;
+import com.tallerwebi.dominio.excepcion.MaterialConUnidadNullException;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioMaterial;
 import com.tallerwebi.dominio.modelo.Material;
 import com.tallerwebi.infraestructura.config.HibernateInfraestructuraTestConfig;
 import org.hibernate.SessionFactory;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,10 +39,7 @@ public class RepositorioMaterialImplTest {
     @Test
     @Transactional
     public void dadoQueGuardoUnMaterialEntoncesLoEncuentroEnLaBaseDeDatos(){
-        Material material = new Material();
-        material.setNombre("Cemento");
-        material.setCantidad(50.0);
-        material.setUnidad("kg");
+        Material material = crearMaterialConNombreCementoConCantidad50YUnidadKg();
 
         this.repositorioMaterial.guardar(material);
 
@@ -48,38 +49,35 @@ public class RepositorioMaterialImplTest {
 
     @Test
     @Transactional
-    public void dadoQueIntentoGuardarMaterialConNombreNuloEntoncesNoSeGuarda() {
-        Material material = new Material();
-        material.setNombre(null);  // Nombre nulo
-        material.setCantidad(100.0);
-        material.setUnidad("kg");
+    public void dadoQueIntentoGuardarMaterialConNombreNuloEntoncesArrojaLaExcepcionMaterialConNombreNullException() {
+        Material material = crearUnMaterialConElAtributoNombreEnNull();
 
-        this.repositorioMaterial.guardar(material);
-
-        String hql = "FROM Material WHERE cantidad = :cantidad";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("cantidad", 100.0);
-        List<Material> resultados = query.getResultList();
-
-        assertThat(resultados.isEmpty(), equalTo(true));
+        assertThrows(MaterialConNombreNullException.class, () ->{
+            this.repositorioMaterial.guardar(material);
+        });
     }
 
     @Test
     @Transactional
-    public void dadoQueIntentoGuardarMaterialConUnidadNulaEntoncesNoSeGuarda() {
-        Material material = new Material();
-        material.setNombre("Cemento");
-        material.setCantidad(500.0);
-        material.setUnidad(null);  // Unidad nula
+    public void dadoQueIntentoGuardarMaterialConCantidadNuloEntoncesArrojaLaExcepcionMaterialConCantidadNullException() {
+        Material material = crearMaterialConElAtributoCantidadEnNull();
 
-        this.repositorioMaterial.guardar(material);
+        assertThrows(MaterialConCantidadNullException.class, () ->{
+            this.repositorioMaterial.guardar(material);
+        });
 
-        String hql = "FROM Material WHERE nombre = :nombre";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("nombre", "Cemento");
-        List<Material> resultados = query.getResultList();
+    }
 
-        assertThat(resultados.isEmpty(), equalTo(true));
+
+    @Test
+    @Transactional
+    public void dadoQueIntentoGuardarMaterialConUnidadNulaEntoncesArrojaLaExcepcionMaterialConUnidadNullException() {
+        Material material = crearUnMaterialConElAtributoUnidadEnNull();
+
+        assertThrows(MaterialConUnidadNullException.class, () ->{
+            this.repositorioMaterial.guardar(material);
+        });
+
     }
 
     @Test
@@ -92,15 +90,9 @@ public class RepositorioMaterialImplTest {
     @Test
     @Transactional
     public void dadoQueGuardoVariosMaterialesEntoncesPuedoBuscarlosTodos() {
-        Material material1 = new Material();
-        material1.setNombre("Ladrillo");
-        material1.setCantidad(100.0);
-        material1.setUnidad("piezas");
+        Material material1 = crearMaterialConNombreLadrilloConCantidad100YUnidadPiezas();
 
-        Material material2 = new Material();
-        material2.setNombre("Yeso");
-        material2.setCantidad(25.0);
-        material2.setUnidad("kg");
+        Material material2 = crearMaterialConNombreYesoConCantidad25YUnidadKg();
 
         this.repositorioMaterial.guardar(material1);
         this.repositorioMaterial.guardar(material2);
@@ -114,10 +106,7 @@ public class RepositorioMaterialImplTest {
     @Test
     @Transactional
     public void dadoQueActualizoUnMaterialEntoncesLosCambiosSeGuardan() {
-        Material material = new Material();
-        material.setNombre("Madera");
-        material.setCantidad(20.0);
-        material.setUnidad("planchas");
+        Material material = crearMaterialConNombreMaderaConCantidad20YUnidadPlanchas();
 
         this.repositorioMaterial.guardar(material);
 
@@ -132,10 +121,7 @@ public class RepositorioMaterialImplTest {
     @Test
     @Transactional
     public void dadoQueEliminoUnMaterialEntoncesYaNoLoEncuentroEnLaBaseDeDatos() {
-        Material material = new Material();
-        material.setNombre("Acero");
-        material.setCantidad(15.0);
-        material.setUnidad("kg");
+        Material material = crearUnMaterialConNombreAceroConCantidad15YUnidadKg();
 
         this.repositorioMaterial.guardar(material);
 
@@ -149,15 +135,9 @@ public class RepositorioMaterialImplTest {
     @Test
     @Transactional
     public void dadoQueBuscoMaterialesPorUnidadEntoncesObtengoLosCorrectos() {
-        Material material1 = new Material();
-        material1.setNombre("Azulejo");
-        material1.setCantidad(200.0);
-        material1.setUnidad("piezas");
+        Material material1 = crearMaterialConNombreAzulejoConCantidad200YUnidadPiezas();
 
-        Material material2 = new Material();
-        material2.setNombre("Cemento");
-        material2.setCantidad(50.0);
-        material2.setUnidad("kg");
+        Material material2 = crearMaterialConNombreCementoConCantidad50YUnidadKg();
 
         this.repositorioMaterial.guardar(material1);
         this.repositorioMaterial.guardar(material2);
@@ -170,6 +150,82 @@ public class RepositorioMaterialImplTest {
         assertThat(materiales.size(), equalTo(1));
         assertThat(materiales.get(0).getNombre(), equalTo("Azulejo"));
     }
+
+
+    // METODOS
+
+    private static @NotNull Material crearMaterialConNombreCementoConCantidad50YUnidadKg() {
+        Material material2 = new Material();
+        material2.setNombre("Cemento");
+        material2.setCantidad(50.0);
+        material2.setUnidad("kg");
+        return material2;
+    }
+
+    private static @NotNull Material crearMaterialConNombreYesoConCantidad25YUnidadKg() {
+        Material material2 = new Material();
+        material2.setNombre("Yeso");
+        material2.setCantidad(25.0);
+        material2.setUnidad("kg");
+        return material2;
+    }
+
+    private static @NotNull Material crearMaterialConNombreLadrilloConCantidad100YUnidadPiezas() {
+        Material material1 = new Material();
+        material1.setNombre("Ladrillo");
+        material1.setCantidad(100.0);
+        material1.setUnidad("piezas");
+        return material1;
+    }
+
+    private static @NotNull Material crearMaterialConNombreMaderaConCantidad20YUnidadPlanchas() {
+        Material material = new Material();
+        material.setNombre("Madera");
+        material.setCantidad(20.0);
+        material.setUnidad("planchas");
+        return material;
+    }
+
+    private static @NotNull Material crearUnMaterialConNombreAceroConCantidad15YUnidadKg() {
+        Material material = new Material();
+        material.setNombre("Acero");
+        material.setCantidad(15.0);
+        material.setUnidad("kg");
+        return material;
+    }
+
+    private static @NotNull Material crearMaterialConNombreAzulejoConCantidad200YUnidadPiezas() {
+        Material material1 = new Material();
+        material1.setNombre("Azulejo");
+        material1.setCantidad(200.0);
+        material1.setUnidad("piezas");
+        return material1;
+    }
+
+    private static @NotNull Material crearUnMaterialConElAtributoNombreEnNull() {
+        Material material = new Material();
+        material.setNombre(null);  // Nombre nulo
+        material.setCantidad(100.0);
+        material.setUnidad("kg");
+        return material;
+    }
+
+    private static @NotNull Material crearMaterialConElAtributoCantidadEnNull() {
+        Material material = new Material();
+        material.setNombre("cemento");
+        material.setCantidad(null);
+        material.setUnidad("Kg");
+        return material;
+    }
+
+    private static @NotNull Material crearUnMaterialConElAtributoUnidadEnNull() {
+        Material material = new Material();
+        material.setNombre("Cemento");
+        material.setCantidad(500.0);
+        material.setUnidad(null);  // Unidad nula
+        return material;
+    }
+
 
 
 }

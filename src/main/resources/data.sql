@@ -78,4 +78,6 @@ INSERT INTO Opcion (texto, pregunta_id) VALUES
                                 ('en progreso'),
                                 ('finalizado');*/
 
+/*sin cambios--prueba*/
+
 

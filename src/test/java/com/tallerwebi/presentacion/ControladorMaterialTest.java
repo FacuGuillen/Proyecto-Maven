@@ -3,7 +3,7 @@ package com.tallerwebi.presentacion;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
-import com.tallerwebi.dominio.ServicioMaterial;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioMaterial;
 import com.tallerwebi.dominio.modelo.Material;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -89,7 +89,7 @@ public class ControladorMaterialTest {
         when(servicioMaterial.listarMateriales()).thenReturn(listaMaterialesMock);
 
 
-        ModelAndView modelAndView = controladorMaterial.mostrarMisPublicaciones();
+        ModelAndView modelAndView = controladorMaterial.mostrarMisMateriales();
 
         assertThat(modelAndView.getViewName(), equalTo("mis-materiales"));
         assertThat(modelAndView.getModel().get("materiales"), equalTo(listaMaterialesMock));

@@ -5,6 +5,8 @@ import com.tallerwebi.dominio.modelo.enums.TipoTrabajo;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class Consulta {
 
     private String descripcion;
 
-    private LocalDate fechaCreacion;
+    private LocalDateTime fechaCreacion;
 
     private TipoConsulta tipoConsulta;
 
@@ -55,11 +57,11 @@ public class Consulta {
         this.usuario = usuario;
     }
 
-    public LocalDate getFechaCreacion() {
+    public LocalDateTime getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(LocalDate fechaCreacion) {
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -85,5 +87,34 @@ public class Consulta {
 
     public void setRealizadoPor(String realizadoPor) {
         this.realizadoPor = realizadoPor;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
+    public String getFechaCreacionFormateada() {
+        if (fechaCreacion != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            return fechaCreacion.format(formatter);
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Consulta{" +
+                "id=" + id +
+                ", descripcion='" + descripcion + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", tipoConsulta=" + tipoConsulta +
+                ", tipoTrabajo=" + tipoTrabajo +
+                ", realizadoPor='" + realizadoPor + '\'' +
+                ", usuario=" + (usuario != null ? usuario.getNombre() : "null") +
+                ", comentarios=" + comentarios.size() +
+                '}';
     }
 }

@@ -1,6 +1,9 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.repositorio.RepositorioMaterial;
+import com.tallerwebi.dominio.excepcion.MaterialConCantidadNullException;
+import com.tallerwebi.dominio.excepcion.MaterialConNombreNullException;
+import com.tallerwebi.dominio.excepcion.MaterialConUnidadNullException;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioMaterial;
 import com.tallerwebi.dominio.modelo.Material;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +23,14 @@ public class RepositorioMaterialImpl implements RepositorioMaterial {
 
     @Override
     public void guardar(Material material) {
-        if(material.getNombre() == null || material.getCantidad() == null || material.getUnidad() == null){
-            // Puedes agregar más validaciones si es necesario
-            return;  // Esto luego puede reemplazarse con una excepción personalizada, ej: AtributoNullException
+        if (material.getNombre() == null) {
+            throw new MaterialConNombreNullException("El nombre del material no puede ser nulo");
+        }
+        if(material.getCantidad()==null){
+            throw new MaterialConCantidadNullException("La cantidad del material no puede ser nulo");
+        }
+        if(material.getUnidad()==null){
+            throw new MaterialConUnidadNullException("La unidad del material no puede ser nulo");
         }
         this.sessionFactory.getCurrentSession().save(material);
     }

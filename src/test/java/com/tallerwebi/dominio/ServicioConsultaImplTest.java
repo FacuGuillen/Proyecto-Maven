@@ -1,11 +1,12 @@
 package com.tallerwebi.dominio;
 
-import com.tallerwebi.dominio.excepcion.UsuarioNoEncontrado;
+import com.tallerwebi.dominio.excepcion.UsuarioNoEncontradoException;
+import com.tallerwebi.dominio.implementacion.interfaces.ServicioConsulta;
 import com.tallerwebi.dominio.modelo.Consulta;
 import com.tallerwebi.dominio.modelo.Usuario;
-import com.tallerwebi.dominio.repositorio.RepositorioConsulta;
-import com.tallerwebi.dominio.repositorio.RepositorioUsuario;
-import com.tallerwebi.infraestructura.ServicioConsultaImpl;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioConsulta;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioUsuario;
+import com.tallerwebi.dominio.implementacion.ServicioConsultaImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,17 +37,14 @@ public class ServicioConsultaImplTest {
         when(repositorioUsuario.findById(idUsuarioInexistente)).thenReturn(null);
 
         // Ejecución y Verificación
-        try {
+
+        assertThrows(UsuarioNoEncontradoException.class, () -> {
             servicioConsulta.agregarConsulta(idUsuarioInexistente, consulta);
-            assertThat("Se esperaba una excepción UsuarioNoEncontrado", false);
-        } catch (UsuarioNoEncontrado e) {
-            System.out.println("e = " + e);
-            assertThat(e, is(instanceOf(UsuarioNoEncontrado.class)));
-        }
+        });
     }
 
     @Test
-    void agregarConsultaDeberiaGuardarConsultaCuandoUsuarioExiste() throws UsuarioNoEncontrado{
+    void agregarConsultaDeberiaGuardarConsultaCuandoUsuarioExiste() throws UsuarioNoEncontradoException {
         Long idUsuarioExistente = 1L;
         Consulta consulta = new Consulta();
         Usuario usuarioExistente = new Usuario();
@@ -60,7 +58,7 @@ public class ServicioConsultaImplTest {
         assertThat(consulta.getUsuario(), is(usuarioExistente));
     }
     @Test
-    void listarConsultasDeberiaRetornarConsultasCuandoUsuarioExiste()  throws UsuarioNoEncontrado{
+    void listarConsultasDeberiaRetornarConsultasCuandoUsuarioExiste()  throws UsuarioNoEncontradoException {
         Long idUsuarioExistente = 1L;
         Usuario usuarioExistente = new Usuario();
         List<Consulta> listaConsultas = Arrays.asList(new Consulta(), new Consulta());
@@ -80,7 +78,7 @@ public class ServicioConsultaImplTest {
         when(repositorioUsuario.findById(idUsuarioInexistente)).thenReturn(null);
 
         // Ejecución y Verificación
-        assertThrows(UsuarioNoEncontrado.class, () -> {
+        assertThrows(UsuarioNoEncontradoException.class, () -> {
             servicioConsulta.listarConsultasByIdUsuario(idUsuarioInexistente);
         });
     }
