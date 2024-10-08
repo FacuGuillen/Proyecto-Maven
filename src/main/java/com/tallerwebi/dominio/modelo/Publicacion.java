@@ -23,6 +23,8 @@ public class Publicacion {
 
     private Boolean publicacionPausada;
 
+    private String urlImagen;
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente clientePublicacion;
@@ -98,6 +100,14 @@ public class Publicacion {
 
     public void setPublicacionPausada(Boolean publicacionPausada) {
         this.publicacionPausada = publicacionPausada;
+    }
+
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
     }
 
     // Hash and Equals
