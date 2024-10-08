@@ -36,20 +36,6 @@ public class ServicioProyectoImpl implements ServicioProyecto {
         return repositorioProyecto.obtenerProyectosPorEstado(nuevo);
     }
 
-//    //Metodo del Scheduler
-//    @Scheduled(fixedRate = 86400000) // Cada 24 horas
-//    public void actualizarEstadoProyectos() {
-//        List<Proyecto> proyectos = repositorioProyecto.obtener();
-//        LocalDate hoy = LocalDate.now();
-//
-//        for (Proyecto proyecto : proyectos) {
-//            if (proyecto.getEstadoProyecto() == EstadoProyecto.POR_INICIAR &&
-//                    proyecto.getFechaInicioProyecto().isEqual(hoy)) {
-//                proyecto.setEstadoProyecto(EstadoProyecto.INICIADO);
-//                repositorioProyecto.actualizar(proyecto);
-//            }
-//        }
-//    }
 
 
 }

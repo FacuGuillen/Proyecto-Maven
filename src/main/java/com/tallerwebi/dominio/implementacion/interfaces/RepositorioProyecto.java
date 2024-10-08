@@ -11,6 +11,8 @@ public interface RepositorioProyecto {
 
     Proyecto obtenerPorId(Long idProyecto);
 
+//    List<Proyecto> obtenerProyectosPorEstado(String nuevo);
+
 //    void actualizar(Proyecto proyecto);
 //    List<Proyecto> obtenerProyectosPorEstado(String nombreEstado);
 }
