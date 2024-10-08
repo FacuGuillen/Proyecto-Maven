@@ -1,9 +1,9 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioCliente;
+import com.tallerwebi.dominio.implementacion.interfaces.RepositorioPublicacion;
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.modelo.Publicacion;
-import com.tallerwebi.dominio.repositorio.RepositorioCliente;
-import com.tallerwebi.dominio.repositorio.RepositorioPublicacion;
 import com.tallerwebi.infraestructura.config.HibernateInfraestructuraTestConfig;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
