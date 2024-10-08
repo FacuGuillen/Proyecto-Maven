@@ -9,4 +9,8 @@ public interface RepositorioComentario {
     void save(Comentario comentario);
 
     List<Comentario> getByConsulta(Consulta consulta);
+
+    Comentario findById(Long comentarioId);
+
+    void actualizar(Comentario comentario);
 }

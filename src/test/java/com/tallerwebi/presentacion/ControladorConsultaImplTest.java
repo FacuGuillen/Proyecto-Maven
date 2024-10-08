@@ -66,7 +66,7 @@ public class ControladorConsultaImplTest {
 
     @Test
     public void crearConsultaDeberiaRedirigirALoginCuandoSessionEsNull() {
-        when(request.getSession()).thenReturn(null);
+        when(session.getAttribute("ID")).thenReturn(null);
 
         String result = controladorForo.crearConsulta(new Consulta(), request);
 

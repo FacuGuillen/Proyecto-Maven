@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio.implementacion;
 
+import com.tallerwebi.dominio.excepcion.ConsultaNoEncontradaException;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioConsulta;
 import com.tallerwebi.dominio.excepcion.UsuarioNoEncontradoException;
 import com.tallerwebi.dominio.modelo.Consulta;
@@ -48,5 +49,14 @@ public class ServicioConsultaImpl implements ServicioConsulta {
     @Override
     public List<Consulta> getListado() {
     return this.repositorioConsulta.listarTodas();
+    }
+
+    @Override
+    public Consulta buscarPorId(Long consultaId) throws ConsultaNoEncontradaException {
+        Consulta consulta = this.repositorioConsulta.findById(consultaId);
+        if(consulta == null){
+            throw new ConsultaNoEncontradaException("La consulta no fue encontrada");
+        }
+        return repositorioConsulta.findById(consultaId);
     }
 }
