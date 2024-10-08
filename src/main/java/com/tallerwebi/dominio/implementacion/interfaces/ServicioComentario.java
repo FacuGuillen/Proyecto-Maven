@@ -12,4 +12,8 @@ public interface ServicioComentario {
     void agregarComentario(Long consultaId, Long idUsuario, Comentario comentario) throws UsuarioNoEncontradoException, ConsultaNoEncontradaException, UsuarioSinPermisosException;
 
     List<Comentario> listarComentariosByConsulta(Consulta consulta);
+
+    Comentario buscarPorId(Long comentarioId);
+
+    void actualizarComentario(Comentario comentario);
 }

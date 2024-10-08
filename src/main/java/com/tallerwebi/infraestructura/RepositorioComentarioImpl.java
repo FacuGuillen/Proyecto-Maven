@@ -32,4 +32,17 @@ public class RepositorioComentarioImpl implements RepositorioComentario {
         query.setParameter("consulta", consulta);
         return query.getResultList();
     }
+
+    @Override
+    public Comentario findById(Long comentarioId) {
+        String hql="FROM Comentario WHERE id=: id";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("id", comentarioId);
+        return (Comentario)query.getSingleResult();
+    }
+
+    @Override
+    public void actualizar(Comentario comentario) {
+        this.sessionFactory.getCurrentSession().update(comentario);
+    }
 }
