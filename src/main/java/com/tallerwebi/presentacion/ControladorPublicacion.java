@@ -52,6 +52,9 @@ public class ControladorPublicacion {
         return new ModelAndView("mis-publicaciones");
     }
 
+    //publicaciones mostrar
+
+
 //    @RequestMapping(value = "/editarPublicacion", method = RequestMethod.PUT)
 //    public ModelAndView modificarPublicacion(){
 //

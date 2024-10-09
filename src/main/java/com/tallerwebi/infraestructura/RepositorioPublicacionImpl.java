@@ -38,4 +38,5 @@ public class RepositorioPublicacionImpl implements RepositorioPublicacion {
     public void eliminar(Publicacion publicacion) {
         this.sessionFactory.getCurrentSession().delete(publicacion);
     }
+
 }
