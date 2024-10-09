@@ -7,6 +7,7 @@ import com.tallerwebi.dominio.modelo.Consulta;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,7 @@ public class ControladorConsultaImplTest {
     private ServicioComentario servicioComentario;
     private HttpServletRequest request;
     private HttpSession session;
+    private RedirectAttributes redirectAttributes;
 
     @BeforeEach
     public void init(){
@@ -33,6 +35,7 @@ public class ControladorConsultaImplTest {
         this.controladorForo = new ControladorForo(this.servicioConsulta, this.servicioComentario);
         this.request = mock(HttpServletRequest.class);
         this.session = mock(HttpSession.class);
+        this.redirectAttributes = mock(RedirectAttributes.class);
         when(request.getSession()).thenReturn(session);
     }
     @Test
@@ -68,7 +71,7 @@ public class ControladorConsultaImplTest {
     public void crearConsultaDeberiaRedirigirALoginCuandoSessionEsNull() {
         when(session.getAttribute("ID")).thenReturn(null);
 
-        String result = controladorForo.crearConsulta(new Consulta(), request);
+        String result = controladorForo.crearConsulta(new Consulta(), request, redirectAttributes);
 
         assertThat(result, equalTo("redirect:/login"));
     }
@@ -83,7 +86,7 @@ public class ControladorConsultaImplTest {
 
         doNothing().when(servicioConsulta).agregarConsulta(idUsuario, consulta);
 
-        String result = controladorForo.crearConsulta(consulta, request);
+        String result = controladorForo.crearConsulta(consulta, request, redirectAttributes);
 
         assertThat(result, equalTo("redirect:/consultas"));
         verify(servicioConsulta).agregarConsulta(idUsuario, consulta);
