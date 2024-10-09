@@ -7,9 +7,11 @@ import java.util.List;
 public interface RepositorioPublicacion {
     void guardar(Publicacion publicacion);
 
-    void eliminar(Publicacion publicacion);
-
     List<Publicacion> listadoPublicacion();
 
     List<Publicacion> listadoPublicacionPorCliente(Cliente cliente);
+
+    void eliminarPublicacion(Publicacion publicacion);
+
+    Publicacion obtenerPublicacionPorId(Long id);
 }

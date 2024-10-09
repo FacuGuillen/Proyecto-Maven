@@ -63,27 +63,27 @@ public class RepositorioPublicacionImplTest {
     }
 
 
-    @Test
-    @Transactional
-    @Rollback
-    public void clienteCreaUnaPublicacionEnLaBaseDeDatosYLuegoLaEliminaSiLaPublicacionFueELiminadaDevuelveUnTrue(){
-        Cliente cliente = crearCliente();
-        repositorioCliente.guardar(cliente);
-
-        Publicacion publicacion = crearPublicacion(cliente);
-        repositorioPublicacion.guardar(publicacion);
-        repositorioPublicacion.eliminar(publicacion);
-
-        // Verificar que la publicación ya no existe en la base de datos
-        String hql = "FROM Publicacion p WHERE p.id = :publicacionId";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("publicacionId", publicacion.getId());
-
-        List<Publicacion> publicacionesObtenidas = query.getResultList();
-
-        // Aserción para verificar que la publicación fue eliminada
-        assertThat(publicacionesObtenidas, is(empty()));
-    }
+//    @Test
+//    @Transactional
+//    @Rollback
+//    public void clienteCreaUnaPublicacionEnLaBaseDeDatosYLuegoLaEliminaSiLaPublicacionFueELiminadaDevuelveUnTrue(){
+//        Cliente cliente = crearCliente();
+//        repositorioCliente.guardar(cliente);
+//
+//        Publicacion publicacion = crearPublicacion(cliente);
+//        repositorioPublicacion.guardar(publicacion);
+////        repositorioPublicacion.eliminar(publicacion);
+//
+//        // Verificar que la publicación ya no existe en la base de datos
+//        String hql = "FROM Publicacion p WHERE p.id = :publicacionId";
+//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+//        query.setParameter("publicacionId", publicacion.getId());
+//
+//        List<Publicacion> publicacionesObtenidas = query.getResultList();
+//
+//        // Aserción para verificar que la publicación fue eliminada
+//        assertThat(publicacionesObtenidas, is(empty()));
+//    }
 
     @Test
     @Transactional

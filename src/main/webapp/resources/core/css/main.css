@@ -244,7 +244,9 @@ h1{
     margin-bottom: 5px;
 }
 
-
+.btn-primary-delete{
+    background-color: red !important;
+}
 
 
 .display-none{

@@ -9,9 +9,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface ServicioPublicacion {
-        void guardarPublicacion(Publicacion publicacion);
 
-        List<Publicacion> getListadoPublicacion();
+    void guardarPublicacion(Publicacion publicacion);
 
-        List<Publicacion> getListadoPublicacionPorCliente(Cliente cliente);
+    List<Publicacion> getListadoPublicacion();
+
+    List<Publicacion> getListadoPublicacionPorCliente(Cliente cliente);
+
+    void eliminarPublicacion(Long id);
+
 }
