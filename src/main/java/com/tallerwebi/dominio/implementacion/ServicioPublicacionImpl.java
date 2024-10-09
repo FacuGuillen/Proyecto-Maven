@@ -41,4 +41,15 @@ public class ServicioPublicacionImpl implements ServicioPublicacion {
         return repositorioPublicacion.listadoPublicacionPorCliente(cliente);
     }
 
+
+    /*----------------------------- ELIMINAR -----------------------------*/
+    @Override
+    public void eliminarPublicacion(Long id) {
+        // Busca la publicación por su ID
+        Publicacion publicacion = repositorioPublicacion.obtenerPublicacionPorId(id);
+
+        // Verifica si la publicación existe antes de eliminarla
+            this.repositorioPublicacion.eliminarPublicacion(publicacion);
+    }
+
 }

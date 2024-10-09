@@ -36,13 +36,38 @@
         <img th:src="@{/images/cemento-image.jpeg}" class="card-img-top-custom" alt="cemento">
         <div class="card-body">
           <h5 class="card-title">Titulo: <span th:text="${publicacion.nombre}" ></span></h5>
-          <p class="card-text">Descripción: <span th:text="${publicacion.precio}" ></span></p>
+          <p class="card-text">Precio: <span th:text="${publicacion.precio}" ></span></p>
           <p class="card-text">Cantidad disponible:<span th:text="${publicacion.stock}" ></span></p>
-<!--          <p class="card-text">Ubicación: Buenos Aires, Argentina</p>-->
+          <p class="card-text">Ubicación: Buenos Aires, Argentina</p>
           <div class="d-flex justify-content-between align-items-center">
             <div>
+<!--              <a href="#" class="btn btn-primary">Editar</a>-->
               <a href="#" class="btn btn-primary">Editar</a>
-              <a href="#" class="btn btn-danger">Eliminar</a>
+              <!-- Button trigger modal -->
+              <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</a>
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar publicación</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      ¿Estas seguro que quiere eliminar esta publicación?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+<!--                      <button> th:href="@{/eliminar-publicacion/{id}(id=${publicacion.id})}"-->
+<!--                         class="btn btn-primary btn-primary-delete">Eliminar publicación</button>-->
+                      <form th:action="@{/eliminar-publicacion/{id}(id=${publicacion.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Eliminar publicación</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckCheckedr" checked>

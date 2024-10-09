@@ -28,10 +28,13 @@ public class RepositorioPublicacionImpl implements RepositorioPublicacion {
         this.sessionFactory.getCurrentSession().save(publicacion);
     }
 
-
     @Override
-    public void eliminar(Publicacion publicacion) {
-        this.sessionFactory.getCurrentSession().delete(publicacion);
+    public Publicacion obtenerPublicacionPorId(Long idPublicacion) {
+        // Obtén la sesión actual de Hibernate
+        Session session = this.sessionFactory.getCurrentSession();
+
+        // Busca la publicación por su ID
+        return session.get(Publicacion.class, idPublicacion);
     }
 
 
@@ -57,4 +60,9 @@ public class RepositorioPublicacionImpl implements RepositorioPublicacion {
         return query.getResultList();
     }
 
+
+    /*----------------------------- ELIMINAR -----------------------------*/
+    public void eliminarPublicacion(Publicacion publicacion) {
+        this.sessionFactory.getCurrentSession().delete(publicacion);
+    }
 }
