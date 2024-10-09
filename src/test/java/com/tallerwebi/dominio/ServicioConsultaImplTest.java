@@ -1,7 +1,9 @@
 package com.tallerwebi.dominio;
 
 import com.tallerwebi.dominio.excepcion.UsuarioNoEncontradoException;
+import com.tallerwebi.dominio.excepcion.UsuarioSinPermisosException;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioConsulta;
+import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.modelo.Consulta;
 import com.tallerwebi.dominio.modelo.Usuario;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioConsulta;
@@ -44,18 +46,18 @@ public class ServicioConsultaImplTest {
     }
 
     @Test
-    void agregarConsultaDeberiaGuardarConsultaCuandoUsuarioExiste() throws UsuarioNoEncontradoException {
-        Long idUsuarioExistente = 1L;
+    void agregarConsultaDeberiaGuardarConsultaCuandoUsuarioEsCliente() throws UsuarioNoEncontradoException, UsuarioSinPermisosException {
+        Long idClienteExistente = 1L;
         Consulta consulta = new Consulta();
-        Usuario usuarioExistente = new Usuario();
-        when(repositorioUsuario.findById(idUsuarioExistente)).thenReturn(usuarioExistente);
+        Cliente clienteExistente = new Cliente();
+        when(repositorioUsuario.findById(idClienteExistente)).thenReturn(clienteExistente);
 
         // Ejecución
-        servicioConsulta.agregarConsulta(idUsuarioExistente, consulta);
+        servicioConsulta.agregarConsulta(idClienteExistente, consulta);
 
         // Verificación
         verify(repositorioConsulta).save(consulta);
-        assertThat(consulta.getUsuario(), is(usuarioExistente));
+        assertThat(consulta.getUsuario(), is(clienteExistente));
     }
     @Test
     void listarConsultasDeberiaRetornarConsultasCuandoUsuarioExiste()  throws UsuarioNoEncontradoException {
