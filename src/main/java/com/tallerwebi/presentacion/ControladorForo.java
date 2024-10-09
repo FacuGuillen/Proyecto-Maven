@@ -95,7 +95,7 @@ public class ControladorForo {
             redirectAttributes.addFlashAttribute("mensaje",  e.getMessage());
             redirectAttributes.addFlashAttribute("tipoMensaje", "danger");
         }
-        return new ModelAndView("redirect:consultas");
+        return new ModelAndView("redirect:/consultas");
     }
 
     @PostMapping("/agregarUtil")
