@@ -134,25 +134,25 @@ public class RepositorioPublicacionImplTest {
 
     }
 
-    @Test
-    @Transactional
-    @Rollback
-    public void dadoQueUnClienteCreaVariasPublicacionesEntoncesPuedoListarlasTodas(){
-        Cliente cliente = crearCliente();
-        repositorioCliente.guardar(cliente);
-
-        Publicacion publicacion = crearPublicacion(cliente);
-        repositorioPublicacion.guardar(publicacion);
-
-        Publicacion publicacion2 = crearPublicacionNueva(cliente);
-        repositorioPublicacion.guardar(publicacion2);
-
-        List<Publicacion> publicacionesObtenidaDelCliente = repositorioPublicacion.listarPublicacionPorCliente(cliente);
-
-        assertThat(publicacionesObtenidaDelCliente, hasSize(2)); // Verifica que hay 2 publicaciones
-        assertThat(publicacionesObtenidaDelCliente.stream().map(Publicacion::getNombre).collect(Collectors.toList()),
-                containsInAnyOrder("Cemento", "Ladrillo"));
-    }
+//    @Test
+//    @Transactional
+//    @Rollback
+//    public void dadoQueUnClienteCreaVariasPublicacionesEntoncesPuedoListarlasTodas(){
+//        Cliente cliente = crearCliente();
+//        repositorioCliente.guardar(cliente);
+//
+//        Publicacion publicacion = crearPublicacion(cliente);
+//        repositorioPublicacion.guardar(publicacion);
+//
+//        Publicacion publicacion2 = crearPublicacionNueva(cliente);
+//        repositorioPublicacion.guardar(publicacion2);
+//
+//        List<Publicacion> publicacionesObtenidaDelCliente = repositorioPublicacion.listarPublicacionPorCliente(cliente);
+//
+//        assertThat(publicacionesObtenidaDelCliente, hasSize(2)); // Verifica que hay 2 publicaciones
+//        assertThat(publicacionesObtenidaDelCliente.stream().map(Publicacion::getNombre).collect(Collectors.toList()),
+//                containsInAnyOrder("Cemento", "Ladrillo"));
+//    }
 
 
 

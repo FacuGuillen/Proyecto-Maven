@@ -40,5 +40,5 @@ document.addEventListener("click", function(e) {
 });
 
 modal_carrito.addEventListener('click', function(e) {
-    e.stopPropagation(); // Evitar cerrar el modal cuando se hace clic dentro de él
+    e.stopPropagation();
 });

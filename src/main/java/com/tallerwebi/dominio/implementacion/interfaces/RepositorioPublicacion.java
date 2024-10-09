@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface RepositorioPublicacion {
     void guardar(Publicacion publicacion);
-    List<Publicacion> listarPublicacionPorCliente(Cliente cliente);
 
     void eliminar(Publicacion publicacion);
+
+    List<Publicacion> listadoPublicacion();
+
+    List<Publicacion> listadoPublicacionPorCliente(Cliente cliente);
 }

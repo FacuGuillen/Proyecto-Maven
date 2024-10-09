@@ -30,10 +30,10 @@ public class ControladorMaterial {
         List<Material> materiales = servicioMaterial.listarMateriales();
         return new ModelAndView("comprar-material").addObject("materiales", materiales);
     }
-    @RequestMapping( value = "/misPublicaciones" , method = RequestMethod.GET)
-    public ModelAndView mostrarMisPublicaciones(){
-        return new ModelAndView("mis-publicaciones");
-    }
+//    @RequestMapping( value = "/misPublicaciones" , method = RequestMethod.GET)
+//    public ModelAndView mostrarMisPublicaciones(){
+//        return new ModelAndView("mis-publicaciones");
+//    }
 
 
     @RequestMapping(value = "/nuevo-material", method = RequestMethod.GET)
