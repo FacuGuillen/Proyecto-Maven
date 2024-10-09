@@ -10,4 +10,5 @@ public interface ServicioMaterial {
     void eliminarMaterial(Long id);
     void actualizarMaterial(Material material);
 
+    List<Material> filtrarMaterialesPorNombre(String nombre);
 }

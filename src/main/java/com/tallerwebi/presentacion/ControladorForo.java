@@ -81,6 +81,7 @@ public class ControladorForo {
         }
         return ("redirect:/consultas");
     }
+
     @RequestMapping(value = "/agregarComentario", method = RequestMethod.POST)
     public ModelAndView agregarComentarioAConsulta(
             @ModelAttribute("comentario") Comentario comentario,

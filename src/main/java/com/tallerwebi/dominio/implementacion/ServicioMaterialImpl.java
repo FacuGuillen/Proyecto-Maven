@@ -43,4 +43,9 @@ public class ServicioMaterialImpl implements ServicioMaterial {
         repositorioMaterial.actualizar(material);
     }
 
+    @Override
+    public List<Material> filtrarMaterialesPorNombre(String nombre) {
+        return repositorioMaterial.filtrarMaterialPorNombre(nombre);
+    }
+
 }

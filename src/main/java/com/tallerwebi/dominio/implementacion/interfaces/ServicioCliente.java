@@ -21,4 +21,6 @@ public interface ServicioCliente {
     void eliminar(Cliente cliente);
 
     Cliente buscarClientePorId(Long id);
+
+
 }

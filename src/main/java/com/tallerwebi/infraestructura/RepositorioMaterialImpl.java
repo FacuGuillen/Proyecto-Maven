@@ -67,6 +67,13 @@ public class RepositorioMaterialImpl implements RepositorioMaterial {
         // Actualiza un material en la base de datos
         sessionFactory.getCurrentSession().update(material);
     }
-}
 
-// Commit //
+    @Override
+    public List<Material> filtrarMaterialPorNombre(String nombre) {
+        String hql = "FROM Material WHERE nombre = :nombre";
+        return this.sessionFactory.getCurrentSession()
+                .createQuery(hql, Material.class)
+                .setParameter("nombre", "%" + nombre + "%")
+                .list();
+    }
+}

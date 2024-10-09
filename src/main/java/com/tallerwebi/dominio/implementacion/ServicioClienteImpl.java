@@ -72,6 +72,9 @@ public class ServicioClienteImpl implements ServicioCliente {
     @Transactional(readOnly = true)
     public Cliente buscarPorId(Long id) {
         return repositorioCliente.buscarPorId(id);
+
+        // VALIDAR CLIENTE ENCONTRADO POR ID
+
     }
 
     @Override

@@ -226,7 +226,7 @@ public class RepositorioClienteImplTest {
         String hql = "FROM Material m WHERE m.nombre = :nombre AND m.clienteMaterial.id = :clienteId";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("nombre", material.getNombre());
-        query.setParameter("clienteId", cliente.getId());
+        query.setParameter("clienteId", cliente.getId());;
 
         Material materialObtenido = (Material) query.getSingleResult();
 
