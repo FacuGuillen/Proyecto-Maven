@@ -7,7 +7,7 @@ btn_carrito.addEventListener("click", function(e) {
     if (modal_carrito.classList.contains("display-none")) {
 
         modal_carrito.classList.remove("display-none");
-        modal_carrito.classList.add("animate_animated", "animate_fadeIn");
+        modal_carrito.classList.add("animate__animated", "animate__fadeIn");
     } else {
 
         modal_carrito.classList.remove("animate__fadeIn");
@@ -16,7 +16,7 @@ btn_carrito.addEventListener("click", function(e) {
 
         modal_carrito.addEventListener('animationend', function() {
             modal_carrito.classList.add("display-none");
-            modal_carrito.classList.remove("animate_animated", "animate_fadeOut");
+            modal_carrito.classList.remove("animate__animated", "animate__fadeOut");
         }, { once: true });
     }
 });
@@ -34,11 +34,11 @@ document.addEventListener("click", function(e) {
 
         modal_carrito.addEventListener('animationend', function() {
             modal_carrito.classList.add("display-none");
-            modal_carrito.classList.remove("animate_animated", "animate_fadeOut");
+            modal_carrito.classList.remove("animate__animated", "animate__fadeOut");
         }, { once: true });
     }
 });
 
 modal_carrito.addEventListener('click', function(e) {
-    e.stopPropagation(); // Evitar cerrar el modal cuando se hace clic dentro de él
+    e.stopPropagation();
 });

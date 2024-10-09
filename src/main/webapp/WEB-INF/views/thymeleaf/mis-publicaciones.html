@@ -22,7 +22,7 @@
   <main role="main" class="container mt-3">
     <form class="d-flex" role="search">
       <input class="form-control me-2" type="search" placeholder="Buscar Material" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Buscar</button>
+      <button class="btn btn-outline-success" type="submit" id="btn-buscador-materiales">Buscar</button>
     </form>
     <div class="d-flex justify-content-between align-items-center my-4">
       <h2>Mis Publicaciones</h2>
@@ -32,13 +32,13 @@
     <div class="row gap-4">
       <!-- Card for each publication -->
       <!--Prueba-->
-      <div class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
+      <div th:each="publicacion: ${publicaciones}" class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
         <img th:src="@{/images/cemento-image.jpeg}" class="card-img-top-custom" alt="cemento">
         <div class="card-body">
-          <h5 class="card-title">Cemento bolsa x50kg</h5>
-          <p class="card-text">Precio: $15.000</p>
-          <p class="card-text">Cantidad disponible: 1 unidad</p>
-          <p class="card-text">Ubicación: Buenos Aires, Argentina</p>
+          <h5 class="card-title">Titulo: <span th:text="${publicacion.nombre}" ></span></h5>
+          <p class="card-text">Descripción: <span th:text="${publicacion.precio}" ></span></p>
+          <p class="card-text">Cantidad disponible:<span th:text="${publicacion.stock}" ></span></p>
+<!--          <p class="card-text">Ubicación: Buenos Aires, Argentina</p>-->
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <a href="#" class="btn btn-primary">Editar</a>
@@ -51,6 +51,7 @@
           </div>
         </div>
       </div>
+
 
       <!--2-->
       <div class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">

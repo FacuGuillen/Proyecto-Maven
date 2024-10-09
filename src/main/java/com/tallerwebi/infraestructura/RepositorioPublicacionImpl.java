@@ -2,12 +2,14 @@ package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioPublicacion;
 import com.tallerwebi.dominio.modelo.Cliente;
+import com.tallerwebi.dominio.modelo.Consulta;
 import com.tallerwebi.dominio.modelo.Publicacion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -26,16 +28,33 @@ public class RepositorioPublicacionImpl implements RepositorioPublicacion {
         this.sessionFactory.getCurrentSession().save(publicacion);
     }
 
-    @Override
-    public List<Publicacion> listarPublicacionPorCliente(Cliente cliente) {
-        return sessionFactory.getCurrentSession()
-                .createQuery("FROM Publicacion p WHERE p.clientePublicacion = :cliente", Publicacion.class)
-                .setParameter("cliente", cliente)
-                .list();
-    }
 
     @Override
     public void eliminar(Publicacion publicacion) {
         this.sessionFactory.getCurrentSession().delete(publicacion);
     }
+
+
+
+/*----------------------------- LISTAS -----------------------------*/
+
+    @Override
+    public List<Publicacion> listadoPublicacion(){
+        String hql = "FROM Consulta ORDER BY fechaCreacion DESC";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        List<Publicacion> publicaciones = query.getResultList();
+
+        return publicaciones;
+    }
+
+    @Override
+    public List<Publicacion> listadoPublicacionPorCliente(Cliente cliente) {
+        // Usamos HQL para obtener las publicaciones asociadas a un cliente específico
+        String hql = "FROM Publicacion WHERE clientePublicacion = :cliente ORDER BY fechaInicioPublicacion ASC";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("cliente", cliente);
+
+        return query.getResultList();
+    }
+
 }
