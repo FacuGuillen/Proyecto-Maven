@@ -1,5 +1,8 @@
 package com.tallerwebi.dominio.implementacion;
 
+import com.tallerwebi.dominio.excepcion.UsuarioConEmailNullException;
+import com.tallerwebi.dominio.excepcion.UsuarioConNombreNullException;
+import com.tallerwebi.dominio.excepcion.UsuarioConPasswordNullException;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioCliente;
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioCliente;
@@ -17,16 +20,6 @@ public class ServicioClienteImpl implements ServicioCliente {
     @Autowired
     public ServicioClienteImpl(RepositorioCliente repositorioCliente) {
         this.repositorioCliente = repositorioCliente;
-    }
-
-    @Override
-    @Transactional
-    public void guardarCliente(Cliente cliente) {
-        if (cliente.getId() == null) {
-            repositorioCliente.guardar(cliente);
-        } else {
-            actualizarCliente(cliente);
-        }
     }
 
     @Override
@@ -77,11 +70,16 @@ public class ServicioClienteImpl implements ServicioCliente {
     @Override
     @Transactional
     public void guardar(Cliente cliente) {
-        if (cliente.getId() == null) {
-            repositorioCliente.guardar(cliente);
-        } else {
-            actualizar(cliente);
+        if(cliente.getNombre()==null){
+            throw new UsuarioConNombreNullException("El nombre del cliente no puede ser nulo");
         }
+        if (cliente.getEmail()==null){
+            throw new UsuarioConEmailNullException("El email del cliente no puede ser nulo");
+        }
+        if (cliente.getPassword()==null){
+            throw new UsuarioConPasswordNullException("El password del cliente no puede ser nulo");
+        }
+            repositorioCliente.guardar(cliente);
     }
 
     @Override
