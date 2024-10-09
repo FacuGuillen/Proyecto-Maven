@@ -19,7 +19,9 @@ public class Profesional extends Usuario {
     @OneToMany(mappedBy = "profesional")
     private List<FormSatisfaction> valoraciones;
 
-
+    public Profesional() {
+        this.calificacion = 0;
+    }
     // Getters and Setters
     public Integer getCalificacion() {
         return calificacion;

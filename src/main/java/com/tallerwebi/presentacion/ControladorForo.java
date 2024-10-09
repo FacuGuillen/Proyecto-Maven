@@ -63,7 +63,8 @@ public class ControladorForo {
     @RequestMapping(value = "/crear-consulta", method = RequestMethod.POST)
     public String crearConsulta(
             @ModelAttribute("consulta") Consulta consulta,
-            HttpServletRequest request
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes
             ){
         if(!validarSesion(request)){
             return ("redirect:/login");
@@ -72,8 +73,11 @@ public class ControladorForo {
 
         try {
             servicioConsulta.agregarConsulta(idUsuario, consulta);
-        } catch (UsuarioNoEncontradoException e) {
-            return ("redirect:/login");
+            redirectAttributes.addFlashAttribute("mensaje", "Consulta agregado exitosamente.");
+            redirectAttributes.addFlashAttribute("tipoMensaje", "success");
+        } catch (UsuarioNoEncontradoException | UsuarioSinPermisosException e) {
+            redirectAttributes.addFlashAttribute("mensaje",  e.getMessage());
+            redirectAttributes.addFlashAttribute("tipoMensaje", "danger");
         }
         return ("redirect:/consultas");
     }
@@ -89,13 +93,11 @@ public class ControladorForo {
         Long idUsuario = (Long) request.getSession().getAttribute("ID");
         try {
             servicioComentario.agregarComentario(consultaId, idUsuario, comentario);
-            redirectAttributes.addFlashAttribute("mensaje", "Comentario agregado exitosamente.");
-            redirectAttributes.addFlashAttribute("tipoMensaje", "success");
         } catch (ConsultaNoEncontradaException | UsuarioNoEncontradoException | UsuarioSinPermisosException e) {
             redirectAttributes.addFlashAttribute("mensaje",  e.getMessage());
             redirectAttributes.addFlashAttribute("tipoMensaje", "danger");
         }
-        return new ModelAndView("redirect:consultas");
+        return new ModelAndView("redirect:/consultas");
     }
 
     @PostMapping("/agregarUtil")

@@ -1,9 +1,12 @@
 package com.tallerwebi.dominio.implementacion;
 
 import com.tallerwebi.dominio.excepcion.ConsultaNoEncontradaException;
+import com.tallerwebi.dominio.excepcion.UsuarioSinPermisosException;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioConsulta;
 import com.tallerwebi.dominio.excepcion.UsuarioNoEncontradoException;
+import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.modelo.Consulta;
+import com.tallerwebi.dominio.modelo.Profesional;
 import com.tallerwebi.dominio.modelo.Usuario;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioConsulta;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioUsuario;
@@ -27,14 +30,19 @@ public class ServicioConsultaImpl implements ServicioConsulta {
     }
 
     @Override
-    public void agregarConsulta(Long idUsuario, Consulta consulta) throws UsuarioNoEncontradoException {
+    public void agregarConsulta(Long idUsuario, Consulta consulta) throws UsuarioNoEncontradoException, UsuarioSinPermisosException {
         Usuario usuario = repositorioUsuario.findById(idUsuario);
         if(usuario == null){
             throw new UsuarioNoEncontradoException("El usuario no fue encontrado");
         }
-        consulta.setUsuario(usuario);
-        consulta.setFechaCreacion(LocalDateTime.now());
-        this.repositorioConsulta.save(consulta);
+        if(usuario instanceof Cliente){
+            consulta.setUsuario(usuario);
+            consulta.setFechaCreacion(LocalDateTime.now());
+            this.repositorioConsulta.save(consulta);
+        } else {
+            throw new UsuarioSinPermisosException("El usuario no tiene permiso para realizar una consulta");
+        }
+
     }
 
     @Override
@@ -57,6 +65,6 @@ public class ServicioConsultaImpl implements ServicioConsulta {
         if(consulta == null){
             throw new ConsultaNoEncontradaException("La consulta no fue encontrada");
         }
-        return repositorioConsulta.findById(consultaId);
+        return consulta;
     }
 }

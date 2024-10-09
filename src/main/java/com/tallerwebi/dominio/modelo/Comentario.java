@@ -22,7 +22,10 @@ public class Comentario {
     @ManyToOne
     private Consulta consulta;
 
-    private Integer useful=0;
+    private Integer useful;
+    public Comentario() {
+        this.useful = 0;
+    }
 
     public Long getId() {
         return id;
