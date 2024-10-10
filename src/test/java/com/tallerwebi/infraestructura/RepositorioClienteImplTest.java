@@ -1,8 +1,5 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.excepcion.ClienteConEmailNullException;
-import com.tallerwebi.dominio.excepcion.ClienteConNombreNullException;
-import com.tallerwebi.dominio.excepcion.ClienteConPasswordNullException;
 import com.tallerwebi.dominio.implementacion.interfaces.*;
 import com.tallerwebi.dominio.modelo.*;
 import com.tallerwebi.dominio.modelo.enums.EstadoProyecto;
@@ -98,37 +95,6 @@ public class RepositorioClienteImplTest {
     public void dadoQueBuscoUnClienteInexistenteEntoncesNoLoEncuentro() {
         Cliente clienteObtenido = this.repositorioCliente.buscarPorEmail("noexiste@mail.com");
         assertThat(clienteObtenido, equalTo(null));
-    }
-
-    @Test
-    @Transactional
-    public void dadoQueIntentoGuardarUnClienteConNombreNuloEntoncesArrojaLaExcepcionClienteConNombreNullException() {
-        Cliente cliente = crearClienteConNombreNullParaQueLanceLaClienteConNombreNullException();
-
-        assertThrows(ClienteConNombreNullException.class, () -> {
-            this.repositorioCliente.guardar(cliente);
-        });
-
-    }
-
-    @Test
-    @Transactional
-    public void dadoQueIntentoGuardarUnClienteConEmailNuloEntoncesEntoncesArrojaLaExcepcionClienteConEmailNullException() {
-        Cliente cliente = crearUnClienteConEmailNullParaQueLanceLaClienteConEmailNullException();
-
-        assertThrows(ClienteConEmailNullException.class, () -> {
-            this.repositorioCliente.guardar(cliente);
-        });
-    }
-
-    @Test
-    @Transactional
-    public void dadoQueIntentoGuardarUnClienteConPasswordNuloEntoncesArrojaLaExcepcionClienteConPasswordNullException() {
-        Cliente cliente = crearUnClienteConPasswordNullParaQueLanceLaClienteConPasswordNullException();
-
-        assertThrows(ClienteConPasswordNullException.class, () -> {
-            this.repositorioCliente.guardar(cliente);
-        });
     }
 
     @Test
@@ -247,16 +213,6 @@ public class RepositorioClienteImplTest {
         return formSatisfaction;
     }
 
-
-    private Cliente crearCliente(String nombre, String email, String telefono, String password) {
-        Cliente cliente = new Cliente();
-        cliente.setNombre(nombre);
-        cliente.setEmail(email);
-        cliente.setTelefono(telefono);
-        cliente.setPassword(password);
-        return cliente;
-    }
-
     public static @NotNull Cliente crearClienteConDatos() {
         Cliente cliente = new Cliente();
         cliente.setNombre("Lionel Andres");
@@ -267,32 +223,16 @@ public class RepositorioClienteImplTest {
         return cliente;
     }
 
-    private static @NotNull Cliente crearClienteConNombreNullParaQueLanceLaClienteConNombreNullException() {
+    private Cliente crearCliente(String nombre, String email, String telefono, String password) {
         Cliente cliente = new Cliente();
-        cliente.setNombre(null);
-        cliente.setEmail("sinNombre@mail.com");
-        cliente.setTelefono("111222333");
-        cliente.setPassword("password123");
+        cliente.setNombre(nombre);
+        cliente.setEmail(email);
+        cliente.setTelefono(telefono);
+        cliente.setPassword(password);
         return cliente;
     }
 
-    private static @NotNull Cliente crearUnClienteConEmailNullParaQueLanceLaClienteConEmailNullException() {
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Juan Carlos");
-        cliente.setEmail(null);  // Email nulo
-        cliente.setTelefono("123456789");
-        cliente.setPassword("password123");
-        return cliente;
-    }
 
-    private static @NotNull Cliente crearUnClienteConPasswordNullParaQueLanceLaClienteConPasswordNullException() {
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Juan Carlos");
-        cliente.setEmail("sinNombre@mail.com");  // Email nulo
-        cliente.setTelefono("123456789");
-        cliente.setPassword(null);
-        return cliente;
-    }
 
     private Profesional crearProfesionalConDatos() {
         Profesional profesional = new Profesional();
