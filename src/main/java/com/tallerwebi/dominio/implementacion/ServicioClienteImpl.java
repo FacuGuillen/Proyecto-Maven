@@ -3,6 +3,7 @@ package com.tallerwebi.dominio.implementacion;
 import com.tallerwebi.dominio.excepcion.UsuarioConEmailNullException;
 import com.tallerwebi.dominio.excepcion.UsuarioConNombreNullException;
 import com.tallerwebi.dominio.excepcion.UsuarioConPasswordNullException;
+import com.tallerwebi.dominio.excepcion.UsuarioInexistenteException;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioCliente;
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioCliente;
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 public class ServicioClienteImpl implements ServicioCliente {
 
-    private final RepositorioCliente repositorioCliente;
+    private RepositorioCliente repositorioCliente;
 
     @Autowired
     public ServicioClienteImpl(RepositorioCliente repositorioCliente) {
@@ -40,6 +41,9 @@ public class ServicioClienteImpl implements ServicioCliente {
         Cliente cliente = repositorioCliente.buscarPorId(id);
         if (cliente != null) {
             repositorioCliente.eliminar(cliente);
+        } else {
+                throw new UsuarioInexistenteException("El cliente que intenta eliminar no existe");
+
         }
     }
 
@@ -97,10 +101,11 @@ public class ServicioClienteImpl implements ServicioCliente {
     @Override
     @Transactional
     public void eliminar(Cliente cliente) {
-        Cliente clienteExistente = repositorioCliente.buscarPorId(cliente.getId());
-        if (clienteExistente != null) {
-            repositorioCliente.eliminar(clienteExistente);
+
+        if (cliente == null) {
+            throw new UsuarioInexistenteException("El cliente que intenta eliminar no existe");
         }
+        repositorioCliente.eliminar(cliente);
     }
 
     @Override

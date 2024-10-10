@@ -1,4 +1,4 @@
-package com.tallerwebi.infraestructura.config;
+package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.excepcion.ComentarioInexistenteEnBaseDeDatos;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioComentario;
@@ -7,9 +7,7 @@ import com.tallerwebi.dominio.implementacion.interfaces.RepositorioUsuario;
 import com.tallerwebi.dominio.modelo.Comentario;
 import com.tallerwebi.dominio.modelo.Consulta;
 import com.tallerwebi.dominio.modelo.Profesional;
-import com.tallerwebi.infraestructura.RepositorioComentarioImpl;
-import com.tallerwebi.infraestructura.RepositorioConsultaImpl;
-import com.tallerwebi.infraestructura.RepositorioUsuarioImpl;
+import com.tallerwebi.infraestructura.config.HibernateInfraestructuraTestConfig;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;

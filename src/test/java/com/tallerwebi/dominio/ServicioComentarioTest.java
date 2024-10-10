@@ -17,6 +17,7 @@ import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
@@ -112,33 +113,37 @@ public class ServicioComentarioTest {
         verify(repositorioConsulta).findById(consultaId);
     }
 
-//    @Test
-//    @Transactional
-//    @Rollback
-//    public void queSeAgregaComentarioCuandoElUsuarioEsProfesionalYLaConsultaExiste() throws Exception {
-//        Profesional profesional = new Profesional();
-//        profesional.setNombre("Profesional Test");
-//        profesional.setCalificacion(5);
-//        when(repositorioUsuario.findById(anyLong())).thenReturn(profesional);
-//
-//        Long idUsuario = 1L;
-//
-//        Consulta consulta = new Consulta();
-//        consulta.setDescripcion("Consulta de prueba");
-//        consulta.setId(1L);
-//        when(repositorioConsulta.findById(anyLong())).thenReturn(consulta);
-//
-//        Comentario comentario = new Comentario();
-//        comentario.setDescripcion("Comentario de prueba");
-//
-//        servicioComentario.agregarComentario(consulta.getId(), idUsuario, comentario);
-//
-//        List<Comentario> comentarios = repositorioComentario.getByConsulta(consulta);
-//        assertThat(comentarios, is(not(empty())));
-//        assertThat(comentarios, hasSize(1));
-//        assertThat(comentarios.get(0).getDescripcion(), is("Comentario de prueba"));
-//
-//        verify(repositorioComentario).save(comentario);
-//    }
+    @Test
+    @Transactional
+    @Rollback
+    public void queSeAgregaComentarioCuandoElUsuarioEsProfesionalYLaConsultaExiste() throws Exception {
+        Profesional profesional = new Profesional();
+        profesional.setNombre("Profesional Test");
+        profesional.setCalificacion(5);
+        when(repositorioUsuario.findById(anyLong())).thenReturn(profesional);
+
+        Long idUsuario = 1L;
+
+        Consulta consulta = new Consulta();
+        consulta.setDescripcion("Consulta de prueba");
+        consulta.setId(1L);
+        when(repositorioConsulta.findById(anyLong())).thenReturn(consulta);
+
+        Comentario comentario = new Comentario();
+        comentario.setDescripcion("Comentario de prueba");
+
+        List<Comentario> listaComentarios = new ArrayList<>();
+        listaComentarios.add(comentario);
+        when(repositorioComentario.getByConsulta(consulta)).thenReturn(listaComentarios);
+
+        servicioComentario.agregarComentario(consulta.getId(), idUsuario, comentario);
+
+        List<Comentario> comentarios = repositorioComentario.getByConsulta(consulta);
+        assertThat(comentarios, is(not(empty())));
+        assertThat(comentarios, hasSize(1));
+        assertThat(comentarios.get(0).getDescripcion(), is("Comentario de prueba"));
+
+        verify(repositorioComentario).save(comentario);
+    }
 
 }

@@ -3,6 +3,7 @@ package com.tallerwebi.dominio;
 import com.tallerwebi.dominio.excepcion.UsuarioConEmailNullException;
 import com.tallerwebi.dominio.excepcion.UsuarioConNombreNullException;
 import com.tallerwebi.dominio.excepcion.UsuarioConPasswordNullException;
+import com.tallerwebi.dominio.excepcion.UsuarioInexistenteException;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioCliente;
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioCliente;
@@ -81,18 +82,21 @@ public class ServicioClienteImplTest {
     }
 
     @Test
-    public void dadoQueEliminoUnClienteInexistenteEntoncesNoHaceNada() {
-        when(repositorioCliente.buscarPorId(2L)).thenReturn(null);
+    public void dadoQueTratoDeEliminarUnClienteNullEntoncesArrojoUnaUsuarioInexistenteException() {
+        Cliente cliente = null;
 
-        servicioCliente.eliminarCliente(2L);
-        verify(repositorioCliente, never()).eliminar(any());
+        assertThrows(UsuarioInexistenteException.class, () ->{
+            servicioCliente.eliminar(cliente);
+        });
+
+
     }
 
     @Test
     @Transactional
-    public void dadoQueIntentoGuardarUnClienteConNombreNuloEntoncesArrojaLaExcepcionClienteConNombreNullException() {
+    public void dadoQueIntentoGuardarUnClienteConNombreNuloEntoncesArrojaLaExcepcionUsuarioConNombreNullException() {
         // Arrange
-        Cliente cliente = crearClienteConNombreNullParaQueLanceLaClienteConNombreNullException();
+        Cliente cliente = crearClienteConNombreNullParaQueLanceLaUsuarioConNombreNullException();
 
         // Act & Assert
         assertThrows(UsuarioConNombreNullException.class, () -> {
@@ -102,8 +106,8 @@ public class ServicioClienteImplTest {
 
     @Test
     @Transactional
-    public void dadoQueIntentoGuardarUnClienteConEmailNuloEntoncesEntoncesArrojaLaExcepcionClienteConEmailNullException() {
-        Cliente cliente = crearUnClienteConEmailNullParaQueLanceLaClienteConEmailNullException();
+    public void dadoQueIntentoGuardarUnClienteConEmailNuloEntoncesEntoncesArrojaLaExcepcionUsuarioConEmailNullException() {
+        Cliente cliente = crearUnClienteConEmailNullParaQueLanceLaUsuarioConEmailNullException();
 
         assertThrows(UsuarioConEmailNullException.class, () -> {
             this.servicioCliente.guardar(cliente);
@@ -112,8 +116,8 @@ public class ServicioClienteImplTest {
 
     @Test
     @Transactional
-    public void dadoQueIntentoGuardarUnClienteConPasswordNuloEntoncesArrojaLaExcepcionClienteConPasswordNullException() {
-        Cliente cliente = crearUnClienteConPasswordNullParaQueLanceLaClienteConPasswordNullException();
+    public void dadoQueIntentoGuardarUnClienteConPasswordNuloEntoncesArrojaLaExcepcionUsuarioConPasswordNullException() {
+        Cliente cliente = crearUnClienteConPasswordNullParaQueLanceLaUsuarioConPasswordNullException();
 
         assertThrows(UsuarioConPasswordNullException.class, () -> {
             this.servicioCliente.guardar(cliente);
@@ -122,7 +126,7 @@ public class ServicioClienteImplTest {
 
     // METODOS
 
-    private static @NotNull Cliente crearClienteConNombreNullParaQueLanceLaClienteConNombreNullException() {
+    private static @NotNull Cliente crearClienteConNombreNullParaQueLanceLaUsuarioConNombreNullException() {
         Cliente cliente = new Cliente();
         cliente.setNombre(null);
         cliente.setEmail("sinNombre@mail.com");
@@ -131,7 +135,7 @@ public class ServicioClienteImplTest {
         return cliente;
     }
 
-    private static @NotNull Cliente crearUnClienteConEmailNullParaQueLanceLaClienteConEmailNullException() {
+    private static @NotNull Cliente crearUnClienteConEmailNullParaQueLanceLaUsuarioConEmailNullException() {
         Cliente cliente = new Cliente();
         cliente.setNombre("Juan Carlos");
         cliente.setEmail(null);  // Email nulo
@@ -140,7 +144,7 @@ public class ServicioClienteImplTest {
         return cliente;
     }
 
-    private static @NotNull Cliente crearUnClienteConPasswordNullParaQueLanceLaClienteConPasswordNullException() {
+    private static @NotNull Cliente crearUnClienteConPasswordNullParaQueLanceLaUsuarioConPasswordNullException() {
         Cliente cliente = new Cliente();
         cliente.setNombre("Juan Carlos");
         cliente.setEmail("sinNombre@mail.com");  // Email nulo
