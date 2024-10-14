@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -62,7 +63,18 @@ public class RepositorioPublicacionImpl implements RepositorioPublicacion {
 
 
     /*----------------------------- ELIMINAR -----------------------------*/
+    @Override
     public void eliminarPublicacion(Publicacion publicacion) {
         this.sessionFactory.getCurrentSession().delete(publicacion);
     }
+
+    @Override
+    public List<Publicacion> buscarPublicacionPorNombre(String nombre) {
+        String hql = "FROM Publicacion WHERE lower(nombre) LIKE :nombre";
+        TypedQuery<Publicacion> query = sessionFactory.getCurrentSession().createQuery(hql, Publicacion.class);
+        query.setParameter("nombre", "%" + nombre.toLowerCase() + "%");
+        return query.getResultList();
+    }
+
+
 }

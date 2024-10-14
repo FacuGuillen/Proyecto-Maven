@@ -1,10 +1,10 @@
 package com.tallerwebi.dominio.implementacion;
 
-import com.tallerwebi.dominio.implementacion.interfaces.RepositorioMaterial;
+//import com.tallerwebi.dominio.implementacion.interfaces.RepositorioMaterial;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioPublicacion;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioPublicacion;
 import com.tallerwebi.dominio.modelo.Cliente;
-import com.tallerwebi.dominio.modelo.Material;
+//import com.tallerwebi.dominio.modelo.Material;
 import com.tallerwebi.dominio.modelo.Publicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +50,10 @@ public class ServicioPublicacionImpl implements ServicioPublicacion {
 
         // Verifica si la publicación existe antes de eliminarla
             this.repositorioPublicacion.eliminarPublicacion(publicacion);
+    }
+
+    public List<Publicacion> buscarPublicacionesPorNombre(String nombre) {
+        return repositorioPublicacion.buscarPublicacionPorNombre(nombre);
     }
 
 }

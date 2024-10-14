@@ -18,4 +18,5 @@ public interface ServicioPublicacion {
 
     void eliminarPublicacion(Long id);
 
+    List<Publicacion> buscarPublicacionesPorNombre(String nombre);
 }

@@ -20,10 +20,18 @@
   <div th:replace="template/sidebar"></div>
   <!-- Main content -->
   <main role="main" class="container mt-3">
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Buscar Material" aria-label="Search">
+    <form th:action="@{/buscar-publicaciones}" class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Buscar Material" aria-label="Search" name="search">
       <button class="btn btn-outline-success" type="submit" id="btn-buscador-materiales">Buscar</button>
+      <a th:href="@{/limpiar-busqueda}">
+        <button class="btn btn-outline-success btn-limpiar-busqueda" type="button">Limpiar búsqueda</button>
+      </a>
     </form>
+
+<!--    <a th:href="@{/limpiar-busqueda}">-->
+<!--      <button class="btn btn-outline-success" type="button">Limpiar búsqueda</button>-->
+<!--    </a>-->
+
     <div class="d-flex justify-content-between align-items-center my-4">
       <h2>Mis Publicaciones</h2>
       <a th:href="@{/ofertar}" class="btn btn-primary col-sm-2 col-md-2 col-lg-2"><i class="fas fa-hand-holding-usd icon"></i> Ofertar Material</a>
@@ -32,22 +40,25 @@
     <div class="row gap-4">
       <!-- Card for each publication -->
       <!--Prueba-->
-      <div th:each="publicacion: ${publicaciones}" class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
+      <!-- Cada tarjeta de publicación -->
+      <div th:each="publicacion : ${publicaciones}" class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
         <img th:src="@{/images/cemento-image.jpeg}" class="card-img-top-custom" alt="cemento">
         <div class="card-body">
-          <h5 class="card-title">Titulo: <span th:text="${publicacion.nombre}" ></span></h5>
-          <p class="card-text">Precio: <span th:text="${publicacion.precio}" ></span></p>
-          <p class="card-text">Cantidad disponible:<span th:text="${publicacion.stock}" ></span></p>
+          <h5 class="card-title">Titulo: <span th:text="${publicacion.nombre}"></span></h5>
+          <p class="card-text">Precio: <span th:text="${publicacion.precio}"></span></p>
+          <p class="card-text">Cantidad disponible: <span th:text="${publicacion.stock}"></span></p>
           <p class="card-text">Ubicación: Buenos Aires, Argentina</p>
           <div class="d-flex justify-content-between align-items-center">
             <div>
-<!--              <a href="#" class="btn btn-primary">Editar</a>-->
+              <!-- Botón Editar -->
               <a href="#" class="btn btn-primary">Editar</a>
-              <!-- Button trigger modal -->
-              <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</a>
+
+              <!-- Botón Eliminar (Asociado al modal) -->
+              <a href="#" class="btn btn-danger"
+                 th:attr="data-bs-toggle='modal', data-bs-target='#modalEliminarPublicacion-' + ${publicacion.id}">Eliminar</a>
 
               <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div th:id="'modalEliminarPublicacion-' + ${publicacion.id}" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -55,12 +66,11 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      ¿Estas seguro que quiere eliminar esta publicación?
+                      ¿Estás seguro que quieres eliminar esta publicación?
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-<!--                      <button> th:href="@{/eliminar-publicacion/{id}(id=${publicacion.id})}"-->
-<!--                         class="btn btn-primary btn-primary-delete">Eliminar publicación</button>-->
+                      <!-- Formulario para eliminar la publicación -->
                       <form th:action="@{/eliminar-publicacion/{id}(id=${publicacion.id})}" method="post" style="display:inline;">
                         <button type="submit" class="btn btn-danger">Eliminar publicación</button>
                       </form>
@@ -69,52 +79,10 @@
                 </div>
               </div>
             </div>
+            <!-- Switch de Pausado -->
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckCheckedr" checked>
-              <label class="form-check-label" for="flexSwitchCheckCheckedr">Pausado</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!--2-->
-      <div class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
-        <img th:src="@{/images/ladrillos.jpg}" class="card-img-top-custom" alt="cemento">
-        <div class="card-body">
-          <h5 class="card-title">Ladrillos pallet 144u</h5>
-          <p class="card-text">Precio: $60.000</p>
-          <p class="card-text">Cantidad disponible: 1 unidad</p>
-          <p class="card-text">Ubicación: Mendoza, Argentina</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <a href="#" class="btn btn-primary">Editar</a>
-              <a href="#" class="btn btn-danger">Eliminar</a>
-            </div>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckCheckeda" checked>
-              <label class="form-check-label" for="flexSwitchCheckCheckeda">Pausado</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--3-->
-      <div class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
-        <img th:src="@{/images/baldozas.webp}" class="card-img-top-custom" alt="cemento">
-        <div class="card-body">
-          <h5 class="card-title">Baldozas x25u</h5>
-          <p class="card-text">Precio: $25.000</p>
-          <p class="card-text">Cantidad disponible: 1 unidad</p>
-          <p class="card-text">Ubicación: Buenos Aires, Argentina</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <a href="#" class="btn btn-primary">Editar</a>
-              <a href="#" class="btn btn-danger">Eliminar</a>
-            </div>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckCheckede" checked>
-              <label class="form-check-label" for="flexSwitchCheckCheckede">Pausado</label>
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+              <label class="form-check-label" for="flexSwitchCheckChecked">Pausado</label>
             </div>
           </div>
         </div>

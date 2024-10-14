@@ -1,26 +1,17 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.excepcion.ConsultaNoEncontradaException;
-import com.tallerwebi.dominio.excepcion.UsuarioNoEncontradoException;
-import com.tallerwebi.dominio.excepcion.UsuarioSinPermisosException;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioCliente;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioPublicacion;
 import com.tallerwebi.dominio.modelo.Cliente;
-import com.tallerwebi.dominio.modelo.Comentario;
-import com.tallerwebi.dominio.modelo.Consulta;
 import com.tallerwebi.dominio.modelo.Publicacion;
-import com.tallerwebi.dominio.modelo.enums.TipoConsulta;
-import com.tallerwebi.dominio.modelo.enums.TipoTrabajo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller //Indica que es responsable de manejar las solicitudes web.
@@ -66,10 +57,9 @@ public class ControladorPublicacion {
         Cliente cliente = servicioCliente.buscarPorId(idUsuario);
         publicacion.setClientePublicacion(cliente);
 
-        servicioPublicacion.guardarPublicacion(publicacion); // Asumiendo que este es el servicio correcto para guardar la publicación.
+        servicioPublicacion.guardarPublicacion(publicacion);
         return new ModelAndView("redirect:/misPublicaciones");
     }
-
 
 
 
@@ -145,5 +135,51 @@ public class ControladorPublicacion {
         return new ModelAndView("redirect:/misPublicaciones");
     }
 
+
+    @RequestMapping(value = "/buscar-publicaciones", method = RequestMethod.GET)
+    public ModelAndView buscarPublicaciones(@RequestParam("search") String nombre, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        // Verificar si el usuario está logueado
+        if (session == null || session.getAttribute("ID") == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        // Obtener el ID del usuario desde la sesión
+        Long idUsuario = (Long) session.getAttribute("ID");
+
+
+        // Buscar las publicaciones que coincidan con el nombre proporcionado
+        List<Publicacion> publicaciones = servicioPublicacion.buscarPublicacionesPorNombre(nombre);
+
+        // Pasar las publicaciones al modelo
+        ModelMap model = new ModelMap();
+        model.put("publicaciones", publicaciones);
+
+        return new ModelAndView("mis-publicaciones", model);
+    }
+
+
+    @RequestMapping(value = "/limpiar-busqueda", method = RequestMethod.GET)
+    public ModelAndView limpiarBusqueda(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        // Verificar si el usuario está logueado
+        if (session == null || session.getAttribute("ID") == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        Long idUsuario = (Long) session.getAttribute("ID");
+        Cliente cliente = servicioCliente.buscarPorId(idUsuario);
+
+        // Obtener todas las publicaciones del cliente
+        List<Publicacion> publicaciones = servicioPublicacion.getListadoPublicacionPorCliente(cliente);
+
+        // Pasar las publicaciones al modelo
+        ModelMap model = new ModelMap();
+        model.put("publicaciones", publicaciones);
+
+        return new ModelAndView("mis-publicaciones", model);
+    }
 
 }

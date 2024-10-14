@@ -13,7 +13,7 @@
         </span>
         <a class="navbar-brand" th:href="@{/home}" >Maven</a>
         <div class="contenedor-carrito">
-            <div class = "div-carrito">
+            <div class = "div-carrito" th:if="${nombreUsuario != null && nombreUsuario != ''}">
                 <img class="carrito" id="carrito" th:src="@{/images/png/carrito.png}">
                 <div class="count-products">
                     <span class="contador-productos">0</span>
