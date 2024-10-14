@@ -31,4 +31,33 @@ public class RepositorioProfesionalImpl implements RepositorioProfesional {
     public void eliminar(Profesional profesional) {
         this.sessionFactory.getCurrentSession().delete(profesional);
     }
+
+    @Override
+    public Profesional buscarPorId(Long id) {
+        return sessionFactory.getCurrentSession().get(Profesional.class, id);
+    }
+
+
+    @Override
+    public void actualizar(Profesional cliente) {
+        sessionFactory.getCurrentSession().update(cliente);
+    }
+
+    @Override
+    public Profesional buscarPorEmail(String email) {
+        String hql = "FROM Profesional WHERE email = :email";
+        return (Profesional) sessionFactory.getCurrentSession()
+                .createQuery(hql)
+                .setParameter("email", email)
+                .uniqueResult();
+    }
+
+    @Override
+    public List<Profesional> listar() {
+        return sessionFactory.getCurrentSession()
+                .createQuery("FROM Profesional", Profesional.class)
+                .getResultList();
+    }
+
+
 }

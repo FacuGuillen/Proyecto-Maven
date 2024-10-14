@@ -1,16 +1,23 @@
 package com.tallerwebi.dominio;
 
+import com.tallerwebi.dominio.excepcion.UsuarioConEmailNullException;
+import com.tallerwebi.dominio.excepcion.UsuarioConNombreNullException;
+import com.tallerwebi.dominio.excepcion.UsuarioConPasswordNullException;
+import com.tallerwebi.dominio.excepcion.UsuarioInexistenteException;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioCliente;
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioCliente;
 import com.tallerwebi.dominio.implementacion.ServicioClienteImpl;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class ServicioClienteImplTest {
@@ -30,8 +37,9 @@ public class ServicioClienteImplTest {
         cliente.setNombre("Juan");
         cliente.setEmail("juan@mail.com");
         cliente.setTelefono("123456789");
+        cliente.setPassword("123");
 
-        servicioCliente.guardarCliente(cliente);
+        servicioCliente.guardar(cliente);
 
         verify(repositorioCliente, times(1)).guardar(cliente);
     }
@@ -74,11 +82,75 @@ public class ServicioClienteImplTest {
     }
 
     @Test
-    public void dadoQueEliminoUnClienteInexistenteEntoncesNoHaceNada() {
-        when(repositorioCliente.buscarPorId(2L)).thenReturn(null);
+    public void dadoQueTratoDeEliminarUnClienteNullEntoncesArrojoUnaUsuarioInexistenteException() {
+        Cliente cliente = null;
 
-        servicioCliente.eliminarCliente(2L);
-        verify(repositorioCliente, never()).eliminar(any());
+        assertThrows(UsuarioInexistenteException.class, () ->{
+            servicioCliente.eliminar(cliente);
+        });
+
+
+    }
+
+    @Test
+    @Transactional
+    public void dadoQueIntentoGuardarUnClienteConNombreNuloEntoncesArrojaLaExcepcionUsuarioConNombreNullException() {
+        // Arrange
+        Cliente cliente = crearClienteConNombreNullParaQueLanceLaUsuarioConNombreNullException();
+
+        // Act & Assert
+        assertThrows(UsuarioConNombreNullException.class, () -> {
+            this.servicioCliente.guardar(cliente); // Llamar al método del servicio
+        });
+    }
+
+    @Test
+    @Transactional
+    public void dadoQueIntentoGuardarUnClienteConEmailNuloEntoncesEntoncesArrojaLaExcepcionUsuarioConEmailNullException() {
+        Cliente cliente = crearUnClienteConEmailNullParaQueLanceLaUsuarioConEmailNullException();
+
+        assertThrows(UsuarioConEmailNullException.class, () -> {
+            this.servicioCliente.guardar(cliente);
+        });
+    }
+
+    @Test
+    @Transactional
+    public void dadoQueIntentoGuardarUnClienteConPasswordNuloEntoncesArrojaLaExcepcionUsuarioConPasswordNullException() {
+        Cliente cliente = crearUnClienteConPasswordNullParaQueLanceLaUsuarioConPasswordNullException();
+
+        assertThrows(UsuarioConPasswordNullException.class, () -> {
+            this.servicioCliente.guardar(cliente);
+        });
+    }
+
+    // METODOS
+
+    private static @NotNull Cliente crearClienteConNombreNullParaQueLanceLaUsuarioConNombreNullException() {
+        Cliente cliente = new Cliente();
+        cliente.setNombre(null);
+        cliente.setEmail("sinNombre@mail.com");
+        cliente.setTelefono("111222333");
+        cliente.setPassword("password123");
+        return cliente;
+    }
+
+    private static @NotNull Cliente crearUnClienteConEmailNullParaQueLanceLaUsuarioConEmailNullException() {
+        Cliente cliente = new Cliente();
+        cliente.setNombre("Juan Carlos");
+        cliente.setEmail(null);  // Email nulo
+        cliente.setTelefono("123456789");
+        cliente.setPassword("password123");
+        return cliente;
+    }
+
+    private static @NotNull Cliente crearUnClienteConPasswordNullParaQueLanceLaUsuarioConPasswordNullException() {
+        Cliente cliente = new Cliente();
+        cliente.setNombre("Juan Carlos");
+        cliente.setEmail("sinNombre@mail.com");  // Email nulo
+        cliente.setTelefono("123456789");
+        cliente.setPassword(null);
+        return cliente;
     }
 
 }

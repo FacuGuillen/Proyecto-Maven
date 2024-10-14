@@ -1,5 +1,6 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.excepcion.ComentarioInexistenteEnBaseDeDatos;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioComentario;
 import com.tallerwebi.dominio.modelo.Comentario;
 import com.tallerwebi.dominio.modelo.Consulta;
@@ -7,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -31,5 +33,23 @@ public class RepositorioComentarioImpl implements RepositorioComentario {
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("consulta", consulta);
         return query.getResultList();
+    }
+
+    @Override
+    public Comentario findById(Long comentarioId) {
+        String hql="FROM Comentario WHERE id=: id";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("id", comentarioId);
+        try {
+            return (Comentario) query.getSingleResult();
+        }
+        catch (NoResultException e) {
+            throw new ComentarioInexistenteEnBaseDeDatos("El comentario buscado no existe en la base de datos");
+        }
+    }
+
+    @Override
+    public void actualizar(Comentario comentario) {
+        this.sessionFactory.getCurrentSession().update(comentario);
     }
 }

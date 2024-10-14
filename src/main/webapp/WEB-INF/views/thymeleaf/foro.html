@@ -41,10 +41,12 @@
             <div th:each="consulta : ${consultas}">
                 <div class="card mt-4">
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${consulta.tipoConsulta} + ' - ' + ${consulta.tipoTrabajo}"></h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title" th:text="${consulta.tipoConsulta} + ' - ' + ${consulta.tipoTrabajo}"></h5>
+                            <p class="card-text mb-0" th:text="${consulta.getFechaCreacionFormateada()}"></p>
+                        </div>
                         <p class="card-text">Descripción: <span th:text="${consulta.descripcion}"></span></p>
                         <p class="card-text">Realizado por: <span th:text="${consulta.realizadoPor}"></span></p>
-                        <p class="card-text">Fecha: <span th:text="${consulta.getFechaCreacionFormateada()}"></span></p>
 
                         <!-- Sección para agregar un nuevo comentario -->
                         <form id="comentarioForm"  th:action="@{/agregarComentario}" method="POST" th:object="${comentario}" class="mt-4">
@@ -59,18 +61,28 @@
 
                         <!-- Comentarios de Profesionales -->
                         <div class="comments mt-4">
-                            <h6>Comentarios</h6>
-                            <!-- Mostrando los comentarios asociados a esta consulta -->
-                            <div id="comentariosList" th:each="comentario : ${consulta.comentarios}">
-                                <div class="card mt-2">
-                                    <div class="card-body">
-                                        <p class="card-text">
-                                            <strong th:text="${comentario.usuario.getNombre()} + ':'"></strong>
-                                            <span th:text="${comentario.descripcion}"></span>
-                                            Fecha: <span th:text="${comentario.getFechaCreacionFormateada()}"></span>
-                                        </p>
-                                        <div th:utext="${comentario.usuario.getEstrellas()}"></div>
-                                    </div>
+                            <p><strong th:text="${#lists.size(consulta.comentarios)} + ' Comentarios'"></strong></p>
+                            <div class="overflow-auto" style="max-height: 25vh;">
+                                <!-- Mostrando los comentarios asociados a esta consulta -->
+                                <div id="comentariosList" th:each="comentario : ${consulta.comentarios}">
+                                    <div class="card mt-2">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="card-text mb-0">
+                                                    <strong th:text="${comentario.usuario.getNombre()} + ':'"></strong>
+                                                    <span th:text="${comentario.descripcion}"></span>
+                                                </p>
+                                                <small class="text-muted mb-0" th:text="${comentario.getFechaCreacionFormateada()}"></small>
+                                            </div>
+                                            <div th:utext="${comentario.usuario.getEstrellas()}"></div>
+                                            <!-- Reacciones al comentario -->
+                                            <div class="comment-reactions d-flex align-items-center mt-2">
+                                                <!-- Útil -->
+                                                <button type="button" class="btn btn-outline-info me-2 useful-btn" th:data-id="${comentario.id}">
+                                                    <i class="far fa-lightbulb"></i> <span th:text="${comentario.useful}">0</span> Útil
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -140,8 +152,12 @@
 
 <!-- Boostrap core js -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+<!-- Bootstrap JS (incluye Popper.js) -->
+<script type="text/javascript" th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
 <script type="text/javascript" th:src="@{/js/foro.js}"></script>
+<script>    // Evento para el botón "Útil"
+
+</script>
 </body>
 </html>

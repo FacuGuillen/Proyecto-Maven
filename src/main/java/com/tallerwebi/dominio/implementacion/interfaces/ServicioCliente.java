@@ -4,7 +4,6 @@ import com.tallerwebi.dominio.modelo.Cliente;
 import java.util.List;
 
 public interface ServicioCliente {
-    void guardarCliente(Cliente cliente);
     Cliente buscarClientePorEmail(String email);
     List<Cliente> listarClientes();
     void eliminarCliente(Long id);
