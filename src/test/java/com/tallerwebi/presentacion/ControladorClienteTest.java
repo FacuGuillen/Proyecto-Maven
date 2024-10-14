@@ -58,7 +58,7 @@ public class ControladorClienteTest {
 
         controladorCliente.guardarCliente(cliente);
 
-        verify(servicioCliente, times(1)).guardarCliente(cliente);
+        verify(servicioCliente, times(1)).guardar(cliente);
     }
 
     @Test

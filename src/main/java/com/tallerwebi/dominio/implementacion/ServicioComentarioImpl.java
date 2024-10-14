@@ -57,4 +57,14 @@ public class ServicioComentarioImpl  implements ServicioComentario {
     public List<Comentario> listarComentariosByConsulta(Consulta consulta) {
         return this.repositorioComentario.getByConsulta(consulta);
     }
+
+    @Override
+    public Comentario buscarPorId(Long comentarioId) {
+        return this.repositorioComentario.findById(comentarioId);
+    }
+
+    @Override
+    public void actualizarComentario(Comentario comentario) {
+        this.repositorioComentario.actualizar(comentario);
+    }
 }

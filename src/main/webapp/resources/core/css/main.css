@@ -67,6 +67,12 @@ h1{
     color: gold;
     font-size: 1.2em;
 }
+.destacar-comentario {
+    border: 2px solid gold; /* Resalta con un borde dorado */
+    background-color: #f9f9f9; /* Un fondo más claro */
+    padding: 10px; /* Un poco de espacio alrededor */
+    font-weight: bold; /* Hacer el texto más destacado */
+}
 /* Ocultar el sidebar en dispositivos móviles */
 @media (max-width: 768px) {
     #sidebar {

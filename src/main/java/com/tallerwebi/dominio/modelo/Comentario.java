@@ -22,6 +22,11 @@ public class Comentario {
     @ManyToOne
     private Consulta consulta;
 
+    private Integer useful;
+    public Comentario() {
+        this.useful = 0;
+    }
+
     public Long getId() {
         return id;
     }
@@ -61,6 +66,15 @@ public class Comentario {
     public void setConsulta(Consulta consulta) {
         this.consulta = consulta;
     }
+
+    public Integer getUseful() {
+        return useful;
+    }
+
+    public void setUseful(Integer useful) {
+        this.useful = useful;
+    }
+
     public String getFechaCreacionFormateada() {
         if (fechaCreacion != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");

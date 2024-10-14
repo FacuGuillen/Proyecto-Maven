@@ -31,6 +31,11 @@ public class ServicioProyectoImpl implements ServicioProyecto {
         return repositorioProyecto.obtenerPorId(idProyecto);
     }
 
+    @Override
+    public List<Proyecto> obtenerProyectosPorEstado(String nuevo) {
+        return repositorioProyecto.obtenerProyectosPorEstado(nuevo);
+    }
+
 
 
 }
