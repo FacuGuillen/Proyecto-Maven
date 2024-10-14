@@ -33,7 +33,7 @@
       <!-- Card for each publication -->
       <!--Prueba-->
       <div th:each="publicacion: ${publicaciones}" class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
-        <img th:src="@{/images/cemento-image.jpeg}" class="card-img-top-custom" alt="cemento">
+        <img th:src="${publicacion.urlImagen}" class="card-img-top-custom" alt="cemento">
         <div class="card-body">
           <h5 class="card-title">Titulo: <span th:text="${publicacion.nombre}" ></span></h5>
           <p class="card-text">Precio: <span th:text="${publicacion.precio}" ></span></p>
@@ -42,7 +42,8 @@
           <div class="d-flex justify-content-between align-items-center">
             <div>
 <!--              <a href="#" class="btn btn-primary">Editar</a>-->
-              <a href="#" class="btn btn-primary">Editar</a>
+              <!--<a href="#" class="btn btn-primary">Editar</a>-->
+                <a th:href="@{/editar}" class="btn btn-primary ">Editar</a>
               <!-- Button trigger modal -->
               <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</a>
 
@@ -78,7 +79,7 @@
       </div>
 
 
-      <!--2-->
+     <!-- 2
       <div class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
         <img th:src="@{/images/ladrillos.jpg}" class="card-img-top-custom" alt="cemento">
         <div class="card-body">
@@ -99,7 +100,7 @@
         </div>
       </div>
 
-      <!--3-->
+      &lt;!&ndash;3&ndash;&gt;
       <div class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
         <img th:src="@{/images/baldozas.webp}" class="card-img-top-custom" alt="cemento">
         <div class="card-body">
@@ -118,7 +119,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
   </main>
 

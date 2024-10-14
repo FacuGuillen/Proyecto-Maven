@@ -43,10 +43,10 @@ public class ControladorProyecto {
     public String crearNuevoProyecto(@ModelAttribute Proyecto proyecto) {
         servicioProyecto.guardarProyecto(proyecto); // Llama al servicio para guardar el proyecto
         return ("redirect:/proyectos"); // Redirige a la lista de proyectos después de guardar
-}
+    }
     @RequestMapping(value = "/proyectos", method = RequestMethod.GET)
     public ModelAndView motrarMisPublicaciones(){
         return new ModelAndView("mis-proyectos");
-    }
+}
 
 }

@@ -43,8 +43,6 @@ public class ControladorPublicacion {
     }
 
 
-
-
     @RequestMapping(value = "/guardarPublicacion", method = RequestMethod.POST)
     public ModelAndView guardarPublicacion(@RequestParam("nombre") String nombre,
                                            @RequestParam("precio") Double precio,
@@ -72,6 +70,11 @@ public class ControladorPublicacion {
 
 
 
+    // editar publicacion
+    @RequestMapping(value = "/editar", method = RequestMethod.GET)
+    public ModelAndView editarPublicacion() {
+        return new ModelAndView("editar-publicacion");
+    }
 
 
 
@@ -141,9 +144,9 @@ public class ControladorPublicacion {
 
     @RequestMapping(value = "/eliminar-publicacion/{id}", method = RequestMethod.POST)
     public ModelAndView eliminarPublicacion(@PathVariable Long id) {
-        servicioPublicacion.eliminarPublicacion(id);
+        servicioPublicacion.eliminarPublicacion(id);  // Asegúrate de que este método elimina por ID correctamente
         return new ModelAndView("redirect:/misPublicaciones");
-    }
+}
 
 
 }

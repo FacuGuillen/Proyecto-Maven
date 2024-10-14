@@ -43,7 +43,7 @@ public class ControladorCliente {
         cliente.setNombre(nombre);
         cliente.setEmail(email);
         cliente.setTelefono(telefono);
-        servicioCliente.guardarCliente(cliente);
+        servicioCliente.guardar(cliente);
 
         return new ModelAndView("redirect:/clientes");
     }
@@ -76,7 +76,7 @@ public class ControladorCliente {
 
     @RequestMapping(value = "/guardar-cliente", method = RequestMethod.POST)
     public void guardarCliente(Cliente cliente) {
-        servicioCliente.guardarCliente(cliente);
+        servicioCliente.guardar(cliente);
     }
 
     @RequestMapping(value = "/editar-cliente", method = RequestMethod.GET)
@@ -90,6 +90,6 @@ public class ControladorCliente {
     @RequestMapping(value = "/actualizar-cliente-objeto", method = RequestMethod.POST)
     public void actualizarCliente(Cliente cliente) {
         servicioCliente.actualizarCliente(cliente);
-    }
+}
 }
 
