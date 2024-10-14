@@ -25,6 +25,9 @@ public class Publicacion {
 
     private String urlImagen;
 
+    @Lob
+    private byte[] imagen;
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente clientePublicacion;

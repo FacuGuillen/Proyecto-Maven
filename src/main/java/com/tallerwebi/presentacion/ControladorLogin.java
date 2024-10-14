@@ -115,7 +115,7 @@ public class ControladorLogin {
         ModelMap modelo = new ModelMap();
         modelo.put("datosLogin", new DatosLogin());
         return new ModelAndView("login", modelo);
-    }
+}
 
 }
 

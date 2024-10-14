@@ -90,6 +90,6 @@ public class ControladorCliente {
     @RequestMapping(value = "/actualizar-cliente-objeto", method = RequestMethod.POST)
     public void actualizarCliente(Cliente cliente) {
         servicioCliente.actualizarCliente(cliente);
-    }
+}
 }
 
