@@ -91,10 +91,6 @@ public class ControladorPublicacion {
     }
 
 
-
-
-
-
     //Muestra la lista de todas las publicaciones de los usuarios
     @RequestMapping(value = "/publicaciones", method = RequestMethod.GET)
     public ModelAndView mostrarPublicaciones(
@@ -180,6 +176,63 @@ public class ControladorPublicacion {
         model.put("publicaciones", publicaciones);
 
         return new ModelAndView("mis-publicaciones", model);
+    }
+
+
+    // editar publicacion
+    @RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
+    public ModelAndView editarPublicacion(@PathVariable Long id, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("ID") == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        Long idUsuario = (Long) session.getAttribute("ID");
+        Publicacion publicacion = servicioPublicacion.buscarPublicacionPorId(id);
+
+        // Verifica si la publicación existe y pertenece al usuario
+        if (publicacion != null && publicacion.getClientePublicacion().getId().equals(idUsuario)) {
+            ModelAndView modelAndView = new ModelAndView("editar-publicacion");
+            modelAndView.addObject("publicacion", publicacion); // Agrega la publicación al modelo
+            return modelAndView;
+        }
+
+        return new ModelAndView("redirect:/misPublicaciones");
+    }
+//    @RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
+//    public ModelAndView editarPublicacion(@PathVariable Long id) {
+//        Publicacion publicacion = servicioPublicacion.buscarPublicacionPorId(id);
+//        ModelAndView modelAndView = new ModelAndView("guardar-cambios");
+//        modelAndView.addObject("publicacion", publicacion);
+//        return modelAndView;
+//    }
+
+    @RequestMapping(value = "/guardar-cambios/{id}", method = RequestMethod.POST)
+    public ModelAndView guardarCambios(@PathVariable Long id,
+                                       @RequestParam("nombre") String nombre,
+                                       @RequestParam("precio") Double precio,
+                                       @RequestParam("stock") Integer stock,
+                                       HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("ID") == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        Long idUsuario = (Long) session.getAttribute("ID");
+        Publicacion publicacion = servicioPublicacion.buscarPublicacionPorId(id);
+
+        if (publicacion != null && publicacion.getClientePublicacion().getId().equals(idUsuario)) {
+            // Actualizar los atributos de la publicación
+            publicacion.setNombre(nombre);
+            publicacion.setPrecio(precio);
+            publicacion.setStock(stock);
+
+            // Llamar al servicio para guardar los cambios
+            servicioPublicacion.modificarPublicacion(publicacion);
+        }
+
+        return new ModelAndView("redirect:/misPublicaciones");
     }
 
 }

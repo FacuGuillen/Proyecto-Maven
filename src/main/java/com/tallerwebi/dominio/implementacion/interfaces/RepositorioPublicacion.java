@@ -16,4 +16,5 @@ public interface RepositorioPublicacion {
     Publicacion obtenerPublicacionPorId(Long id);
 
     List<Publicacion> buscarPublicacionPorNombre(String nombre);
+
 }
