@@ -7,10 +7,12 @@ import com.tallerwebi.dominio.excepcion.UsuarioInexistenteException;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioCliente;
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioCliente;
+import com.tallerwebi.dominio.modelo.Publicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -69,6 +71,9 @@ public class ServicioClienteImpl implements ServicioCliente {
     @Transactional(readOnly = true)
     public Cliente buscarPorId(Long id) {
         return repositorioCliente.buscarPorId(id);
+
+        // VALIDAR CLIENTE ENCONTRADO POR ID
+
     }
 
     @Override
@@ -108,8 +113,27 @@ public class ServicioClienteImpl implements ServicioCliente {
         repositorioCliente.eliminar(cliente);
     }
 
+    @Transactional
     @Override
     public Cliente buscarClientePorId(Long id) {
         return repositorioCliente.buscarPorId(id);
+    }
+
+    @Override
+    public void modificarCliente(Cliente cliente) {
+        Cliente clienteExistente = repositorioCliente.buscarPorId(cliente.getId());
+
+        if (clienteExistente != null) {
+            // Actualiza los atributos de la publicación existente
+            clienteExistente.setEmail(cliente.getEmail());
+            clienteExistente.setTelefono(cliente.getTelefono());
+            // Agrega aquí cualquier otro atributo que necesites actualizar
+
+            // Guarda los cambios en la base de datos
+            repositorioCliente.guardar(clienteExistente);
+        } else {
+            // Maneja el caso donde la publicación no existe
+            throw new EntityNotFoundException("Publicación no encontrada con ID: " + cliente.getId());
+        }
     }
 }

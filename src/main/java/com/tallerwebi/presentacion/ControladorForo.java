@@ -65,7 +65,7 @@ public class ControladorForo {
             @ModelAttribute("consulta") Consulta consulta,
             HttpServletRequest request,
             RedirectAttributes redirectAttributes
-            ){
+    ){
         if(!validarSesion(request)){
             return ("redirect:/login");
         }
@@ -81,6 +81,7 @@ public class ControladorForo {
         }
         return ("redirect:/consultas");
     }
+
     @RequestMapping(value = "/agregarComentario", method = RequestMethod.POST)
     public ModelAndView agregarComentarioAConsulta(
             @ModelAttribute("comentario") Comentario comentario,
@@ -113,6 +114,6 @@ public class ControladorForo {
     }
     private boolean validarSesion(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        return session != null && session.getAttribute("ID") != null;
-    }
+        return session != null && session.getAttribute("ID") !=null;
+}
 }

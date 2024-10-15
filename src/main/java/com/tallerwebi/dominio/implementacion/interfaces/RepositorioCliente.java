@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface RepositorioCliente {
     void guardar(Cliente cliente);
+
     Cliente buscarPorEmail(String email);
 
     List<Cliente> listar();

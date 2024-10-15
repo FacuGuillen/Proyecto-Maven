@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="template/head"></div>
+
+<body>
+<div th:replace="template/navbar"></div>
+
+<div class="contenedor-principal d-flex">
+    <div th:replace="template/sidebar"></div>
+
+    <main role="main" class="container mt-3">
+        <h2 class="my-4 text-center">Tus datos</h2>
+
+        <div class="d-flex justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-3 shadow-sm">
+<!--                    <form method="POST" th:action="@{/actualizar-cliente}">-->
+                        <form th:action="@{/actualizar-cliente/{id}(id=${usuario.id})}" method="POST">
+<!--                        <input type="hidden" name="id" th:value="${publicacion.id}"/>-->
+                        <input type="hidden" name="id" th:value="${usuario.id}" />
+
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" th:value="${usuario.nombre}" placeholder="Nombre" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="apellido" name="apellido" th:value="${usuario.apellido}" placeholder="Apellido">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" th:value="${usuario.email}" placeholder="Email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dni" class="form-label">Numero DNI</label>
+                            <input type="text" class="form-control" id="dni" name="dni" th:value="${usuario.dni}" placeholder="Numero de DNI">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Numero de Teléfono</label>
+                            <input type="text" class="form-control" id="telefono" name="telefono" th:value="${usuario.telefono}" placeholder="Telefono">
+                        </div>
+                            <button type="submit" class="btn btn-primary mt-3 w-100">Confirmar cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</body>
+</html>

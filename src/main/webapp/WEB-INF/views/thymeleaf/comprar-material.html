@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!-- Incluir el fragmento del head -->
+<div th:replace="template/head"></div>
+<style>
+  .card-img-top-custom {
+    width: 100%;
+    height: 250px; /* Establece la altura deseada */
+    object-fit: cover; /* Hace que la imagen se ajuste al contenedor sin perder proporción */
+  }
+  .card{
+    background-color: rgba(239, 231, 218, 0.6); /* 0.8 es la opacidad, ajústala según necesites */
+  }
+</style>
+<body>
+<!-- Incluir el fragmento del navbar -->
+<div th:replace="template/navbar"></div>
+<div class="contenedor-principal d-flex">
+  <!-- Incluir el fragmento del sidebar -->
+  <div th:replace="template/sidebar"></div>
+  <!-- Main content -->
+  <main role="main" class="container mt-3">
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Buscar Material" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+    <div class="d-flex justify-content-between align-items-center my-4">
+      <h2>Mis Publicaciones</h2>
+      <a th:href="@{/ofertar}" class="btn btn-primary col-sm-2 col-md-2 col-lg-2"><i class="fas fa-hand-holding-usd icon"></i> Ofertar Material</a>
+    </div>
+
+    <div class="row gap-4">
+      <!-- Card for each publication -->
+      <!--Prueba-->
+      <div class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
+        <img th:src="@{/images/cemento-image.jpeg}" class="card-img-top-custom" alt="cemento">
+        <div class="card-body">
+          <h5 class="card-title">Cemento bolsa x50kg</h5>
+          <p class="card-text">Precio: $15.000</p>
+          <label for="cantidad-cemento">Cantidad disponible:</label>
+          <select id="cantidad-cemento" class="form-select" style="width: auto; display: inline-block; background-color: transparent; border: none;" >
+            <option value="1">1 unidad</option>
+            <option value="2">2 unidades</option>
+            <option value="3">3 unidades</option>
+            <option value="4">4 unidades</option>
+            <option value="5">5 unidades</option>
+          </select>
+          <p class="card-text">Ubicación: Buenos Aires, Argentina</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <button class="btn btn-primary add-to-cart" data-product-name="Cemento bolsa x50kg">Agregar al carrito</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--2-->
+      <div class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
+        <img th:src="@{/images/ladrillos.jpg}" class="card-img-top-custom" alt="cemento">
+        <div class="card-body">
+          <h5 class="card-title">Ladrillos pallet 144u</h5>
+          <p class="card-text">Precio: $60.000</p>
+          <label for="cantidad-ladrillos">Cantidad disponible:</label>
+          <select id="cantidad-ladrillos" class="form-select" style="width: auto; display: inline-block; background-color: transparent; border: none;" >
+            <option value="1">1 unidad</option>
+            <option value="2">2 unidades</option>
+            <option value="3">3 unidades</option>
+            <option value="4">4 unidades</option>
+            <option value="5">5 unidades</option>
+          </select>
+          <p class="card-text">Ubicación: Mendoza, Argentina</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <button class="btn btn-primary add-to-cart">Agregar al carrito</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--3-->
+      <div class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
+        <img th:src="@{/images/baldozas.webp}" class="card-img-top-custom" alt="cemento">
+        <div class="card-body">
+          <h5 class="card-title">Baldozas x25u</h5>
+          <p class="card-text">Precio: $25.000</p>
+          <label for="cantidad-baldozas">Cantidad disponible:</label>
+          <select id="cantidad-baldozas" class="form-select" style="width: auto; display: inline-block; background-color: transparent; border: none;" >
+            <option value="1">1 unidad</option>
+            <option value="2">2 unidades</option>
+            <option value="3">3 unidades</option>
+            <option value="4">4 unidades</option>
+            <option value="5">5 unidades</option>
+          </select>
+          <p class="card-text">Ubicación: Buenos Aires, Argentina</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <button class="btn btn-primary add-to-cart">Agregar al carrito</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--termina prueba-->
+
+
+      <!-- Similar structure for other publications -->
+    </div>
+  </main>
+</div>

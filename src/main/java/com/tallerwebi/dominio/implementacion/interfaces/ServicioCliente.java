@@ -20,4 +20,7 @@ public interface ServicioCliente {
     void eliminar(Cliente cliente);
 
     Cliente buscarClientePorId(Long id);
+
+
+    void modificarCliente(Cliente cliente);
 }

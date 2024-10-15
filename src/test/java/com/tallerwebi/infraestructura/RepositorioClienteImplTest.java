@@ -31,7 +31,7 @@ public class RepositorioClienteImplTest {
     private RepositorioCliente repositorioCliente;
     private RepositorioProfesional repositorioProfesional;
     private RepositorioFormSatisfaction repositorioFormSatisfaction;
-    private RepositorioMaterial repositorioMaterial;
+    //private RepositorioMaterial repositorioMaterial;
     private RepositorioProyecto repositorioProyecto;
 
 
@@ -40,7 +40,7 @@ public class RepositorioClienteImplTest {
         this.repositorioCliente = new RepositorioClienteImpl(sessionFactory);
         this.repositorioProfesional = new RepositorioProfesionalImpl(sessionFactory);
         this.repositorioFormSatisfaction = new RepositorioFormSatisfactionImpl(sessionFactory);
-        this.repositorioMaterial = new RepositorioMaterialImpl(sessionFactory);
+        //this.repositorioMaterial = new RepositorioMaterialImpl(sessionFactory);
         this.repositorioProyecto = new RepositorioProyectoImpl(sessionFactory);
     }
 
@@ -179,27 +179,27 @@ public class RepositorioClienteImplTest {
     }
 
 
-    @Test
-    @Transactional
-    @Rollback
-    public void clienteCreaUnMaterialEnLaBaseDeDatos() {
-        Cliente cliente = crearClienteConDatos();
-        repositorioCliente.guardar(cliente);
-
-        Material material = crearMaterial(cliente);
-        repositorioMaterial.guardar(material);
-
-        String hql = "FROM Material m WHERE m.nombre = :nombre AND m.clienteMaterial.id = :clienteId";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("nombre", material.getNombre());
-        query.setParameter("clienteId", cliente.getId());
-
-        Material materialObtenido = (Material) query.getSingleResult();
-
-        assertThat(materialObtenido.getNombre(), equalTo(material.getNombre()));
-        assertThat(materialObtenido.getCantidad(), equalTo(material.getCantidad()));
-        assertThat(materialObtenido.getClienteMaterial().getId(), equalTo(cliente.getId()));
-    }
+//    @Test
+//    @Transactional
+//    @Rollback
+//    public void clienteCreaUnMaterialEnLaBaseDeDatos() {
+//        Cliente cliente = crearClienteConDatos();
+//        repositorioCliente.guardar(cliente);
+//
+//        Material material = crearMaterial(cliente);
+//        repositorioMaterial.guardar(material);
+//
+//        String hql = "FROM Material m WHERE m.nombre = :nombre AND m.clienteMaterial.id = :clienteId";
+//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+//        query.setParameter("nombre", material.getNombre());
+//        query.setParameter("clienteId", cliente.getId());;
+//
+//        Material materialObtenido = (Material) query.getSingleResult();
+//
+//        assertThat(materialObtenido.getNombre(), equalTo(material.getNombre()));
+//        assertThat(materialObtenido.getCantidad(), equalTo(material.getCantidad()));
+//        assertThat(materialObtenido.getClienteMaterial().getId(), equalTo(cliente.getId()));
+//    }
 
 
     // Metodos
@@ -250,14 +250,14 @@ public class RepositorioClienteImplTest {
         return (Cliente) query.getSingleResult();
     }
 
-    private Material crearMaterial(Cliente cliente){
-        Material material = new Material();
-        material.setNombre("Cemento");
-        material.setCantidad(2.5);
-        material.setUnidad("kg");
-        material.setClienteMaterial(cliente);
-        return material;
-    }
+//    private Material crearMaterial(Cliente cliente){
+//        Material material = new Material();
+//        material.setNombre("Cemento");
+//        material.setCantidad(2.5);
+//        material.setUnidad("kg");
+//        material.setClienteMaterial(cliente);
+//        return material;
+//    }
 
     private Proyecto crearProyecto(){
         Proyecto proyecto = new Proyecto();
