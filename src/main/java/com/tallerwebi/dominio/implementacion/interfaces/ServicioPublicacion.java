@@ -19,4 +19,7 @@ public interface ServicioPublicacion {
     void eliminarPublicacion(Long id);
 
 
+    void modificarCambios(Publicacion publicacion);
+
+    Publicacion obtenerPublicacionPorId(Long id);
 }

@@ -52,4 +52,15 @@ public class ServicioPublicacionImpl implements ServicioPublicacion {
             this.repositorioPublicacion.eliminarPublicacion(publicacion);
     }
 
+    @Override
+    public void modificarCambios(Publicacion publicacion) {
+        repositorioPublicacion.guardarModificaciones(publicacion);
+    }
+
+
+    @Override
+    public Publicacion obtenerPublicacionPorId(Long id) {
+        return null;
+    }
+
 }

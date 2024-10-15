@@ -70,11 +70,7 @@ public class ControladorPublicacion {
 
 
 
-    // editar publicacion
-    @RequestMapping(value = "/editar", method = RequestMethod.GET)
-    public ModelAndView editarPublicacion() {
-        return new ModelAndView("editar-publicacion");
-    }
+
 
 
 
@@ -148,5 +144,37 @@ public class ControladorPublicacion {
         return new ModelAndView("redirect:/misPublicaciones");
 }
 
+    // editar publicacion
+    @RequestMapping(value = "/editar", method = RequestMethod.GET)
+    public ModelAndView editarPublicacion() {
+        return new ModelAndView("editar-publicacion");
+    }
+
+  /*  @RequestMapping(value = "/confirmar-cambios/{id}", method = RequestMethod.PUT)
+    public ModelAndView confirmarCambios(@PathVariable Long id) {
+        servicioPublicacion.modificarCambios(id);
+        return new ModelAndView("redirect:/misPublicaciones");
+    }*/
+
+    @RequestMapping(value = "/confirmar-cambios/{id}", method = RequestMethod.PUT)
+    public ModelAndView confirmarCambios(@PathVariable Long id,
+                                         @RequestParam("nombre") String nombre,
+                                         @RequestParam("precio") Double precio,
+                                         @RequestParam("stock") Integer stock) {
+
+        // Obtener la publicación existente por ID
+        Publicacion publicacion = servicioPublicacion.obtenerPublicacionPorId(id);
+
+        // Modificar los campos de la publicación
+        publicacion.setNombre(nombre);
+        publicacion.setPrecio(precio);
+        publicacion.setStock(stock);
+
+        // Guardar las modificaciones
+        servicioPublicacion.modificarCambios(publicacion);
+
+        // Redirigir a la vista de mis publicaciones
+        return new ModelAndView("redirect:/misPublicaciones");
+    }
 
 }

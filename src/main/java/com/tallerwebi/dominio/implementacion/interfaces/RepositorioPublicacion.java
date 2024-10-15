@@ -14,4 +14,6 @@ public interface RepositorioPublicacion {
     void eliminarPublicacion(Publicacion publicacion);
 
     Publicacion obtenerPublicacionPorId(Long id);
+
+    void guardarModificaciones(Publicacion publicacion);
 }

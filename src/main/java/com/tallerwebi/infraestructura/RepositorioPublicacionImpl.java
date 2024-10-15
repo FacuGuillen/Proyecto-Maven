@@ -37,9 +37,14 @@ public class RepositorioPublicacionImpl implements RepositorioPublicacion {
         return session.get(Publicacion.class, idPublicacion);
     }
 
+    @Override
+    public void guardarModificaciones(Publicacion publicacion) {
+        this.sessionFactory.getCurrentSession().saveOrUpdate(publicacion);
+    }
 
 
-/*----------------------------- LISTAS -----------------------------*/
+
+    /*----------------------------- LISTAS -----------------------------*/
 
     @Override
     public List<Publicacion> listadoPublicacion(){

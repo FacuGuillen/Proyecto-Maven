@@ -19,7 +19,7 @@
             <div class="col-md-6">
                 <div class="card p-3 shadow-sm">
                     <h4 class="mb-3">Publicar un material</h4>
-                    <form th:action="@{/guardarPublicacion}" method="POST">
+                    <form th:action="@{/confirmar-cambios}" method="PUT">
                         <!-- Selección de material -->
                         <div class="form-group">
                             <label for="nombre">Escribe producto</label>
@@ -44,9 +44,11 @@
                         </div>
 
                         <!-- Botón de publicación -->
-                        <button type="submit"  class="btn btn-primary mt-3 w-100">
-                            <i class="fas fa-upload"></i> Editar
-                        </button>
+                        <a th:action="@{/}">
+                            <button type="submit"  class="btn btn-primary mt-3 w-100">
+                                Confirmar cambios
+                            </button>
+                        </a>
                     </form>
                 </div>
             </div>
