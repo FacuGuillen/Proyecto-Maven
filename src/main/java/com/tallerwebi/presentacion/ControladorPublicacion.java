@@ -199,13 +199,7 @@ public class ControladorPublicacion {
 
         return new ModelAndView("redirect:/misPublicaciones");
     }
-//    @RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
-//    public ModelAndView editarPublicacion(@PathVariable Long id) {
-//        Publicacion publicacion = servicioPublicacion.buscarPublicacionPorId(id);
-//        ModelAndView modelAndView = new ModelAndView("guardar-cambios");
-//        modelAndView.addObject("publicacion", publicacion);
-//        return modelAndView;
-//    }
+
 
     @RequestMapping(value = "/guardar-cambios/{id}", method = RequestMethod.POST)
     public ModelAndView guardarCambios(@PathVariable Long id,

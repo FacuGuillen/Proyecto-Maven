@@ -111,6 +111,7 @@ public class ServicioClienteImpl implements ServicioCliente {
         repositorioCliente.eliminar(cliente);
     }
 
+    @Transactional
     @Override
     public Cliente buscarClientePorId(Long id) {
         return repositorioCliente.buscarPorId(id);

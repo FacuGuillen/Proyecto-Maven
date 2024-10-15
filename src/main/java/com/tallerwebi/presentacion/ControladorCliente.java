@@ -5,11 +5,15 @@ import com.tallerwebi.dominio.implementacion.interfaces.ServicioCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -91,5 +95,32 @@ public class ControladorCliente {
     public void actualizarCliente(Cliente cliente) {
         servicioCliente.actualizarCliente(cliente);
 }
+
+    @RequestMapping(value = "/mis-datos", method = RequestMethod.GET)
+    public ModelAndView misDatos(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        if (session == null || session.getAttribute("ID") == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        // Obtener el ID del cliente de la sesión
+        Long clienteId = (Long) session.getAttribute("ID");
+
+        // Buscar el cliente en la base de datos
+        Cliente cliente = servicioCliente.buscarClientePorId(clienteId);
+
+        // Si no se encuentra el cliente, redirigir a la página de error o login
+        if (cliente == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        // Pasar los datos del cliente a la vista
+        ModelAndView modelAndView = new ModelAndView("mis-datos");
+        modelAndView.addObject("usuario", cliente);
+
+        return modelAndView;
+    }
+
 }
 
