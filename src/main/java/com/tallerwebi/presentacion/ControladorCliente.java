@@ -2,6 +2,7 @@ package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioCliente;
+import com.tallerwebi.dominio.modelo.Publicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -121,6 +122,38 @@ public class ControladorCliente {
 
         return modelAndView;
     }
+
+    @RequestMapping(value = "/actualizas-cliente/{id}", method = RequestMethod.POST)
+    public ModelAndView guardarCambiosDatos(@PathVariable Long id,
+                                            @RequestParam("email") String email,
+                                            @RequestParam("telefono") String telefono, // Cambiado a String para coincidir con el input HTML
+                                            HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("ID") == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        // Obtener el ID del cliente de la sesión
+        Long clienteId = (Long) session.getAttribute("ID");
+
+        // Buscar el cliente en la base de datos
+        Cliente cliente = servicioCliente.buscarClientePorId(clienteId);
+
+        if (cliente != null && cliente.getId().equals(id)) { // Asegúrate de usar el ID correcto
+            // Actualizar los atributos del cliente
+            cliente.setEmail(email);
+            cliente.setTelefono(telefono);
+
+            // Llamar al servicio para guardar los cambios
+            servicioCliente.modificarCliente(cliente);
+        }
+
+        return new ModelAndView("redirect:/mis-datos"); // Redirigir a mis-datos
+    }
+
+
+
 
 }
 

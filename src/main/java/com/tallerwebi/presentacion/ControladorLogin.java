@@ -72,6 +72,8 @@ public class ControladorLogin {
             nuevoUsuario.setApellido(usuario.getApellido());
             nuevoUsuario.setEmail(usuario.getEmail());
             nuevoUsuario.setPassword(usuario.getPassword());
+            nuevoUsuario.setDni(usuario.getDni());
+            nuevoUsuario.setTelefono(usuario.getTelefono());
             nuevoUsuario.setRol(rol);
 
             servicioLogin.registrar(nuevoUsuario);
@@ -85,6 +87,7 @@ public class ControladorLogin {
         }
         return new ModelAndView("redirect:/login");
     }
+
 
     @RequestMapping(path = "/nuevo-usuario", method = RequestMethod.GET)
     public ModelAndView nuevoUsuario() {
@@ -102,6 +105,7 @@ public class ControladorLogin {
     public ModelAndView irAHome() {
         return new ModelAndView("home");
     }
+
     @RequestMapping("/logout")
     public ModelAndView cerrarSesion(HttpServletRequest request) {
         System.out.println("Nombre de usuario en sesión: " + request.getSession().getAttribute("name"));

@@ -22,4 +22,5 @@ public interface ServicioCliente {
     Cliente buscarClientePorId(Long id);
 
 
+    void modificarCliente(Cliente cliente);
 }

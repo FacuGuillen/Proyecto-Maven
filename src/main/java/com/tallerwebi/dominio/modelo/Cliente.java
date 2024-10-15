@@ -16,13 +16,13 @@ public class Cliente extends Usuario {
     @OneToMany(mappedBy = "clientePublicacion")
     private List<Publicacion> publicaciones;
 
-    public Cliente(long l, String juanPerez, String mail, String number) {
+    public Cliente() {
         super();
     }
 
-    public Cliente()    {
-
-    }
+//    public Cliente()    {
+//
+//    }
 
     // Getters y Setters
     public List<Proyecto> getProyectos() {
