@@ -119,7 +119,9 @@ public class ServicioClienteImpl implements ServicioCliente {
         return repositorioCliente.buscarPorId(id);
     }
 
+
     @Override
+    @Transactional
     public void modificarCliente(Cliente cliente) {
         Cliente clienteExistente = repositorioCliente.buscarPorId(cliente.getId());
 

@@ -15,18 +15,21 @@
             <div class="col-md-6">
                 <div class="card p-3 shadow-sm">
 <!--                    <form method="POST" th:action="@{/actualizar-cliente}">-->
-                        <form th:action="@{/actualizar-cliente/{id}(id=${usuario.id})}" method="POST">
-<!--                        <input type="hidden" name="id" th:value="${publicacion.id}"/>-->
+                    <form th:action="@{/actualizar-cliente/{id}(id=${usuario.id})}" method="POST">
+
+                    <!--                        <input type="hidden" name="id" th:value="${publicacion.id}"/>-->
                         <input type="hidden" name="id" th:value="${usuario.id}" />
 
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="nombre" name="nombre" th:value="${usuario.nombre}" placeholder="Nombre" readonly>
+                            <p id="mensaje-nombre" style="color:red; display:none;">No se puede modificar</p>
                         </div>
 
                         <div class="mb-3">
                             <label for="apellido" class="form-label">Apellido</label>
-                            <input type="text" class="form-control" id="apellido" name="apellido" th:value="${usuario.apellido}" placeholder="Apellido">
+                            <input type="text" class="form-control" id="apellido" name="apellido" th:value="${usuario.apellido}" placeholder="Apellido" readonly>
+                            <p id="mensaje-apellido" style="color:red; display:none;">No se puede modificar</p>
                         </div>
 
                         <div class="mb-3">
@@ -36,14 +39,16 @@
 
                         <div class="mb-3">
                             <label for="dni" class="form-label">Numero DNI</label>
-                            <input type="text" class="form-control" id="dni" name="dni" th:value="${usuario.dni}" placeholder="Numero de DNI">
+                            <input type="text" class="form-control" id="dni" name="dni" th:value="${usuario.dni}" placeholder="Numero de DNI" readonly>
+                            <p id="mensaje-dni" style="color:red; display:none;">No se puede modificar</p>
                         </div>
 
                         <div class="mb-3">
                             <label for="telefono" class="form-label">Numero de Teléfono</label>
                             <input type="text" class="form-control" id="telefono" name="telefono" th:value="${usuario.telefono}" placeholder="Telefono">
                         </div>
-                            <button type="submit" class="btn btn-primary mt-3 w-100">Confirmar cambios</button>
+
+                        <button type="submit" class="btn btn-primary mt-3 w-100">Confirmar cambios</button>
                     </form>
                 </div>
             </div>
@@ -53,5 +58,7 @@
 
 <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/mis-datos.js}"></script>
+
 </body>
 </html>

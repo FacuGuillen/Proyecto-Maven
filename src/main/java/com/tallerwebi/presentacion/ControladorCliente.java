@@ -123,10 +123,10 @@ public class ControladorCliente {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/actualizas-cliente/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/actualizar-cliente/{id}", method = RequestMethod.POST)
     public ModelAndView guardarCambiosDatos(@PathVariable Long id,
                                             @RequestParam("email") String email,
-                                            @RequestParam("telefono") String telefono, // Cambiado a String para coincidir con el input HTML
+                                            @RequestParam("telefono") String telefono,
                                             HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
