@@ -9,5 +9,5 @@ public interface ServicioProyecto {
 
     Proyecto obtenerProyectoPorId(Long idProyecto);
 
-    List<Proyecto> obtenerProyectosPorEstado(String nuevo);
+//    List<Proyecto> obtenerProyectosPorEstado(String nuevo);
 }

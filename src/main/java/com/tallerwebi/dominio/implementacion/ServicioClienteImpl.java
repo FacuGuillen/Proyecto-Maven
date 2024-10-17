@@ -1,32 +1,28 @@
 package com.tallerwebi.dominio.implementacion;
 
+import com.tallerwebi.dominio.excepcion.UsuarioConEmailNullException;
+import com.tallerwebi.dominio.excepcion.UsuarioConNombreNullException;
+import com.tallerwebi.dominio.excepcion.UsuarioConPasswordNullException;
+import com.tallerwebi.dominio.excepcion.UsuarioInexistenteException;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioCliente;
 import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioCliente;
+import com.tallerwebi.dominio.modelo.Publicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
 public class ServicioClienteImpl implements ServicioCliente {
 
-    private final RepositorioCliente repositorioCliente;
+    private RepositorioCliente repositorioCliente;
 
     @Autowired
     public ServicioClienteImpl(RepositorioCliente repositorioCliente) {
         this.repositorioCliente = repositorioCliente;
-    }
-
-    @Override
-    @Transactional
-    public void guardarCliente(Cliente cliente) {
-        if (cliente.getId() == null) {
-            repositorioCliente.guardar(cliente);
-        } else {
-            actualizarCliente(cliente);
-        }
     }
 
     @Override
@@ -47,6 +43,9 @@ public class ServicioClienteImpl implements ServicioCliente {
         Cliente cliente = repositorioCliente.buscarPorId(id);
         if (cliente != null) {
             repositorioCliente.eliminar(cliente);
+        } else {
+                throw new UsuarioInexistenteException("El cliente que intenta eliminar no existe");
+
         }
     }
 
@@ -72,16 +71,24 @@ public class ServicioClienteImpl implements ServicioCliente {
     @Transactional(readOnly = true)
     public Cliente buscarPorId(Long id) {
         return repositorioCliente.buscarPorId(id);
+
+        // VALIDAR CLIENTE ENCONTRADO POR ID
+
     }
 
     @Override
     @Transactional
     public void guardar(Cliente cliente) {
-        if (cliente.getId() == null) {
-            repositorioCliente.guardar(cliente);
-        } else {
-            actualizar(cliente);
+        if(cliente.getNombre()==null){
+            throw new UsuarioConNombreNullException("El nombre del cliente no puede ser nulo");
         }
+        if (cliente.getEmail()==null){
+            throw new UsuarioConEmailNullException("El email del cliente no puede ser nulo");
+        }
+        if (cliente.getPassword()==null){
+            throw new UsuarioConPasswordNullException("El password del cliente no puede ser nulo");
+        }
+            repositorioCliente.guardar(cliente);
     }
 
     @Override
@@ -99,14 +106,36 @@ public class ServicioClienteImpl implements ServicioCliente {
     @Override
     @Transactional
     public void eliminar(Cliente cliente) {
-        Cliente clienteExistente = repositorioCliente.buscarPorId(cliente.getId());
-        if (clienteExistente != null) {
-            repositorioCliente.eliminar(clienteExistente);
+
+        if (cliente == null) {
+            throw new UsuarioInexistenteException("El cliente que intenta eliminar no existe");
         }
+        repositorioCliente.eliminar(cliente);
     }
 
+    @Transactional
     @Override
     public Cliente buscarClientePorId(Long id) {
         return repositorioCliente.buscarPorId(id);
+    }
+
+
+    @Override
+    @Transactional
+    public void modificarCliente(Cliente cliente) {
+        Cliente clienteExistente = repositorioCliente.buscarPorId(cliente.getId());
+
+        if (clienteExistente != null) {
+            // Actualiza los atributos de la publicación existente
+            clienteExistente.setEmail(cliente.getEmail());
+            clienteExistente.setTelefono(cliente.getTelefono());
+            // Agrega aquí cualquier otro atributo que necesites actualizar
+
+            // Guarda los cambios en la base de datos
+            repositorioCliente.guardar(clienteExistente);
+        } else {
+            // Maneja el caso donde la publicación no existe
+            throw new EntityNotFoundException("Publicación no encontrada con ID: " + cliente.getId());
+        }
     }
 }

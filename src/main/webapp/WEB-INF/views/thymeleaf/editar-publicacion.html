@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!-- Incluir el fragmento del head -->
+<div th:replace="template/head"></div>
+
+<body>
+<!-- Incluir el fragmento del navbar -->
+<div th:replace="template/navbar"></div>
+
+<div class="contenedor-principal d-flex">
+    <!-- Incluir el fragmento del sidebar -->
+    <div th:replace="template/sidebar"></div>
+    <!-- Main content -->
+    <main role="main" class="container mt-3">
+        <h2 class="my-4">Edita tu Material</h2>
+
+        <div class="row">
+            <!-- Formulario de publicación -->
+            <div class="col-md-6">
+                <div class="card p-3 shadow-sm">
+                    <h4 class="mb-3">Publicar un material</h4>
+                    <form th:action="@{/guardar-cambios/{id}(id=${publicacion.id})}" method="POST">
+                        <input type="hidden" name="id" th:value="${publicacion.id}"/> <!-- Campo oculto para el ID -->
+                        <div class="form-group">
+                            <label for="nombre">Escribe producto</label>
+                            <input type="text" name="nombre" id="nombre" class="form-control" required th:value="${publicacion.nombre}">
+                        </div>
+
+                        <!-- Cargar imagen -->
+                        <div class="form-group mt-3">
+                            <label for="materialImage">Adjuntar Imagen</label>
+                            <input type="file" class="form-control" id="materialImage" name="materialImage" accept="image/*">
+                        </div>
+
+                        <!-- Precio y cantidad -->
+                        <div class="form-group mt-3">
+                            <label for="priceInput">Precio por unidad</label>
+                            <input type="number" class="form-control" id="priceInput" placeholder="Ingresa el precio en $" step="0.01" min="0" name="precio" required th:value="${publicacion.precio}">
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="quantityInput">Cantidad disponible</label>
+                            <input type="number" class="form-control" id="quantityInput" placeholder="Cantidad disponible" name="stock" required th:value="${publicacion.stock}">
+                        </div>
+
+                        <!-- Botón de publicación -->
+<!--                        <a th:action="@{/guardar-cambios}">-->
+<!--                            <button type="submit"  class="btn btn-primary mt-3 w-100">-->
+<!--                                Confirmar cambios-->
+<!--                            </button>-->
+<!--                        </a>-->
+                        <button type="submit" class="btn btn-primary mt-3 w-100">
+                            Confirmar cambios
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+
+</main>
+<!-- /.container -->
+</div>
+
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</body>
+</html>

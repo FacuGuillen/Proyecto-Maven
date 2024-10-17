@@ -31,6 +31,10 @@
         <label for="nombre">Nombre:</label>
         <input th:field="*{nombre}" id="nombre" class="form-control" required/>
 
+        <!-- Apellido del usuario -->
+        <label for="apellido">Apellido</label>
+        <input th:field="*{apellido}" id="apellido" class="form-control" required>
+
         <!-- Email del usuario -->
         <label for="email">Email:</label>
         <input th:field="*{email}" id="email" class="form-control" required/>
@@ -38,6 +42,14 @@
         <!-- Contraseña del usuario -->
         <label for="password">Contraseña:</label>
         <input th:field="*{password}" type="password" id="password" class="form-control" required/>
+
+        <!-- Telefono del usuario -->
+        <label for="telefono">Numero Teléfono:</label>
+        <input th:field="*{telefono}" type="number" id="telefono" class="form-control" required/>
+
+        <!-- Dni del usuario -->
+        <label for="dni">Numero DNI:</label>
+        <input th:field="*{dni}" type="number" id="dni" class="form-control" required/>
 
         <!-- Campo adicional para seleccionar el tipo de usuario (Cliente o Profesional) -->
         <label for="tipoUsuario">Tipo de Usuario:</label>

@@ -62,7 +62,7 @@ public class ControladorConsulta {
             @ModelAttribute("consulta") Consulta consulta,
             HttpServletRequest request,
             RedirectAttributes redirectAttributes
-            ){
+    ){
         if(!validarSesion(request)){
             return ("redirect:/login");
         }
@@ -78,8 +78,42 @@ public class ControladorConsulta {
         }
         return ("redirect:/consultas");
     }
+<<<<<<< HEAD:src/main/java/com/tallerwebi/presentacion/ControladorConsulta.java
+=======
+
+    @RequestMapping(value = "/agregarComentario", method = RequestMethod.POST)
+    public ModelAndView agregarComentarioAConsulta(
+            @ModelAttribute("comentario") Comentario comentario,
+            @RequestParam("consultaId") Long consultaId,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes){
+        if(!validarSesion(request)){
+            return new ModelAndView("redirect:/login");
+        }
+        Long idUsuario = (Long) request.getSession().getAttribute("ID");
+        try {
+            servicioComentario.agregarComentario(consultaId, idUsuario, comentario);
+        } catch (ConsultaNoEncontradaException | UsuarioNoEncontradoException | UsuarioSinPermisosException e) {
+            redirectAttributes.addFlashAttribute("mensaje",  e.getMessage());
+            redirectAttributes.addFlashAttribute("tipoMensaje", "danger");
+        }
+        return new ModelAndView("redirect:/consultas");
+    }
+
+    @PostMapping("/agregarUtil")
+    public ResponseEntity<?> agregarUtil(@RequestParam Long comentarioId) {
+        Comentario comentario = servicioComentario.buscarPorId(comentarioId);
+        if (comentario == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Comentario no encontrado");
+        }
+
+        comentario.setUseful(comentario.getUseful() + 1);
+        servicioComentario.actualizarComentario(comentario);
+        return ResponseEntity.ok(comentario.getUseful());
+    }
+>>>>>>> main:src/main/java/com/tallerwebi/presentacion/ControladorForo.java
     private boolean validarSesion(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        return session != null && session.getAttribute("ID") != null;
-    }
+        return session != null && session.getAttribute("ID") !=null;
+}
 }

@@ -1,8 +1,5 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.excepcion.ClienteConEmailNullException;
-import com.tallerwebi.dominio.excepcion.ClienteConNombreNullException;
-import com.tallerwebi.dominio.excepcion.ClienteConPasswordNullException;
 import com.tallerwebi.dominio.implementacion.interfaces.*;
 import com.tallerwebi.dominio.modelo.*;
 import com.tallerwebi.dominio.modelo.enums.EstadoProyecto;
@@ -34,7 +31,7 @@ public class RepositorioClienteImplTest {
     private RepositorioCliente repositorioCliente;
     private RepositorioProfesional repositorioProfesional;
     private RepositorioFormSatisfaction repositorioFormSatisfaction;
-    private RepositorioMaterial repositorioMaterial;
+    //private RepositorioMaterial repositorioMaterial;
     private RepositorioProyecto repositorioProyecto;
 
 
@@ -43,7 +40,7 @@ public class RepositorioClienteImplTest {
         this.repositorioCliente = new RepositorioClienteImpl(sessionFactory);
         this.repositorioProfesional = new RepositorioProfesionalImpl(sessionFactory);
         this.repositorioFormSatisfaction = new RepositorioFormSatisfactionImpl(sessionFactory);
-        this.repositorioMaterial = new RepositorioMaterialImpl(sessionFactory);
+        //this.repositorioMaterial = new RepositorioMaterialImpl(sessionFactory);
         this.repositorioProyecto = new RepositorioProyectoImpl(sessionFactory);
     }
 
@@ -98,37 +95,6 @@ public class RepositorioClienteImplTest {
     public void dadoQueBuscoUnClienteInexistenteEntoncesNoLoEncuentro() {
         Cliente clienteObtenido = this.repositorioCliente.buscarPorEmail("noexiste@mail.com");
         assertThat(clienteObtenido, equalTo(null));
-    }
-
-    @Test
-    @Transactional
-    public void dadoQueIntentoGuardarUnClienteConNombreNuloEntoncesArrojaLaExcepcionClienteConNombreNullException() {
-        Cliente cliente = crearClienteConNombreNullParaQueLanceLaClienteConNombreNullException();
-
-        assertThrows(ClienteConNombreNullException.class, () -> {
-            this.repositorioCliente.guardar(cliente);
-        });
-
-    }
-
-    @Test
-    @Transactional
-    public void dadoQueIntentoGuardarUnClienteConEmailNuloEntoncesEntoncesArrojaLaExcepcionClienteConEmailNullException() {
-        Cliente cliente = crearUnClienteConEmailNullParaQueLanceLaClienteConEmailNullException();
-
-        assertThrows(ClienteConEmailNullException.class, () -> {
-            this.repositorioCliente.guardar(cliente);
-        });
-    }
-
-    @Test
-    @Transactional
-    public void dadoQueIntentoGuardarUnClienteConPasswordNuloEntoncesArrojaLaExcepcionClienteConPasswordNullException() {
-        Cliente cliente = crearUnClienteConPasswordNullParaQueLanceLaClienteConPasswordNullException();
-
-        assertThrows(ClienteConPasswordNullException.class, () -> {
-            this.repositorioCliente.guardar(cliente);
-        });
     }
 
     @Test
@@ -213,27 +179,27 @@ public class RepositorioClienteImplTest {
     }
 
 
-    @Test
-    @Transactional
-    @Rollback
-    public void clienteCreaUnMaterialEnLaBaseDeDatos() {
-        Cliente cliente = crearClienteConDatos();
-        repositorioCliente.guardar(cliente);
-
-        Material material = crearMaterial(cliente);
-        repositorioMaterial.guardar(material);
-
-        String hql = "FROM Material m WHERE m.nombre = :nombre AND m.clienteMaterial.id = :clienteId";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("nombre", material.getNombre());
-        query.setParameter("clienteId", cliente.getId());
-
-        Material materialObtenido = (Material) query.getSingleResult();
-
-        assertThat(materialObtenido.getNombre(), equalTo(material.getNombre()));
-        assertThat(materialObtenido.getCantidad(), equalTo(material.getCantidad()));
-        assertThat(materialObtenido.getClienteMaterial().getId(), equalTo(cliente.getId()));
-    }
+//    @Test
+//    @Transactional
+//    @Rollback
+//    public void clienteCreaUnMaterialEnLaBaseDeDatos() {
+//        Cliente cliente = crearClienteConDatos();
+//        repositorioCliente.guardar(cliente);
+//
+//        Material material = crearMaterial(cliente);
+//        repositorioMaterial.guardar(material);
+//
+//        String hql = "FROM Material m WHERE m.nombre = :nombre AND m.clienteMaterial.id = :clienteId";
+//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+//        query.setParameter("nombre", material.getNombre());
+//        query.setParameter("clienteId", cliente.getId());;
+//
+//        Material materialObtenido = (Material) query.getSingleResult();
+//
+//        assertThat(materialObtenido.getNombre(), equalTo(material.getNombre()));
+//        assertThat(materialObtenido.getCantidad(), equalTo(material.getCantidad()));
+//        assertThat(materialObtenido.getClienteMaterial().getId(), equalTo(cliente.getId()));
+//    }
 
 
     // Metodos
@@ -247,16 +213,6 @@ public class RepositorioClienteImplTest {
         return formSatisfaction;
     }
 
-
-    private Cliente crearCliente(String nombre, String email, String telefono, String password) {
-        Cliente cliente = new Cliente();
-        cliente.setNombre(nombre);
-        cliente.setEmail(email);
-        cliente.setTelefono(telefono);
-        cliente.setPassword(password);
-        return cliente;
-    }
-
     public static @NotNull Cliente crearClienteConDatos() {
         Cliente cliente = new Cliente();
         cliente.setNombre("Lionel Andres");
@@ -267,32 +223,16 @@ public class RepositorioClienteImplTest {
         return cliente;
     }
 
-    private static @NotNull Cliente crearClienteConNombreNullParaQueLanceLaClienteConNombreNullException() {
+    private Cliente crearCliente(String nombre, String email, String telefono, String password) {
         Cliente cliente = new Cliente();
-        cliente.setNombre(null);
-        cliente.setEmail("sinNombre@mail.com");
-        cliente.setTelefono("111222333");
-        cliente.setPassword("password123");
+        cliente.setNombre(nombre);
+        cliente.setEmail(email);
+        cliente.setTelefono(telefono);
+        cliente.setPassword(password);
         return cliente;
     }
 
-    private static @NotNull Cliente crearUnClienteConEmailNullParaQueLanceLaClienteConEmailNullException() {
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Juan Carlos");
-        cliente.setEmail(null);  // Email nulo
-        cliente.setTelefono("123456789");
-        cliente.setPassword("password123");
-        return cliente;
-    }
 
-    private static @NotNull Cliente crearUnClienteConPasswordNullParaQueLanceLaClienteConPasswordNullException() {
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Juan Carlos");
-        cliente.setEmail("sinNombre@mail.com");  // Email nulo
-        cliente.setTelefono("123456789");
-        cliente.setPassword(null);
-        return cliente;
-    }
 
     private Profesional crearProfesionalConDatos() {
         Profesional profesional = new Profesional();
@@ -310,14 +250,14 @@ public class RepositorioClienteImplTest {
         return (Cliente) query.getSingleResult();
     }
 
-    private Material crearMaterial(Cliente cliente){
-        Material material = new Material();
-        material.setNombre("Cemento");
-        material.setCantidad(2.5);
-        material.setUnidad("kg");
-        material.setClienteMaterial(cliente);
-        return material;
-    }
+//    private Material crearMaterial(Cliente cliente){
+//        Material material = new Material();
+//        material.setNombre("Cemento");
+//        material.setCantidad(2.5);
+//        material.setUnidad("kg");
+//        material.setClienteMaterial(cliente);
+//        return material;
+//    }
 
     private Proyecto crearProyecto(){
         Proyecto proyecto = new Proyecto();
