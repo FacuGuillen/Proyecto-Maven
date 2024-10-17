@@ -20,7 +20,7 @@ public class Publicacion {
     private Boolean publicacionPausada;
 
     @Lob
-    @Column(name = "imagen", columnDefinition = "BLOB")
+    @Column(name = "imagen")
     private byte[] imagen;
 
     @ManyToOne

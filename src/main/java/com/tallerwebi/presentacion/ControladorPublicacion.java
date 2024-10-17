@@ -6,6 +6,8 @@ import com.tallerwebi.dominio.modelo.Cliente;
 import com.tallerwebi.dominio.modelo.Publicacion;
 import com.tallerwebi.dominio.modelo.PublicacionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -36,7 +38,7 @@ public class ControladorPublicacion {
     public String mostrarFormulario(Model model) {
         Publicacion publicacion = new Publicacion(); // Crea una nueva instancia de Publicacion
         model.addAttribute("publicacion", publicacion); // Agrega el objeto al modelo
-        return "thymeleaf/ofertar-material"; // Asegúrate de que la ruta sea correcta
+        return "ofertar-material"; // Asegúrate de que la ruta sea correcta
     }
 
 
@@ -70,7 +72,19 @@ public class ControladorPublicacion {
         return new ModelAndView("redirect:/misPublicaciones");
 }
 
-
+//imgs
+@GetMapping("/imagen/{id}")
+@ResponseBody
+public ResponseEntity<byte[]> getImagen(@PathVariable Long id) {
+    Publicacion publicacion = servicioPublicacion.buscarPublicacionPorId(id);
+    if (publicacion != null && publicacion.getImagen() != null) {
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG) // Cambiar si usas otro formato
+                .body(publicacion.getImagen());
+    } else {
+        return ResponseEntity.notFound().build();
+    }
+}
 
 
 

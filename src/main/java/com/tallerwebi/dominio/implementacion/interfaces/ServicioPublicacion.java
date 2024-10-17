@@ -20,4 +20,5 @@ public interface ServicioPublicacion {
     Publicacion buscarPublicacionPorId(Long id);
 
     void modificarPublicacion(Publicacion publicacion);
+
 }
