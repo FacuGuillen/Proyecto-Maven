@@ -34,42 +34,41 @@ public class ControladorPublicacion {
     }
 
 
-    @GetMapping("/ofertar")
-    public String mostrarFormulario(Model model) {
-        Publicacion publicacion = new Publicacion(); // Crea una nueva instancia de Publicacion
-        model.addAttribute("publicacion", publicacion); // Agrega el objeto al modelo
-        return "ofertar-material"; // Asegúrate de que la ruta sea correcta
-    }
 
+    @RequestMapping(value = "/ofertar", method = RequestMethod.GET)
+    public ModelAndView ofertarMateriales() {
+        return new ModelAndView("ofertar-material");
+}
 
 
     /*----------------------------- VISTA MIS PUBLICACIONES -----------------------------*/
 
     @RequestMapping(value = "/guardarPublicacion", method = RequestMethod.POST)
-    public ModelAndView guardarPublicacion(
-            @ModelAttribute Publicacion publicacion,
-            @RequestParam("imagenArchivo") MultipartFile imagenArchivo,
-            HttpServletRequest request) throws IOException {
+    public ModelAndView guardarPublicacion(@RequestParam("nombre") String nombre,
+                                           @RequestParam("precio") Double precio,
+                                           @RequestParam("stock") Integer stock,
+                                           HttpServletRequest request) {
+
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("ID") == null) {
-            return new ModelAndView("redirect:/login");
+
+            return new ModelAndView ("redirect:/login");
         }
+
 
         Long idUsuario = (Long) session.getAttribute("ID");
-
-        // Procesar imagen si fue subida
-        if (imagenArchivo != null && !imagenArchivo.isEmpty()) {
-            publicacion.setImagen(imagenArchivo.getBytes());
-        }
-
-        // Configurar el cliente que hace la publicación
         Cliente cliente = servicioCliente.buscarPorId(idUsuario);
+        if (cliente == null) {
+            return new ModelAndView("redirect:/login");
+        }
+        Publicacion publicacion = new Publicacion();
+        publicacion.setNombre(nombre);
+        publicacion.setPrecio(precio);
+        publicacion.setStock(stock);
         publicacion.setClientePublicacion(cliente);
 
-        // Guardar la publicación
         servicioPublicacion.guardarPublicacion(publicacion);
-
         return new ModelAndView("redirect:/misPublicaciones");
 }
 
@@ -201,8 +200,6 @@ public ResponseEntity<byte[]> getImagen(@PathVariable Long id) {
 
         return new ModelAndView("mis-publicaciones", model);
     }
-
-
 
     /*----------------------------- VISTA EDITAR PUBLICACIONES -----------------------------*/
 
