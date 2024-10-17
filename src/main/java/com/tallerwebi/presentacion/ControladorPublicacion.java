@@ -229,7 +229,8 @@ public ResponseEntity<byte[]> getImagen(@PathVariable Long id) {
                                        @RequestParam("nombre") String nombre,
                                        @RequestParam("precio") Double precio,
                                        @RequestParam("stock") Integer stock,
-                                       HttpServletRequest request) {
+                                       @RequestParam("imagenArchivo") MultipartFile imagenArchivo,
+                                       HttpServletRequest request) throws IOException {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("ID") == null) {
@@ -244,6 +245,13 @@ public ResponseEntity<byte[]> getImagen(@PathVariable Long id) {
             publicacion.setNombre(nombre);
             publicacion.setPrecio(precio);
             publicacion.setStock(stock);
+
+            if (imagenArchivo != null && !imagenArchivo.isEmpty()) {
+                System.out.println("Imagen recibida: " + imagenArchivo.getOriginalFilename());
+                publicacion.setImagen(imagenArchivo.getBytes());
+            } else {
+                System.out.println("No se recibió una nueva imagen.");
+            }
 
             // Llamar al servicio para guardar los cambios
             servicioPublicacion.modificarPublicacion(publicacion);
