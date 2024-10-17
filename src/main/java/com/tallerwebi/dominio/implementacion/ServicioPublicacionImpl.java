@@ -20,11 +20,11 @@ public class ServicioPublicacionImpl implements ServicioPublicacion {
     public ServicioPublicacionImpl(RepositorioPublicacion repositorioPublicacion) {this.repositorioPublicacion = repositorioPublicacion;}
 
 
+
     @Override
     public void guardarPublicacion(Publicacion publicacion) {
         this.repositorioPublicacion.guardar(publicacion);
     }
-
 
 
     /*----------------------------- LISTAS -----------------------------*/
@@ -40,8 +40,23 @@ public class ServicioPublicacionImpl implements ServicioPublicacion {
         return repositorioPublicacion.listadoPublicacionPorCliente(cliente);
     }
 
+    public List<Publicacion> buscarPublicacionesPorNombre(String nombre) {
+        return repositorioPublicacion.buscarPublicacionPorNombre(nombre);
+    }
+
+    @Override
+    public List<Publicacion> listarPublicacionesPorMayorPrecio() {
+        return repositorioPublicacion.listarPublicacionPorMayorPrecio();
+    }
+
+    @Override
+    public List<Publicacion> listarPublicacionesPorMenorPrecio() {
+        return repositorioPublicacion.listarPublicacionPorMenorPrecio();
+    }
+
 
     /*----------------------------- ELIMINAR -----------------------------*/
+
     @Override
     public void eliminarPublicacion(Long id) {
         // Busca la publicación por su ID
@@ -51,14 +66,13 @@ public class ServicioPublicacionImpl implements ServicioPublicacion {
         this.repositorioPublicacion.eliminarPublicacion(publicacion);
     }
 
-    public List<Publicacion> buscarPublicacionesPorNombre(String nombre) {
-        return repositorioPublicacion.buscarPublicacionPorNombre(nombre);
-    }
-
     @Override
     public Publicacion buscarPublicacionPorId(Long id) {
         return repositorioPublicacion.obtenerPublicacionPorId(id);
     }
+
+
+    /*----------------------------- MODIFICAR -----------------------------*/
 
     @Override
     public void modificarPublicacion(Publicacion publicacion) {

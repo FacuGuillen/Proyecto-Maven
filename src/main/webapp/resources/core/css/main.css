@@ -140,6 +140,8 @@ h1{
     font-family: Arial;
 }
 
+/*--------------------- VISTAS MIS PUBLICACIONES ---------------------*/
+
 /* Buscador compras */
 .buscador-productos {
     position: relative;
@@ -180,12 +182,6 @@ h1{
     margin-left: 10px;
 
 }
-
-
-
-
-
-
 
 .div-pausar-publicacion{
     display: flex;
@@ -259,18 +255,28 @@ h1{
     margin-left: 8px;
 }
 
-/* Formulario Datos Peronales */
-/*.div-form-datos{*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
-/*}*/
+/*--------------------- VISTAS COMPRAR MATERIALES ---------------------*/
 
-/*.form-datos{*/
-/*    display: flex;*/
-/*    align-content: center;*/
-/*    justify-content: center;*/
-/*}*/
+.btn-ordenar-precio{
+    width: 80px !important;
+    height: 38.21px;
+    border-radius: 5px !important;
+    margin-left: 10px !important;
+}
+
+.div-ordenar-precio{
+    margin-bottom: 25px !important;
+    margin-right: 250px !important;
+}
+
+.option-ordenar-precio{
+    width: 140px !important;
+}
+
+
+
+
+
 
 
 
