@@ -48,6 +48,9 @@ public class SpringWebConfig implements WebMvcConfigurer {
         return templateResolver;
     }
 
+
+
+
     // Spring + Thymeleaf
     @Bean
     public SpringTemplateEngine templateEngine() {
