@@ -35,6 +35,7 @@ public class ControladorPublicacion {
 
 
 
+    /*----------------------------- VISTA MIS PUBLICACIONES -----------------------------*/
 
     @RequestMapping(value = "/guardarPublicacion", method = RequestMethod.POST)
     public ModelAndView guardarPublicacion(@RequestParam("nombre") String nombre,
@@ -60,9 +61,6 @@ public class ControladorPublicacion {
         servicioPublicacion.guardarPublicacion(publicacion);
         return new ModelAndView("redirect:/misPublicaciones");
     }
-
-
-
 
 
     @RequestMapping(value = "/misPublicaciones", method = RequestMethod.GET)
@@ -179,7 +177,9 @@ public class ControladorPublicacion {
     }
 
 
-    // editar publicacion
+
+    /*----------------------------- VISTA EDITAR PUBLICACIONES -----------------------------*/
+
     @RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
     public ModelAndView editarPublicacion(@PathVariable Long id, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -222,11 +222,45 @@ public class ControladorPublicacion {
             publicacion.setPrecio(precio);
             publicacion.setStock(stock);
 
-            // Llamar al servicio para guardar los cambios
             servicioPublicacion.modificarPublicacion(publicacion);
         }
 
         return new ModelAndView("redirect:/misPublicaciones");
+    }
+
+
+
+    /*----------------------------- VISTA MIS COMPRAS -----------------------------*/
+
+    @GetMapping("/comprar-material")
+    public ModelAndView mostrarTodasLasPublicaciones() {
+        ModelAndView modelAndView = new ModelAndView("comprar-material"); // Especifica la vista 'comprar-material'
+        List<Publicacion> publicaciones = servicioPublicacion.getListadoPublicacion();
+
+        // Agregar la lista de publicaciones al modelo
+        modelAndView.addObject("publicaciones", publicaciones);
+
+        return modelAndView; // Retorna el objeto ModelAndView
+    }
+
+    @RequestMapping(value = "/ordenar-precio", method = RequestMethod.GET)
+    public ModelAndView ordenarPrecio(@RequestParam String ordenar) {
+        List<Publicacion> publicaciones;
+
+    // Dependiendo de la opción seleccionada, ordena las publicaciones
+        if ("mayor".equals(ordenar)) {
+            publicaciones = servicioPublicacion.listarPublicacionesPorMayorPrecio();
+        } else if ("menor".equals(ordenar)) {
+            publicaciones = servicioPublicacion.listarPublicacionesPorMenorPrecio();
+        } else {
+            publicaciones = servicioPublicacion.getListadoPublicacion();
+        }
+
+        ModelAndView modelAndView = new ModelAndView("comprar-material");
+        modelAndView.addObject("publicaciones", publicaciones);
+        modelAndView.addObject("ordenar", ordenar); // Agrega la opción seleccionada al modelo
+
+        return modelAndView;
     }
 
 }
