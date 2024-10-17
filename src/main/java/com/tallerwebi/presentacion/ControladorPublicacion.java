@@ -63,8 +63,15 @@ public class ControladorPublicacion {
             publicacion.setImagen(imagenArchivo.getBytes());
         }
 
-        // Configurar el cliente que hace la publicación
+        Long idUsuario = (Long) session.getAttribute("ID");
         Cliente cliente = servicioCliente.buscarPorId(idUsuario);
+        if (cliente == null) {
+            return new ModelAndView("redirect:/login");
+        }
+        Publicacion publicacion = new Publicacion();
+        publicacion.setNombre(nombre);
+        publicacion.setPrecio(precio);
+        publicacion.setStock(stock);
         publicacion.setClientePublicacion(cliente);
 
         // Guardar la publicación
