@@ -12,35 +12,28 @@ public class Publicacion {
     private Long id;
 
     private String nombre;
-
     private Integer stock;
-
     private Double precio;
 
     private LocalDate fechaInicioPublicacion;
-
     private LocalDate fechaFinPublicacion;
-
     private Boolean publicacionPausada;
 
-    private String urlImagen;
-
     @Lob
+    @Column(name = "imagen")
     private byte[] imagen;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente clientePublicacion;
 
-
-    // Constructor
+    // Constructor por defecto
     public Publicacion() {
         this.fechaInicioPublicacion = LocalDate.now();
         this.publicacionPausada = Boolean.FALSE;
     }
 
-
-    // Getters and Setters
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -89,14 +82,6 @@ public class Publicacion {
         this.fechaFinPublicacion = fechaFinPublicacion;
     }
 
-    public Cliente getClientePublicacion() {
-        return clientePublicacion;
-    }
-
-    public void setClientePublicacion(Cliente clientePublicacion) {
-        this.clientePublicacion = clientePublicacion;
-    }
-
     public Boolean getPublicacionPausada() {
         return publicacionPausada;
     }
@@ -105,25 +90,40 @@ public class Publicacion {
         this.publicacionPausada = publicacionPausada;
     }
 
-    public String getUrlImagen() {
-        return urlImagen;
+    public byte[] getImagen() {
+        return imagen;
     }
 
-    public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
 
-    // Hash and Equals
+    public Cliente getClientePublicacion() {
+        return clientePublicacion;
+    }
+
+    public void setClientePublicacion(Cliente clientePublicacion) {
+        this.clientePublicacion = clientePublicacion;
+    }
+
+    // Métodos equals y hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Publicacion)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Publicacion that = (Publicacion) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getNombre(), that.getNombre()) && Objects.equals(getStock(), that.getStock()) && Objects.equals(getPrecio(), that.getPrecio()) && Objects.equals(getFechaInicioPublicacion(), that.getFechaInicioPublicacion()) && Objects.equals(getFechaFinPublicacion(), that.getFechaFinPublicacion()) && Objects.equals(publicacionPausada, that.publicacionPausada) && Objects.equals(getClientePublicacion(), that.getClientePublicacion());
+        return Objects.equals(id, that.id) &&
+                Objects.equals(nombre, that.nombre) &&
+                Objects.equals(stock, that.stock) &&
+                Objects.equals(precio, that.precio) &&
+                Objects.equals(fechaInicioPublicacion, that.fechaInicioPublicacion) &&
+                Objects.equals(fechaFinPublicacion, that.fechaFinPublicacion) &&
+                Objects.equals(publicacionPausada, that.publicacionPausada) &&
+                Objects.equals(clientePublicacion, that.clientePublicacion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNombre(), getStock(), getPrecio(), getFechaInicioPublicacion(), getFechaFinPublicacion(), publicacionPausada, getClientePublicacion());
+        return Objects.hash(id, nombre, stock, precio, fechaInicioPublicacion, fechaFinPublicacion, publicacionPausada, clientePublicacion);
     }
 }
