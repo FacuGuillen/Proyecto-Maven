@@ -229,4 +229,9 @@ public class ControladorPublicacion {
         return new ModelAndView("redirect:/misPublicaciones");
     }
 
+    @RequestMapping(value = "/comprar-material", method = RequestMethod.GET)
+    public ModelAndView mostrarPublicacionesVenta(){
+        return new  ModelAndView("comprar-material");
+    }
+
 }
