@@ -23,12 +23,12 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-public class ControladorForo {
+public class ControladorConsulta {
     private ServicioConsulta servicioConsulta;
     private ServicioComentario servicioComentario;
 
     @Autowired
-    public ControladorForo( ServicioConsulta servicioConsulta, ServicioComentario servicioComentario){
+    public ControladorConsulta(ServicioConsulta servicioConsulta, ServicioComentario servicioComentario){
         this.servicioConsulta = servicioConsulta;
         this.servicioComentario = servicioComentario;
     }
@@ -81,39 +81,8 @@ public class ControladorForo {
         }
         return ("redirect:/consultas");
     }
-
-    @RequestMapping(value = "/agregarComentario", method = RequestMethod.POST)
-    public ModelAndView agregarComentarioAConsulta(
-            @ModelAttribute("comentario") Comentario comentario,
-            @RequestParam("consultaId") Long consultaId,
-            HttpServletRequest request,
-            RedirectAttributes redirectAttributes){
-        if(!validarSesion(request)){
-            return new ModelAndView("redirect:/login");
-        }
-        Long idUsuario = (Long) request.getSession().getAttribute("ID");
-        try {
-            servicioComentario.agregarComentario(consultaId, idUsuario, comentario);
-        } catch (ConsultaNoEncontradaException | UsuarioNoEncontradoException | UsuarioSinPermisosException e) {
-            redirectAttributes.addFlashAttribute("mensaje",  e.getMessage());
-            redirectAttributes.addFlashAttribute("tipoMensaje", "danger");
-        }
-        return new ModelAndView("redirect:/consultas");
-    }
-
-    @PostMapping("/agregarUtil")
-    public ResponseEntity<?> agregarUtil(@RequestParam Long comentarioId) {
-        Comentario comentario = servicioComentario.buscarPorId(comentarioId);
-        if (comentario == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Comentario no encontrado");
-        }
-
-        comentario.setUseful(comentario.getUseful() + 1);
-        servicioComentario.actualizarComentario(comentario);
-        return ResponseEntity.ok(comentario.getUseful());
-    }
     private boolean validarSesion(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         return session != null && session.getAttribute("ID") !=null;
-}
+    }
 }

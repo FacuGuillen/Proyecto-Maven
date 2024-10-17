@@ -21,24 +21,24 @@
   <!-- Main content -->
   <main role="main" class="container mt-3">
 
-      <form class="d-flex mb-5" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar Material" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-        <a th:href="@{/limpiar-filtros}">
-          <button class="btn btn-outline-success btn-limpiar-busqueda" type="button">Limpiar Filtros</button>
-        </a>
-      </form>
+    <form class="d-flex mb-5" role="search">
+      <input class="form-control me-2" type="search" placeholder="Buscar Material" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+      <a th:href="@{/limpiar-filtros}">
+        <button class="btn btn-outline-success btn-limpiar-busqueda" type="button">Limpiar Filtros</button>
+      </a>
+    </form>
 
 
     <div class="d-flex  align-items-center div-ordenar-precio">
-    <form th:action="@{/ordenar-precio}" id="ordenarForm">
-      <label for="ordenar">Ordenar precio por:</label>
-      <select  class="btn-ordenar-precio selec-ordenar-precio option-ordenar-precio" id="ordenar" name="ordenar" onchange="this.form.submit()">
-        <option class="option-ordenar-precio" value="#">Mas relevantes</option>
-        <option class="option-ordenar-precio" value="mayor"  th:selected="${ordenar == 'mayor'}">Mayor</option>
-        <option class="option-ordenar-precio" value="menor" th:selected="${ordenar == 'menor'}">Menor</option>
-      </select>
-    </form>
+      <form th:action="@{/ordenar-precio}" id="ordenarForm">
+        <label for="ordenar">Ordenar precio por:</label>
+        <select  class="btn-ordenar-precio selec-ordenar-precio option-ordenar-precio" id="ordenar" name="ordenar" onchange="this.form.submit()">
+          <option class="option-ordenar-precio" value="#">Mas relevantes</option>
+          <option class="option-ordenar-precio" value="mayor"  th:selected="${ordenar == 'mayor'}">Mayor</option>
+          <option class="option-ordenar-precio" value="menor" th:selected="${ordenar == 'menor'}">Menor</option>
+        </select>
+      </form>
     </div>
 
 
