@@ -17,4 +17,7 @@ public interface RepositorioPublicacion {
 
     List<Publicacion> buscarPublicacionPorNombre(String nombre);
 
+    List<Publicacion> listarPublicacionPorMayorPrecio();
+
+    List<Publicacion> listarPublicacionPorMenorPrecio();
 }

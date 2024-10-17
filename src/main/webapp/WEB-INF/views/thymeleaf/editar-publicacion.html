@@ -19,7 +19,7 @@
             <div class="col-md-6">
                 <div class="card p-3 shadow-sm">
                     <h4 class="mb-3">Publicar un material</h4>
-                    <form th:action="@{/guardar-cambios/{id}(id=${publicacion.id})}" method="POST">
+                    <form th:action="@{/guardar-cambios/{id}(id=${publicacion.id})}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="id" th:value="${publicacion.id}"/> <!-- Campo oculto para el ID -->
                         <div class="form-group">
                             <label for="nombre">Escribe producto</label>
@@ -28,8 +28,8 @@
 
                         <!-- Cargar imagen -->
                         <div class="form-group mt-3">
-                            <label for="materialImage">Adjuntar Imagen</label>
-                            <input type="file" class="form-control" id="materialImage" name="materialImage" accept="image/*">
+                            <label for="imagen">Adjuntar Imagen</label>
+                            <input type="file" class="form-control" id="imagen" name="imagenArchivo" accept="image/*" required th:value="@{/imagen/{id}(id=${publicacion.id})}">
                         </div>
 
                         <!-- Precio y cantidad -->
@@ -43,12 +43,6 @@
                             <input type="number" class="form-control" id="quantityInput" placeholder="Cantidad disponible" name="stock" required th:value="${publicacion.stock}">
                         </div>
 
-                        <!-- Botón de publicación -->
-<!--                        <a th:action="@{/guardar-cambios}">-->
-<!--                            <button type="submit"  class="btn btn-primary mt-3 w-100">-->
-<!--                                Confirmar cambios-->
-<!--                            </button>-->
-<!--                        </a>-->
                         <button type="submit" class="btn btn-primary mt-3 w-100">
                             Confirmar cambios
                         </button>

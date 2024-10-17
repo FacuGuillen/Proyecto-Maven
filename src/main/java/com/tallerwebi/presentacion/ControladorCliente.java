@@ -27,6 +27,8 @@ public class ControladorCliente {
         this.servicioCliente = servicioCliente;
     }
 
+
+
     @RequestMapping(value = "/nuevo-cliente", method = RequestMethod.GET)
     public ModelAndView crearCliente() {
         return new ModelAndView("nuevo-cliente");

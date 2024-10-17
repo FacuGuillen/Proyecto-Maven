@@ -20,9 +20,6 @@ public class Cliente extends Usuario {
         super();
     }
 
-//    public Cliente()    {
-//
-//    }
 
     // Getters y Setters
     public List<Proyecto> getProyectos() {
