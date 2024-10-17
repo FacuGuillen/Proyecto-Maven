@@ -71,7 +71,7 @@ public class ControladorPublicacion {
         servicioPublicacion.guardarPublicacion(publicacion);
 
         return new ModelAndView("redirect:/misPublicaciones");
-}
+    }
 
 //imgs
 @GetMapping("/imagen/{id}")
