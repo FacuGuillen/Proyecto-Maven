@@ -27,6 +27,8 @@ public class ControladorCliente {
         this.servicioCliente = servicioCliente;
     }
 
+
+
     @RequestMapping(value = "/nuevo-cliente", method = RequestMethod.GET)
     public ModelAndView crearCliente() {
         return new ModelAndView("nuevo-cliente");
@@ -153,7 +155,13 @@ public class ControladorCliente {
     }
 
 
-
+    @RequestMapping(value = "/listarClientes", method = RequestMethod.GET)
+    public ModelAndView listarClientesParaVerMapa() {
+        List<Cliente> clientes = servicioCliente.listarClientes();
+        ModelMap modelo = new ModelMap();
+        modelo.put("clientes", clientes);
+        return new ModelAndView("listarClientes", modelo);
+    }
 
 }
 

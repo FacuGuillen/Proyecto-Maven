@@ -42,7 +42,8 @@
             <!--Prueba-->
             <!-- Cada tarjeta de publicación -->
             <div th:each="publicacion : ${publicaciones}" class="card col-md-4 mb-4 shadow-sm" style="width: 26rem;">
-                <img th:src="@{/images/cemento-image.jpeg}" class="card-img-top-custom" alt="cemento">
+                <!--<img th:src="@{/images/cemento-image.jpeg}" class="card-img-top-custom" alt="cemento">-->
+                <img th:src="@{/imagen/{id}(id=${publicacion.id})}" class="card-img-top-custom" alt="Imagen de Publicación">
                 <div class="card-body">
                     <h5 class="card-title">Titulo: <span th:text="${publicacion.nombre}"></span></h5>
                     <p class="card-text">Precio: <span th:text="${publicacion.precio}"></span></p>

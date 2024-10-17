@@ -20,4 +20,8 @@ public interface ServicioPublicacion {
     Publicacion buscarPublicacionPorId(Long id);
 
     void modificarPublicacion(Publicacion publicacion);
+
+    List<Publicacion> listarPublicacionesPorMayorPrecio();
+
+    List<Publicacion> listarPublicacionesPorMenorPrecio();
 }

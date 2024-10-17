@@ -27,6 +27,34 @@ public class Usuario {
 
     private String telefono;
 
+    private Double latitud;
+    private Double longitud;
+    private String localidad;
+
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
 
     //Getters and Setters
     public Long getId() {

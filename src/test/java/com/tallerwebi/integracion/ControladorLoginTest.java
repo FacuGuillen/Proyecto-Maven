@@ -1,5 +1,6 @@
 package com.tallerwebi.integracion;
 
+import com.tallerwebi.config.GoogleMapsConfig;
 import com.tallerwebi.integracion.config.HibernateTestConfig;
 import com.tallerwebi.integracion.config.SpringWebTestConfig;
 import com.tallerwebi.dominio.modelo.Usuario;
@@ -28,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {SpringWebTestConfig.class, HibernateTestConfig.class})
+@ContextConfiguration(classes = {SpringWebTestConfig.class, HibernateTestConfig.class, GoogleMapsConfig.class})
 public class ControladorLoginTest {
 
 	private Usuario usuarioMock;
