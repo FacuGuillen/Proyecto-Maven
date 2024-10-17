@@ -1,5 +1,6 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.excepcion.UsuarioSinPermisosException;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioComentario;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioConsulta;
 import com.tallerwebi.dominio.excepcion.UsuarioNoEncontradoException;
@@ -77,7 +78,7 @@ public class ControladorConsultaImplTest {
     }
 
     @Test
-    public void crearConsultaDeberiaRedirigirACreacionCuandoConsultaEsExitosa() throws UsuarioNoEncontradoException {
+    public void crearConsultaDeberiaRedirigirAConsultasCuandoUsurioEsCliente() throws UsuarioNoEncontradoException {
         Long idUsuario = 1L;
         Consulta consulta = new Consulta();
 
@@ -103,6 +104,22 @@ public class ControladorConsultaImplTest {
         ModelAndView modelAndView = controladorConsulta.mostrarForo(request);
 
         assertThat(modelAndView.getViewName(), equalTo("redirect:/login"));
+    }
+    @Test
+    public void crearConsultaDeberiaRedirigirConMensajeDeErrorCuandoUsuarioEsProfesional() throws UsuarioNoEncontradoException, UsuarioSinPermisosException {
+        Long idUsuario = 1L;
+        Consulta consulta = new Consulta();
+
+        when(session.getAttribute("ID")).thenReturn(idUsuario);
+        when(request.getSession(false)).thenReturn(session);
+
+        doThrow(new UsuarioSinPermisosException("Solo los clientes pueden crear consultas")).when(servicioConsulta).agregarConsulta(idUsuario, consulta);
+
+        String result = controladorConsulta.crearConsulta(consulta, request, redirectAttributes);
+
+        assertThat(result, equalTo("redirect:/consultas"));
+        verify(redirectAttributes).addFlashAttribute("mensaje", "Solo los clientes pueden crear consultas");
+        verify(redirectAttributes).addFlashAttribute("tipoMensaje", "danger");
     }
 
 }

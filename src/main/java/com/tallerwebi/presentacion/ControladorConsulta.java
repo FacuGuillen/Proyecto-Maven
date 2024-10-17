@@ -84,5 +84,5 @@ public class ControladorConsulta {
     private boolean validarSesion(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         return session != null && session.getAttribute("ID") !=null;
-}
+    }
 }
