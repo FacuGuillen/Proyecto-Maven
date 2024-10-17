@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio.implementacion;
 
+import com.tallerwebi.dominio.excepcion.PublicacionNoEncontradaException;
 import com.tallerwebi.dominio.implementacion.interfaces.RepositorioPublicacion;
 import com.tallerwebi.dominio.implementacion.interfaces.ServicioPublicacion;
 import com.tallerwebi.dominio.modelo.Cliente;
@@ -47,6 +48,10 @@ public class ServicioPublicacionImpl implements ServicioPublicacion {
         // Busca la publicación por su ID
         Publicacion publicacion = repositorioPublicacion.obtenerPublicacionPorId(id);
 
+        if(publicacion == null){
+            throw new PublicacionNoEncontradaException("La publicacion que intenta eliminar no existe");
+        }
+
         // Verifica si la publicación existe antes de eliminarla
         this.repositorioPublicacion.eliminarPublicacion(publicacion);
     }
@@ -76,7 +81,7 @@ public class ServicioPublicacionImpl implements ServicioPublicacion {
             repositorioPublicacion.guardar(publicacionExistente);
         } else {
             // Maneja el caso donde la publicación no existe
-            throw new EntityNotFoundException("Publicación no encontrada con ID: " + publicacion.getId());
+            throw new PublicacionNoEncontradaException("La publicacion que intenta modificar no existe");
         }
     }
 

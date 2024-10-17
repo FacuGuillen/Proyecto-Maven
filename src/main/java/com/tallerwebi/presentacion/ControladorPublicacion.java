@@ -49,12 +49,16 @@ public class ControladorPublicacion {
             return new ModelAndView ("redirect:/login");
         }
 
-        Long idUsuario = (Long) request.getSession().getAttribute("ID");
+
+        Long idUsuario = (Long) session.getAttribute("ID");
+        Cliente cliente = servicioCliente.buscarPorId(idUsuario);
+        if (cliente == null) {
+            return new ModelAndView("redirect:/login");
+        }
         Publicacion publicacion = new Publicacion();
         publicacion.setNombre(nombre);
         publicacion.setPrecio(precio);
         publicacion.setStock(stock);
-        Cliente cliente = servicioCliente.buscarPorId(idUsuario);
         publicacion.setClientePublicacion(cliente);
 
         servicioPublicacion.guardarPublicacion(publicacion);
