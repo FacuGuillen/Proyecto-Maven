@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 public class ControladorConsultaImplTest {
-    private ControladorForo controladorForo;
+    private ControladorConsulta controladorConsulta;
     private ServicioConsulta servicioConsulta;
     private ServicioComentario servicioComentario;
     private HttpServletRequest request;
@@ -32,7 +32,7 @@ public class ControladorConsultaImplTest {
     public void init(){
         this.servicioConsulta = mock(ServicioConsulta.class);
         this.servicioComentario = mock(ServicioComentario.class);
-        this.controladorForo = new ControladorForo(this.servicioConsulta, this.servicioComentario);
+        this.controladorConsulta = new ControladorConsulta(this.servicioConsulta, this.servicioComentario);
         this.request = mock(HttpServletRequest.class);
         this.session = mock(HttpSession.class);
         this.redirectAttributes = mock(RedirectAttributes.class);
@@ -42,7 +42,7 @@ public class ControladorConsultaImplTest {
     public void mostrarForoDeberiaRedirigirALoginCuandoSessionEsNull() {
         when(request.getSession()).thenReturn(null);
 
-        ModelAndView modelAndView = controladorForo.mostrarForo(request);
+        ModelAndView modelAndView = controladorConsulta.mostrarForo(request);
 
         assertThat(modelAndView.getViewName(), equalTo("redirect:/login"));
     }
@@ -60,7 +60,7 @@ public class ControladorConsultaImplTest {
         // Simula el comportamiento de servicioConsulta
         when(servicioConsulta.getListado()).thenReturn(consultas);
 
-        ModelAndView modelAndView = controladorForo.mostrarForo(request);
+        ModelAndView modelAndView = controladorConsulta.mostrarForo(request);
 
         assertThat(modelAndView.getViewName(), equalTo("foro"));
         assertThat(modelAndView.getModel().get("consultas"), is(consultas));
@@ -71,7 +71,7 @@ public class ControladorConsultaImplTest {
     public void crearConsultaDeberiaRedirigirALoginCuandoSessionEsNull() {
         when(session.getAttribute("ID")).thenReturn(null);
 
-        String result = controladorForo.crearConsulta(new Consulta(), request, redirectAttributes);
+        String result = controladorConsulta.crearConsulta(new Consulta(), request, redirectAttributes);
 
         assertThat(result, equalTo("redirect:/login"));
     }
@@ -86,7 +86,7 @@ public class ControladorConsultaImplTest {
 
         doNothing().when(servicioConsulta).agregarConsulta(idUsuario, consulta);
 
-        String result = controladorForo.crearConsulta(consulta, request, redirectAttributes);
+        String result = controladorConsulta.crearConsulta(consulta, request, redirectAttributes);
 
         assertThat(result, equalTo("redirect:/consultas"));
         verify(servicioConsulta).agregarConsulta(idUsuario, consulta);
@@ -100,7 +100,7 @@ public class ControladorConsultaImplTest {
 
         when(servicioConsulta.getListado()).thenThrow(new UsuarioNoEncontradoException("El usuario no fue encontrado"));
 
-        ModelAndView modelAndView = controladorForo.mostrarForo(request);
+        ModelAndView modelAndView = controladorConsulta.mostrarForo(request);
 
         assertThat(modelAndView.getViewName(), equalTo("redirect:/login"));
     }
